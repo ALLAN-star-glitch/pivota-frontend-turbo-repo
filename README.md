@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Turborepo starter
 
 This Turborepo starter is maintained by the Turborepo core team.
@@ -133,3 +134,7 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.com/docs/reference/configuration)
 - [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+=======
+# pivota-frontend-turbo-repo
+This is a mono-repo (turbo repo) frontend repository for the Pivota Connect platform
+>>>>>>> 4cfb9fccd67b4ae33455495711ec5f1a5e2430aa
