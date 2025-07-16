@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
 import Navbar from "../components/Navbar/Navbar";
-import { pivotaTheme } from '../../../../packages/ui/pivotaTheme';
+import '@mantine/core/styles.css';
+
+
 
 
 const geistSans = Geist({
@@ -35,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MantineProvider theme={pivotaTheme}>
+        <MantineProvider>
           <Navbar/>
           {children}
         </MantineProvider>
