@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu } from '@mantine/core';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { IconChevronDown } from '@tabler/icons-react';
@@ -15,13 +15,44 @@ const countries = [
 ];
 
 export default function TopBar() {
-  // Stores the currently selected country with its name and ISO code (used for displaying the flag and label)
   const [selectedCountry, setSelectedCountry] = useState<{ name: string; code: string } | null>(null);
   const [menuOpened, setMenuOpened] = useState(false);
+
+  // Detect country using jsDelivr GeoIP
+  useEffect(() => {
+  const detectCountry = async () => {
+    try {
+      const res = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
+      const text = await res.text();
+      const data = Object.fromEntries(text.split('\n').map(line => line.split('=')));
+      const countryCode = data.loc?.toLowerCase();
+
+      console.log('📍 Detected country code from IP:', countryCode);
+
+      if (countryCode) {
+        const match = countries.find((c) => c.code === countryCode);
+        if (match) {
+          setSelectedCountry(match);
+          console.log('✅ Auto-selected country:', match.name);
+        } else {
+          console.log('⚠️ Country code not found in list.');
+        }
+      } else {
+        console.log('❌ Country detection failed: no code found.');
+      }
+    } catch (error) {
+      console.error('❌ Error detecting country:', error);
+    }
+  };
+
+  detectCountry();
+}, []);
+
 
   return (
     <div className="bg-teal-600 text-white text-sm rounded-b-2xl">
       <div className="max-w-screen-xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+
         {/* Contact Info */}
         <div className="flex flex-wrap items-center gap-4">
           <span className="flex items-center gap-1">
@@ -44,7 +75,8 @@ export default function TopBar() {
 
         {/* Right Side: Country & Socials */}
         <div className="flex flex-wrap items-center gap-4">
-          {/* Country Selector */}
+
+          {/* Country Dropdown */}
           <Menu
             shadow="md"
             width={200}
@@ -104,9 +136,9 @@ export default function TopBar() {
 
           {/* Social Icons */}
           <div className="flex items-center gap-3">
-            <FaFacebookF className="hover:text-gray-300 cursor-pointer" />
-            <FaTwitter className="hover:text-gray-300 cursor-pointer" />
-            <FaInstagram className="hover:text-gray-300 cursor-pointer" />
+            <FaFacebookF className="hover:text-gray-300 cursor-pointer text-white" />
+            <FaTwitter className="hover:text-gray-300 cursor-pointer text-white" />
+            <FaInstagram className="hover:text-gray-300 cursor-pointer text-white" />
           </div>
         </div>
       </div>
