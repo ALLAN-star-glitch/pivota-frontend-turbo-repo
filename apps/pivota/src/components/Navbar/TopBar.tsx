@@ -19,6 +19,10 @@ const countries = [
   { name: 'Uganda', code: 'ug' },
   { name: 'Tanzania', code: 'tz' },
   { name: 'Rwanda', code: 'rw' },
+  { name: 'DRC', code: 'cd' },
+  { name: 'Nigeria', code: 'ng' },
+  { name: 'South Africa', code: 'za' },
+  { name: 'South Sudan', code: 'ss' },
 ];
 
 export default function TopBar() {
@@ -28,6 +32,7 @@ export default function TopBar() {
   );
   const [menuOpened, setMenuOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // 👈 added for fallback UI
+    const [search, setSearch] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -137,25 +142,54 @@ export default function TopBar() {
             </Menu.Target>
 
             <Menu.Dropdown>
-              <Menu.Label>Select your current country</Menu.Label>
-              {countries.map((country) => (
-                <Menu.Item
-                  key={country.code}
-                  onClick={() => handleSelectCountry(country)}
-                >
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src={`https://flagcdn.com/w20/${country.code}.png`}
-                      alt={country.name}
-                      width={20}
-                      height={15}
-                      className="rounded-sm"
-                    />
-                    <span>{country.name}</span>
-                  </div>
-                </Menu.Item>
-              ))}
-            </Menu.Dropdown>
+            <Menu.Label>Select your current country</Menu.Label>
+
+            {/* Search input */}
+            <div className="px-2 py-1">
+              <input
+                type="text"
+                placeholder="Search country..."
+                className="w-full px-2 py-1 text-sm border border-teal-300 rounded-full focus:outline-none focus:border-teal-600"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+
+            {/* Scrollable country list */}
+            <div className="max-h-60 overflow-y-auto">
+              {countries
+                .filter((country) =>
+                  country.name.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((country) => (
+                  <Menu.Item
+                    key={country.code}
+                    onClick={() => handleSelectCountry(country)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={`https://flagcdn.com/w20/${country.code}.png`}
+                        alt={country.name}
+                        width={20}
+                        height={15}
+                        className="rounded-sm"
+                      />
+                      <span>{country.name}</span>
+                    </div>
+                  </Menu.Item>
+                ))}
+
+              {countries.filter((c) =>
+                c.name.toLowerCase().includes(search.toLowerCase())
+              ).length === 0 && (
+                <div className="px-3 py-2 text-sm text-gray-500">
+                  No results found.
+                </div>
+              )}
+            </div>
+          </Menu.Dropdown>
+
+
           </Menu>
 
           {/* Socials */}
