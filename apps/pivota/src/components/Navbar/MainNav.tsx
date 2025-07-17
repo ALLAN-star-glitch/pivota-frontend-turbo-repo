@@ -33,7 +33,7 @@ export default function MainNav() {
           <div className="relative w-full max-w-xs">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="What are you looking for?"
               className="w-full px-4 py-2 pr-10 border rounded-full text-sm focus:outline-none"
               style={{
                 borderColor: teal,
