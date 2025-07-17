@@ -8,7 +8,6 @@ import Image from 'next/image';
 import {
   MdEmail,
   MdPhone,
-  MdLocationOn,
   MdAccessTime,
 } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
