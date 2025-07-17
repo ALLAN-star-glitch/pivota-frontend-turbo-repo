@@ -1,12 +1,12 @@
+// apps/pivota/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
 import Navbar from "../components/Navbar/Navbar";
-import '@mantine/core/styles.css';
+import "@mantine/core/styles.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
-
+import StoreProvider from "./lib/StoreProvider";
 
 
 const geistSans = Geist({
@@ -31,19 +31,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" {...mantineHtmlProps}>
-
       <head>
         <ColorSchemeScript />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <MantineProvider>
-          <Navbar/>
-          {children}
-          <SpeedInsights/>
-        </MantineProvider>
-        
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <StoreProvider>
+          <MantineProvider>
+            <Navbar />
+            {children}
+            <SpeedInsights />
+          </MantineProvider>
+        </StoreProvider>
       </body>
     </html>
   );

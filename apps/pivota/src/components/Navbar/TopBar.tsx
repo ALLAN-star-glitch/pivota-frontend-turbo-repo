@@ -5,7 +5,15 @@ import { Menu } from '@mantine/core';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { IconChevronDown } from '@tabler/icons-react';
 import Image from 'next/image';
-import { MdEmail, MdPhone, MdLocationOn, MdAccessTime } from 'react-icons/md';
+import {
+  MdEmail,
+  MdPhone,
+  MdLocationOn,
+  MdAccessTime,
+} from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/lib/store';
+import { setCountry } from '@/app/lib/features/country/countrySlice';
 
 const countries = [
   { name: 'Kenya', code: 'ke' },
@@ -15,68 +23,85 @@ const countries = [
 ];
 
 export default function TopBar() {
-  const [selectedCountry, setSelectedCountry] = useState<{ name: string; code: string } | null>(null);
+  const dispatch = useDispatch();
+  const selectedCountry = useSelector(
+    (state: RootState) => state.country.selectedCountry
+  );
   const [menuOpened, setMenuOpened] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // 👈 added for fallback UI
 
-  // Detect country using jsDelivr GeoIP
   useEffect(() => {
-  const detectCountry = async () => {
-    try {
-      const res = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
-      const text = await res.text();
-      const data = Object.fromEntries(text.split('\n').map(line => line.split('=')));
-      const countryCode = data.loc?.toLowerCase();
+    if (typeof window === 'undefined') return;
 
-      console.log('📍 Detected country code from IP:', countryCode);
+    const stored = localStorage.getItem('selectedCountry');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        dispatch(setCountry(parsed));
+        setIsLoading(false);
+        return;
+      } catch (err) {
+        console.error('❌ Error parsing stored country:', err);
+      }
+    }
 
-      if (countryCode) {
+    const detectCountry = async () => {
+      try {
+        const res = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
+        const text = await res.text();
+        const data = Object.fromEntries(
+          text
+            .trim()
+            .split('\n')
+            .map((line) => line.split('=').map((s) => s.trim()))
+        );
+        const countryCode = data.loc?.toLowerCase();
         const match = countries.find((c) => c.code === countryCode);
+
         if (match) {
-          setSelectedCountry(match);
+          dispatch(setCountry(match));
+          localStorage.setItem('selectedCountry', JSON.stringify(match));
           console.log('✅ Auto-selected country:', match.name);
         } else {
-          console.log('⚠️ Country code not found in list.');
+          console.log('⚠️ Country code not in list:', countryCode);
         }
-      } else {
-        console.log('❌ Country detection failed: no code found.');
+      } catch (error) {
+        console.error('❌ Error during country detection:', error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('❌ Error detecting country:', error);
-    }
+    };
+
+    detectCountry();
+  }, [dispatch]);
+
+  const handleSelectCountry = (country: { name: string; code: string }) => {
+    dispatch(setCountry(country));
+    localStorage.setItem('selectedCountry', JSON.stringify(country));
   };
-
-  detectCountry();
-}, []);
-
 
   return (
     <div className="bg-teal-600 text-white text-sm rounded-b-2xl">
       <div className="max-w-screen-xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-
         {/* Contact Info */}
         <div className="flex flex-wrap items-center gap-4">
           <span className="flex items-center gap-1">
             <MdEmail size={16} className="text-amber-300" />
             info@pivota.com
           </span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 max-sm:hidden">
             <MdPhone size={16} className="text-amber-300" />
             +254 740 955 111
           </span>
-          <span className="flex items-center gap-1">
-            <MdLocationOn size={16} className="text-amber-300" />
-            Kimathi Street - Nairobi
-          </span>
-          <span className="flex items-center gap-1">
+          
+          <span className="flex items-center gap-1 max-sm:hidden">
             <MdAccessTime size={16} className="text-amber-300" />
             24/7 Operation
           </span>
         </div>
 
-        {/* Right Side: Country & Socials */}
+        {/* Country Selector & Socials */}
         <div className="flex flex-wrap items-center gap-4">
-
-          {/* Country Dropdown */}
           <Menu
             shadow="md"
             width={200}
@@ -85,7 +110,7 @@ export default function TopBar() {
           >
             <Menu.Target>
               <div className="flex items-center gap-2 cursor-pointer group">
-                {selectedCountry ? (
+                {!isLoading && selectedCountry ? (
                   <div className="flex items-center gap-2">
                     <Image
                       src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
@@ -100,7 +125,7 @@ export default function TopBar() {
                   </div>
                 ) : (
                   <span className="text-amber-300 font-semibold text-base group-hover:underline">
-                    Select Country
+                    {isLoading ? 'Loading Country ... ' : 'Select Country'}
                   </span>
                 )}
                 <IconChevronDown
@@ -117,7 +142,7 @@ export default function TopBar() {
               {countries.map((country) => (
                 <Menu.Item
                   key={country.code}
-                  onClick={() => setSelectedCountry(country)}
+                  onClick={() => handleSelectCountry(country)}
                 >
                   <div className="flex items-center gap-2">
                     <Image
@@ -134,8 +159,8 @@ export default function TopBar() {
             </Menu.Dropdown>
           </Menu>
 
-          {/* Social Icons */}
-          <div className="flex items-center gap-3">
+          {/* Socials */}
+          <div className="flex items-center gap-3 max-sm:hidden">
             <FaFacebookF className="hover:text-gray-300 cursor-pointer text-white" />
             <FaTwitter className="hover:text-gray-300 cursor-pointer text-white" />
             <FaInstagram className="hover:text-gray-300 cursor-pointer text-white" />
