@@ -3,17 +3,27 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Drawer, ScrollArea, Burger } from '@mantine/core';
+import {
+  Drawer,
+  ScrollArea,
+  Burger,
+  Modal,
+  Tabs,
+  TextInput,
+  PasswordInput,
+  Button
+} from '@mantine/core';
 import { HiOutlineSearch } from 'react-icons/hi';
+import { FiUser } from 'react-icons/fi';
 
 export default function MainNav() {
   const [drawerOpened, setDrawerOpened] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false);
   const teal = '#14b8a6';
-  const terracotta = '#E2725B';
 
   return (
     <header className="bg-white shadow sticky top-0 z-50">
-      <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
@@ -26,112 +36,121 @@ export default function MainNav() {
           />
         </Link>
 
-        {/* Search Bar - stays visible across all sizes */}
-        <div className="flex-grow max-w-md flex-1 mx-2">
-          <div className="relative w-full">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              className="w-full px-4 py-2 pr-10 border rounded-full text-sm focus:outline-none"
-              style={{
-                borderColor: teal,
-                boxShadow: `0 0 0 2px ${teal}22`,
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.boxShadow = `0 0 0 2px ${teal}55`;
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.boxShadow = `0 0 0 2px ${teal}22`;
-              }}
-            />
-            <HiOutlineSearch
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-teal-600 pointer-events-none"
-              size={18}
-            />
-          </div>
-        </div>
-
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-5 ml-auto">
-          <Link href="/" className="hover:underline whitespace-nowrap">Home</Link>
-          <Link href="/explore" className="hover:underline whitespace-nowrap">Explore</Link>
-          <Link href="/add" className="hover:underline whitespace-nowrap">Add New</Link>
-          <Link href="/about" className="hover:underline whitespace-nowrap">About Us</Link>
-          <Link href="/pricing" className="hover:underline whitespace-nowrap">Pricing</Link>
-          <Link href="/contact" className="hover:underline whitespace-nowrap">Contact Us</Link>
-          <Link
-            href="/register"
-            className="min-w-[7rem] text-center px-4 py-1.5 rounded-full bg-amber-300 text-black hover:bg-amber-200 text-sm"
-          >
-            Register
-          </Link>
-          <Link
-            href="/login"
-            className="min-w-[7rem] text-center px-4 py-1.5 rounded-full border bg-white hover:bg-red-50 text-sm"
-            style={{
-              borderColor: terracotta,
-              color: terracotta,
-            }}
-          >
-            Login
-          </Link>
+        <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-700">
+          <Link href="/" className="hover:text-teal-600">Home</Link>
+          <Link href="/about" className="hover:text-teal-600">About</Link>
+          <Link href="/services" className="hover:text-teal-600">Services</Link>
+          <Link href="/contact" className="hover:text-teal-600">Pricing</Link>
+          <Link href="/contact" className="hover:text-teal-600">Explore</Link>
+          <Link href="/contact" className="hover:text-teal-600">Contact</Link>
         </nav>
 
-        {/* Burger for Mobile + Tablet */}
-        <div className="lg:hidden ml-2">
-          <Burger
-            opened={drawerOpened}
-            onClick={() => setDrawerOpened(!drawerOpened)}
-            color={teal}
-            aria-label="Toggle navigation"
-            size="sm"
+        {/* Search bar for medium and smaller devices */}
+        <div className="flex-1 sm:flex sm:justify-center md:flex">
+          <input
+            type="text"
+            placeholder="What are you looking for?"
+            className="w-full max-w-md px-4 py-2 border rounded-full text-sm placeholder:text-sm focus:outline-none focus:ring-2"
+            style={{ borderColor: teal }}
           />
+        </div>
+
+        {/* Right section for user actions */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setModalOpened(true)}
+            className="hidden md:inline-block bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer"
+          >
+            Get Started
+          </button>
+
+          <button
+            className="flex items-center gap-1 text-sm text-gray-700 hover:text-teal-600"
+            onClick={() => setModalOpened(true)}
+          >
+            <FiUser className="text-xl" />
+            <span className="cursor-pointer hidden md:inline">My Account</span>
+          </button>
+
+          {/* Burger menu for mobile */}
+          <div className="md:hidden">
+            <Burger
+              opened={drawerOpened}
+              onClick={() => setDrawerOpened((o) => !o)}
+              color="#000"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Drawer for smaller screens */}
       <Drawer
         opened={drawerOpened}
         onClose={() => setDrawerOpened(false)}
-        title="Menu"
         padding="md"
-        size="75%"
-        withCloseButton
-        overlayProps={{ opacity: 0.5, blur: 4 }}
-        transitionProps={{ transition: 'slide-right', duration: 250 }}
+        size="80%"
+        title="Menu"
       >
-        <ScrollArea style={{ height: '100%' }}>
-          <div className="flex flex-col gap-4 py-2">
-            <Link href="/" onClick={() => setDrawerOpened(false)}>Home</Link>
-            <Link href="/explore" onClick={() => setDrawerOpened(false)}>Explore</Link>
-            <Link href="/add" onClick={() => setDrawerOpened(false)}>Add New</Link>
-            <Link href="/about" onClick={() => setDrawerOpened(false)}>About Us</Link>
-            <Link href="/pricing" onClick={() => setDrawerOpened(false)}>Pricing</Link>
-            <Link href="/contact" onClick={() => setDrawerOpened(false)}>Contact Us</Link>
-
-            <div className="pt-4 border-t">
-              <Link
-                href="/register"
-                onClick={() => setDrawerOpened(false)}
-                className="block w-full text-center px-4 py-2 rounded-full bg-[#14b8a6] text-white hover:bg-[#0f9d91] text-sm"
-              >
-                Register
-              </Link>
-              <Link
-                href="/login"
-                onClick={() => setDrawerOpened(false)}
-                className="block w-full text-center mt-2 px-4 py-2 rounded-full border bg-white text-sm"
-                style={{
-                  borderColor: terracotta,
-                  color: terracotta,
-                }}
-              >
-                Login
-              </Link>
-            </div>
-          </div>
+        <ScrollArea className="h-full">
+          <nav className="flex flex-col gap-4 py-4">
+            <Link href="/" onClick={() => setDrawerOpened(false)}>
+              Home
+            </Link>
+            <Link href="/about" onClick={() => setDrawerOpened(false)}>
+              About
+            </Link>
+            <Link href="/services" onClick={() => setDrawerOpened(false)}>
+              Services
+            </Link>
+            <Link href="/pricing" onClick={() => setDrawerOpened(false)}>
+             Pricing
+            </Link>
+            <Link href="/explore" onClick={() => setDrawerOpened(false)}>
+             Explore
+            </Link>
+            <Link href="/contact" onClick={() => setDrawerOpened(false)}>
+             Contact
+            </Link>
+          </nav>
         </ScrollArea>
       </Drawer>
+
+      <Modal
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+        title="Welcome to Pivota"
+        centered
+        size="md"
+      >
+        <Tabs defaultValue="login">
+          <Tabs.List grow>
+            <Tabs.Tab value="login">Login</Tabs.Tab>
+            <Tabs.Tab value="register">Register</Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="login" pt="md">
+            <TextInput label="Email" placeholder="you@example.com" required mb="sm" />
+            <PasswordInput label="Password" placeholder="Your password" required mb="md" />
+            <button
+              onClick={() => setModalOpened(true)}
+              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer w-full"
+            >
+              Get Started
+            </button>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="register" pt="md">
+            <TextInput label="Full Name" placeholder="John Doe" required mb="sm" />
+            <TextInput label="Email" placeholder="you@example.com" required mb="sm" />
+            <PasswordInput label="Password" placeholder="Create a password" required mb="md" />
+            <button
+              onClick={() => setModalOpened(true)}
+              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer w-full"
+            >
+              Get Started
+            </button>
+          </Tabs.Panel>
+        </Tabs>
+      </Modal>
     </header>
   );
 }

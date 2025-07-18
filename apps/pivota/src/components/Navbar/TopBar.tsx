@@ -11,8 +11,8 @@ import {
   MdAccessTime,
 } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/app/lib/store';
-import { setCountry } from '@/app/lib/features/country/countrySlice';
+import { RootState } from '../../../../../packages/store/store';
+import { setCountry } from '../../../../../packages/store/features/country/countrySlice';
 
 const countries = [
   { name: 'Kenya', code: 'ke' },
