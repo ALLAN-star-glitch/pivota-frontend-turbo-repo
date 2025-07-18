@@ -5,7 +5,7 @@ import "./globals.css";
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
 import Navbar from "../components/Navbar/Navbar";
 import "@mantine/core/styles.css";
-//import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "../../../../packages/store/StoreProvider";
 
 
@@ -40,7 +40,7 @@ export default function RootLayout({
           <MantineProvider>
             <Navbar />
             {children}
-          
+          <SpeedInsights />
           </MantineProvider>
         </StoreProvider>
       </body>

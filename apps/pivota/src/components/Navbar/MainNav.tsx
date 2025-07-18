@@ -11,9 +11,7 @@ import {
   Tabs,
   TextInput,
   PasswordInput,
-  Button
 } from '@mantine/core';
-import { HiOutlineSearch } from 'react-icons/hi';
 import { FiUser } from 'react-icons/fi';
 
 export default function MainNav() {
