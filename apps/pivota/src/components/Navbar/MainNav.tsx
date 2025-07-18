@@ -38,8 +38,8 @@ export default function MainNav() {
           <Link href="/" className="hover:text-teal-600">Home</Link>
           <Link href="/about" className="hover:text-teal-600">About</Link>
           <Link href="/services" className="hover:text-teal-600">Services</Link>
-          <Link href="/contact" className="hover:text-teal-600">Pricing</Link>
-          <Link href="/contact" className="hover:text-teal-600">Explore</Link>
+          <Link href="/pricing" className="hover:text-teal-600">Pricing</Link>
+          <Link href="/explore" className="hover:text-teal-600">Explore</Link>
           <Link href="/contact" className="hover:text-teal-600">Contact</Link>
         </nav>
 
