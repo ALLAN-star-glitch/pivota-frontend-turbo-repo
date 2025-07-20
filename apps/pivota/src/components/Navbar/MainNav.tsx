@@ -34,7 +34,7 @@ export default function MainNav() {
           />
         </Link>
 
-        <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-700">
+        <nav className="hidden lg:flex gap-6 text-sm font-medium text-gray-700">
           <Link href="/" className="hover:text-teal-600">Home</Link>
           <Link href="/about" className="hover:text-teal-600">About</Link>
           <Link href="/services" className="hover:text-teal-600">Services</Link>
@@ -57,7 +57,7 @@ export default function MainNav() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => setModalOpened(true)}
-            className="hidden md:inline-block bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer"
+            className="hidden lg:inline-block bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer"
           >
             Get Started
           </button>
@@ -67,11 +67,11 @@ export default function MainNav() {
             onClick={() => setModalOpened(true)}
           >
             <FiUser className="text-xl" />
-            <span className="cursor-pointer hidden md:inline">My Account</span>
+            <span className="cursor-pointer hidden lg:inline">My Account</span>
           </button>
 
           {/* Burger menu for mobile */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <Burger
               opened={drawerOpened}
               onClick={() => setDrawerOpened((o) => !o)}
