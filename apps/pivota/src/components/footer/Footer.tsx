@@ -45,7 +45,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Company information */}
           <div>
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-2 text-sm">
