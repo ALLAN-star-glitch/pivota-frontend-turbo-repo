@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar/Navbar";
 import "@mantine/core/styles.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "../../../../packages/store/StoreProvider";
+import Footer from "@/components/footer/Footer";
 
 
 
@@ -40,6 +41,7 @@ export default function RootLayout({
           <MantineProvider>
             <Navbar />
             {children}
+            <Footer />
           <SpeedInsights />
           </MantineProvider>
         </StoreProvider>
