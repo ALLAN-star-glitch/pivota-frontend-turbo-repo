@@ -15,7 +15,7 @@ export default function Footer() {
 <div className="absolute -top-20 left-0 w-full z-20">
   <div className="max-w-5xl mx-auto bg-teal-600 text-white rounded-2xl shadow-lg px-3 py-5 text-center">
     <h2 className="text-2xl font-semibold mb-6">
-      Subscribe and don't miss out on any opportunities alert!!
+       Subscribe and don&apos;t miss out on any opportunity alerts!
     </h2>
     <div className="max-w-md mx-auto flex rounded-full overflow-hidden shadow-lg">
       <input
