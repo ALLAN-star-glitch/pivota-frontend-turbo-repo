@@ -90,11 +90,18 @@ export default function HomePage() {
       </Head>
 
       <main className="min-h-screen bg-white text-gray-900">
+        {/* Full width hero section */}
         <HeroSection />
-        <OpportunitiesSection />
-        <AboutUsSection />
-        <JoinPivotaSection />
+
+        {/* Responsive container */}
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 max-w-[1600px] mx-auto">
+          <OpportunitiesSection />
+          <AboutUsSection />
+          <JoinPivotaSection />
+        </div>
       </main>
+
+
     </>
   );
 }
