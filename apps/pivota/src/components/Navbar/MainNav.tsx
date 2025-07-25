@@ -57,7 +57,7 @@ export default function MainNav() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => setModalOpened(true)}
-            className="hidden lg:inline-block bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer"
+            className="hidden lg:inline-block bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
           >
             Get Started
           </button>
@@ -130,7 +130,7 @@ export default function MainNav() {
             <PasswordInput label="Password" placeholder="Your password" required mb="md" />
             <button
               onClick={() => setModalOpened(true)}
-              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer w-full"
+              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer w-full"
             >
               Get Started
             </button>
@@ -142,7 +142,7 @@ export default function MainNav() {
             <PasswordInput label="Password" placeholder="Create a password" required mb="md" />
             <button
               onClick={() => setModalOpened(true)}
-              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-md transition-colors cursor-pointer w-full"
+              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer w-full"
             >
               Get Started
             </button>
