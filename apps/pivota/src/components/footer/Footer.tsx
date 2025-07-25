@@ -12,6 +12,7 @@ export default function Footer() {
   return (
     <footer className="relative mt-32">
       {/* CTA Banner */}
+
 <div className="absolute -top-20 left-0 w-full z-20">
   <div className="max-w-5xl mx-auto bg-teal-600 text-white rounded-2xl shadow-lg px-3 py-5 text-center">
     <h2 className="text-2xl font-semibold mb-6">
@@ -30,9 +31,8 @@ export default function Footer() {
   </div>
 </div>
 
-
       {/* Main Footer */}
-      <div className="bg-gradient-to-r from-teal-200 via-teal-100 to-teal-50 text-gray-800 px-6 pt-32 pb-12">
+      <div className="bg-gradient-to-r from-teal-100 via-teal-50 to-white text-gray-800 px-6 pt-32 pb-12">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-6">
           {/* Logo - spans full width on mobile */}
           <div className="col-span-2 md:col-span-1">

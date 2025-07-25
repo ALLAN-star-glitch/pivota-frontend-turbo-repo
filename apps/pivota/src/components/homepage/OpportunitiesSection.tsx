@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function OpportunitiesSection() {
   return (
-    <section id="opportunities" className="py-16 px-6 bg-gray-50">
+    <section id="opportunities" className="relative py-16 px-6 bg-gray-50">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-semibold mb-12">
           Available Opportunities
