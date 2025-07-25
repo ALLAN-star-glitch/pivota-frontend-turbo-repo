@@ -77,7 +77,7 @@ export default function HeroSection() {
         </h1>
         <p className="mb-6 text-base text-gray-800">
           Pivota is your all-in-one digital platform for accessing jobs, affordable housing,
-          trusted service providers, and support services — tailored for Africa, starting with Kenya.
+          trusted service providers, and support services — tailored for Africa and other developing countries, starting with Kenya.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-center">
           <Link
@@ -106,7 +106,7 @@ export default function HeroSection() {
           </h1>
           <p className="text-base md:text-lg lg:text-xl mb-8 text-gray-800">
             Pivota is your all-in-one digital platform for accessing jobs, affordable housing,
-            trusted service providers, and support services — tailored for Africa, starting with Kenya.
+            trusted service providers, and support services — tailored for Africa and other developing countries, starting with Kenya.
           </p>
           <div className="flex gap-4">
             <Link
