@@ -9,7 +9,7 @@ export default function HeroSection() {
       aria-label="Hero"
       className="relative min-h-[500px] bg-gradient-to-r from-white via-teal-50 to-teal-100 overflow-hidden"
     >
-      {/* Faint mobile background image + gradient overlay */}
+      {/* Mobile background + overlay */}
       <div className="absolute inset-0 lg:hidden">
         <Image
           src="/hero-image.png"
@@ -21,7 +21,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-white via-teal-50 to-teal-100 opacity-80" />
       </div>
 
-      {/* Scattered decorative images for md+ screens */}
+      {/* Decorative images for md+ screens */}
       <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
         <Image
           src="/network.png"
@@ -31,13 +31,12 @@ export default function HeroSection() {
           className="absolute top-2 left-6 opacity-20"
         />
         <Image
-          src="/job-transp.png" 
+          src="/job-transp.png"
           alt="Top Center"
           width={120}
           height={120}
           className="absolute top-4 left-1/2 transform -translate-x-1/2 opacity-40"
         />
-
         <Image
           src="/network.png"
           alt="Bottom Left"
@@ -69,7 +68,7 @@ export default function HeroSection() {
       </div>
 
       {/* Mobile content */}
-      <div className="relative z-10 lg:hidden px-4 py-20 text-center text-teal-900">
+      <div className="relative z-10 lg:hidden px-4 sm:px-6 py-20 text-center text-teal-900">
         <p className="uppercase text-sm font-semibold mb-2 tracking-wide text-teal-500">
           PIVOTA CONNECT
         </p>
@@ -97,12 +96,12 @@ export default function HeroSection() {
       </div>
 
       {/* Desktop layout */}
-      <div className="hidden lg:flex items-center justify-between px-6 py-20">
-        <div className="z-10 lg:max-w-3xl ml-8">
+      <div className="hidden lg:flex items-center justify-between px-4 md:px-8 lg:px-20 py-20">
+        <div className="z-10 lg:max-w-3xl">
           <p className="uppercase text-sm font-semibold text-teal-700 mb-2 tracking-wide">
             PIVOTA CONNECT
           </p>
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-teal-900">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-teal-900">
             Find Jobs. Secure Homes. Secure Land. Connect with Services — All in One Place.
           </h1>
           <p className="text-base md:text-lg lg:text-xl mb-8 text-gray-800">
@@ -130,8 +129,7 @@ export default function HeroSection() {
           alt="Pivota overview illustration"
           width={500}
           height={500}
-          loading="eager"
-          className="absolute bottom-0 right-16 w-auto h-[90%] object-contain pointer-events-none"
+          className="w-auto h-[90%] object-contain pointer-events-none"
           priority
         />
       </div>
