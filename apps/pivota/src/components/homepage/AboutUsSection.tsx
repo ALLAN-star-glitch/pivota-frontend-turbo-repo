@@ -47,7 +47,7 @@ export default function AboutUsSection() {
 
           {/* Description */}
           <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-            Pivota is a purpose-driven platform solving real-life challenges across Africa, starting in Kenya. We connect people to jobs, housing, services, and vital support — all in one inclusive space. Whether you're seeking opportunities or offering solutions, Pivota empowers individuals and uplifts communities through technology.
+            Pivota is a purpose-driven platform solving real-life challenges across Africa, starting in Kenya. We connect people to jobs, housing, services, and vital support — all in one inclusive space. Whether you&apos;'re seeking opportunities or offering solutions, Pivota empowers individuals and uplifts communities through technology.
           </p>
 
           {/* Action Buttons */}
