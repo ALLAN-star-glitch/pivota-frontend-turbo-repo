@@ -1,7 +1,6 @@
 'use client';
 
 import { Modal, Tabs, TextInput, PasswordInput } from '@mantine/core';
-import { FcGoogle } from 'react-icons/fc';
 import GoogleAuthButton from '../buttons/GoogleAuthButton';
 
 type AuthModalProps = {
