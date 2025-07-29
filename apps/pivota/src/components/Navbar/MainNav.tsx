@@ -7,12 +7,9 @@ import {
   Drawer,
   ScrollArea,
   Burger,
-  Modal,
-  Tabs,
-  TextInput,
-  PasswordInput,
 } from '@mantine/core';
 import { FiUser } from 'react-icons/fi';
+import AuthModal from './AuthModal';
 
 export default function MainNav() {
   const [drawerOpened, setDrawerOpened] = useState(false);
@@ -112,43 +109,8 @@ export default function MainNav() {
         </ScrollArea>
       </Drawer>
 
-      <Modal
-        opened={modalOpened}
-        onClose={() => setModalOpened(false)}
-        title="Welcome to Pivota"
-        centered
-        size="md"
-      >
-        <Tabs defaultValue="login">
-          <Tabs.List grow>
-            <Tabs.Tab value="login">Login</Tabs.Tab>
-            <Tabs.Tab value="register">Register</Tabs.Tab>
-          </Tabs.List>
+      <AuthModal opened={modalOpened} onClose={() => setModalOpened(false)} />
 
-          <Tabs.Panel value="login" pt="md">
-            <TextInput label="Email" placeholder="you@example.com" required mb="sm" />
-            <PasswordInput label="Password" placeholder="Your password" required mb="md" />
-            <button
-              onClick={() => setModalOpened(true)}
-              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer w-full"
-            >
-              Get Started
-            </button>
-          </Tabs.Panel>
-
-          <Tabs.Panel value="register" pt="md">
-            <TextInput label="Full Name" placeholder="John Doe" required mb="sm" />
-            <TextInput label="Email" placeholder="you@example.com" required mb="sm" />
-            <PasswordInput label="Password" placeholder="Create a password" required mb="md" />
-            <button
-              onClick={() => setModalOpened(true)}
-              className="bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer w-full"
-            >
-              Get Started
-            </button>
-          </Tabs.Panel>
-        </Tabs>
-      </Modal>
     </header>
   );
 }
