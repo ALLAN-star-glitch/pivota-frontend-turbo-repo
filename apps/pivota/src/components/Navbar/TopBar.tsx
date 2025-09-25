@@ -21,6 +21,9 @@ const countries = [
   { name: 'South Sudan', code: 'ss' },
 ];
 
+
+
+
 type ContactInfo = {
   email: string;
   phone: string;
@@ -45,6 +48,8 @@ export default function TopBar() {
   const fetchContactInfo = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/contact-info`);
+      console.log('strapi url:', `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/contact-info`); 
+      console.log('Fetch response status:', res.status);  
       const data = await res.json();
       if (data?.data) {
         setContactInfo(data.data);
@@ -132,15 +137,15 @@ export default function TopBar() {
             <>
               <span className="flex items-center gap-1">
                 <MdEmail size={16} className="text-amber-300" />
-                {contactInfo?.email || <span className="text-gray-400">Email not available</span>}
+                {contactInfo?.email || <span className="text-white animate-pulse">Loading email info ...</span>}
               </span>
               <span className="flex items-center gap-1 max-sm:hidden">
                 <MdPhone size={16} className="text-amber-300" />
-                {contactInfo?.phone || <span className="text-gray-400">Phone not available</span>}
+                {contactInfo?.phone || <span className="text-white animate-pulse">Loading phone info ...</span>}
               </span>
               <span className="flex items-center gap-1 max-sm:hidden">
                 <MdAccessTime size={16} className="text-amber-300" />
-                {contactInfo?.availability || <span className="text-gray-400">Availability not set</span>}
+                {contactInfo?.availability || <span className="text-white animate-pulse">Loading availability info ...</span>}
               </span>
             </>
           )}
@@ -268,7 +273,7 @@ export default function TopBar() {
             </>
           ) : (
             // Fallback text when no socials are found
-            <span className="text-white text-sm">Socials coming soon</span>
+            <span className="text-white text-sm animate-pulse">Socials coming soon</span>
           )}
         </div>
 
