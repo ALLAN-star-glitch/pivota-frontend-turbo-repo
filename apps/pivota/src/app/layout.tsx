@@ -1,4 +1,3 @@
-// apps/pivota/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -8,8 +7,6 @@ import "@mantine/core/styles.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "../../../../packages/store/StoreProvider";
 import Footer from "@/components/footer/Footer";
-
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,8 +19,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pivota",
-  description: "Connecting Africa to Opportunities that matter",
+  title: "PivotaConnect – Find Jobs, Homes & Services Across Africa",
+  description:
+    "PivotaConnect is Africa's trusted digital platform for finding jobs, housing, skilled service providers, and community support — all in one place.",
+  metadataBase: new URL("https://pivotaconnect.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://pivotaconnect.com",
+    title: "PivotaConnect – Empowering Lives Across Africa",
+    description:
+      "Explore verified jobs, housing, services, and social support across Africa on PivotaConnect.",
+    siteName: "PivotaConnect",
+    images: [
+      {
+        url: "https://pivotaconnect.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "PivotaConnect – Life Made Simple in Africa",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -42,7 +60,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
-          <SpeedInsights />
+            <SpeedInsights />
           </MantineProvider>
         </StoreProvider>
       </body>

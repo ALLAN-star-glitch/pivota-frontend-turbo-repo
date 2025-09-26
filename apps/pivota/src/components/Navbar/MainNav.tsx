@@ -22,7 +22,7 @@ export default function MainNav() {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
-            src="/pivotalogo.png"
+            src="/pivotaconnectlogo.png"
             alt="Pivota Logo"
             width={120}
             height={34}
@@ -31,7 +31,7 @@ export default function MainNav() {
           />
         </Link>
 
-        <nav className="hidden lg:flex gap-6 text-sm font-medium text-gray-700">
+        <nav className="hidden lg:flex gap-6 text-sm font-large text-gray-700">
           <Link href="/" className="hover:text-teal-600">Home</Link>
           <Link href="/about" className="hover:text-teal-600">About</Link>
           <Link href="/services" className="hover:text-teal-600">Services</Link>

@@ -74,10 +74,10 @@ export default function HeroSection() {
           PIVOTA CONNECT
         </p>
         <h1 className="text-2xl font-bold mb-4 leading-snug">
-          Find Jobs. Secure Homes. Secure Land. Connect with Services — All in One Place.
+          PivotaConnect – Find Jobs, Homes & Services Across Africa All in One Place.
         </h1>
         <p className="mb-6 text-base text-gray-800">
-          Pivota is your all-in-one digital platform for accessing jobs, affordable housing,
+          PivotaConnect is your all-in-one digital platform for accessing jobs, affordable housing,
           trusted service providers, and support services — tailored for Africa, starting with Kenya.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-center">
@@ -103,11 +103,11 @@ export default function HeroSection() {
             PIVOTA CONNECT
           </p>
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-teal-900">
-            Find Jobs. Secure Homes. Secure Land. Connect with Services — All in One Place.
+            PivotaConnect – Find Jobs, Homes & Services Across Africa All in One Place.
           </h1>
           <p className="text-base md:text-lg lg:text-xl mb-8 text-gray-800">
-            Pivota is your all-in-one digital platform for accessing jobs, affordable housing,
-            trusted service providers, and support services — tailored for Africa, starting with Kenya.
+            PivotaConnect is your all-in-one digital platform for accessing jobs, affordable housing,
+          trusted service providers, and support services — tailored for Africa, starting with Kenya.
           </p>
           <div className="flex gap-4">
             <Link
