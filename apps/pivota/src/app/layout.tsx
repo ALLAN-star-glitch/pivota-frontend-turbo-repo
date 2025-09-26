@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "PivotaConnect",
     images: [
       {
-        url: "https://pivotaconnect.com/og-image.jpg",
+        url: "/hero-image.png",
         width: 1200,
         height: 630,
         alt: "PivotaConnect – Life Made Simple in Africa",
