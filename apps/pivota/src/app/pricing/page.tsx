@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SegmentedControl, Card, Text, Title, List } from "@mantine/core";
 
 type BillingPeriod = "monthly" | "quarterly" | "halfyearly" | "annually";
@@ -66,7 +66,6 @@ const plans: Record<BillingPeriod, Plan[]> = {
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
     },
   ],
-  // Quarterly, halfyearly, annually remain same (just numeric values & discounts)
   quarterly: [
     {
       name: "Free",
@@ -173,6 +172,28 @@ const plans: Record<BillingPeriod, Plan[]> = {
 
 export default function PricingPage() {
   const [period, setPeriod] = useState<BillingPeriod>("monthly");
+  const [showFloating, setShowFloating] = useState(false);
+  const [visible, setVisible] = useState(false); // handles fade state
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 150) {
+        setShowFloating(true);
+        setVisible(true);
+      }
+
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+
+      scrollTimeout.current = setTimeout(() => {
+        setVisible(false); // start fade out
+        setTimeout(() => setShowFloating(false), 500); // wait for fade-out duration
+      }, 1000);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <main className="max-w-screen-xl mx-auto px-4 py-16">
@@ -187,55 +208,65 @@ export default function PricingPage() {
       </div>
 
       {/* Billing Period Filters */}
-      {/* Billing Period Filters */}
-<div className="mb-10">
-  <div className="block md:hidden fixed left-4 top-1/3 z-50">
-    <Card shadow="lg" radius="lg" padding="sm" className="bg-white/90 backdrop-blur-md border border-gray-200">
-      <SegmentedControl
-        orientation="vertical"
-        value={period}
-        onChange={(value) => setPeriod(value as BillingPeriod)}
-        data={[
-          { label: "Monthly", value: "monthly" },
-          { label: "Quarterly", value: "quarterly" },
-          { label: "Half-Yearly", value: "halfyearly" },
-          { label: "Annually", value: "annually" },
-        ]}
-        size="sm"
-        radius="md"
-        transitionDuration={200}
-        className="min-w-[140px]"
-        styles={{
-          label: { fontWeight: 600, fontSize: "0.85rem" },
-          indicator: { backgroundColor: "#f59e0b", borderRadius: "8px" },
-        }}
-      />
-    </Card>
-  </div>
+      <div className="mb-10">
+        {/* Floating mobile filter */}
+        {showFloating && (
+          <div
+            className={`block md:hidden fixed left-4 top-1/3 z-50 transform transition-opacity duration-500 ${
+              visible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Card
+              shadow="lg"
+              radius="lg"
+              padding="sm"
+              className="bg-white/90 backdrop-blur-md border border-gray-200"
+            >
+              <SegmentedControl
+                orientation="vertical"
+                value={period}
+                onChange={(value) => setPeriod(value as BillingPeriod)}
+                data={[
+                  { label: "Monthly", value: "monthly" },
+                  { label: "Quarterly", value: "quarterly" },
+                  { label: "Half-Yearly", value: "halfyearly" },
+                  { label: "Annually", value: "annually" },
+                ]}
+                size="sm"
+                radius="md"
+                transitionDuration={200}
+                className="min-w-[140px]"
+                styles={{
+                  label: { fontWeight: 600, fontSize: "0.85rem" },
+                  indicator: { backgroundColor: "#f59e0b", borderRadius: "8px" },
+                }}
+              />
+            </Card>
+          </div>
+        )}
 
-  {/* Desktop horizontal filters */}
-  <div className="hidden md:flex justify-center">
-    <SegmentedControl
-      value={period}
-      onChange={(value) => setPeriod(value as BillingPeriod)}
-      data={[
-        { label: "Monthly", value: "monthly" },
-        { label: "Quarterly", value: "quarterly" },
-        { label: "Half-Yearly", value: "halfyearly" },
-        { label: "Annually", value: "annually" },
-      ]}
-      size="md"
-      radius="xl"
-      transitionDuration={200}
-      className="bg-gray-50 p-2 rounded-full shadow-inner"
-      styles={{
-        label: { fontWeight: 600, fontSize: "0.9rem" },
-        indicator: { backgroundColor: "#f59e0b", borderRadius: "9999px" },
-      }}
-    />
-  </div>
-</div>
-
+        {/* Desktop horizontal filters */}
+        <div className="hidden md:flex justify-center">
+          <SegmentedControl
+            value={period}
+            onChange={(value) => setPeriod(value as BillingPeriod)}
+            data={[
+              { label: "Monthly", value: "monthly" },
+              { label: "Quarterly", value: "quarterly" },
+              { label: "Half-Yearly", value: "halfyearly" },
+              { label: "Annually", value: "annually" },
+            ]}
+            size="md"
+            radius="xl"
+            transitionDuration={200}
+            className="bg-gray-50 p-2 rounded-full shadow-inner"
+            styles={{
+              label: { fontWeight: 600, fontSize: "0.9rem" },
+              indicator: { backgroundColor: "#f59e0b", borderRadius: "9999px" },
+            }}
+          />
+        </div>
+      </div>
 
       {/* Plans Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -279,23 +310,23 @@ export default function PricingPage() {
                   {plan.name}
                 </Title>
 
-                {/* Price with USD first, KES below */}
+                {/* Price */}
                 <div className="flex flex-col items-center mb-6">
-            <span
-              className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
-                plan.name
-              )}`}
-            >
-              ${usd} USD
-            </span>
-            <span
-              className={`text-sm font-medium mt-1 ${
-                getAdaptivePriceColor(plan.name)
-              } opacity-70`}  // same color but softer
-            >
-              ≈ KSh {kes.toLocaleString()}
-            </span>
-          </div>
+                  <span
+                    className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
+                      plan.name
+                    )}`}
+                  >
+                    ${usd} USD
+                  </span>
+                  <span
+                    className={`text-sm font-medium mt-1 ${getAdaptivePriceColor(
+                      plan.name
+                    )} opacity-70`}
+                  >
+                    ≈ KSh {kes.toLocaleString()}
+                  </span>
+                </div>
 
                 <List spacing="sm" size="sm" className="mb-6">
                   {plan.features.map((feature, i) => (
