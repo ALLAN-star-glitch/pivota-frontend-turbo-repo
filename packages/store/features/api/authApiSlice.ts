@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10002/api-gateway/v1';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10001/v1';
 
 // Types
 export interface ApiResponse<T> {
@@ -46,7 +46,7 @@ export const authApiSlice = createApi({
   endpoints: (builder) => ({
     signup: builder.mutation<ApiResponse<LoginResponseData>, SignupRequest>({
       query: (signupDto) => ({
-        url: '/auth/signup',
+        url: '/auth-service/signup',
         method: 'POST',
         body: signupDto,
       }),
@@ -54,7 +54,7 @@ export const authApiSlice = createApi({
 
     login: builder.mutation<ApiResponse<LoginResponseData>, LoginRequest>({
       query: (loginDto) => ({
-        url: '/auth/login',
+        url: '/auth-service/login',
         method: 'POST',
         body: loginDto,
       }),
@@ -62,14 +62,14 @@ export const authApiSlice = createApi({
 
     refresh: builder.mutation<ApiResponse<LoginResponseData>, void>({
       query: () => ({
-        url: '/auth/refresh',
+        url: '/auth-service/refresh',
         method: 'POST',
       }),
     }),
 
     logout: builder.mutation<ApiResponse<{ message: string }>, void>({
       query: () => ({
-        url: '/auth/logout',
+        url: '/auth-service/logout',
         method: 'POST',
       }),
       invalidatesTags: ['Auth'],
