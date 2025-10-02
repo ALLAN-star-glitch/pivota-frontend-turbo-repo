@@ -187,26 +187,55 @@ export default function PricingPage() {
       </div>
 
       {/* Billing Period Filters */}
-      <div className="flex justify-center mb-10">
-        <SegmentedControl
-          value={period}
-          onChange={(value) => setPeriod(value as BillingPeriod)}
-          data={[
-            { label: "Monthly", value: "monthly" },
-            { label: "Quarterly", value: "quarterly" },
-            { label: "Half-Yearly", value: "halfyearly" },
-            { label: "Annually", value: "annually" },
-          ]}
-          size="md"
-          radius="xl"
-          transitionDuration={200}
-          className="bg-gray-50 p-2 rounded-full shadow-inner"
-          styles={{
-            label: { fontWeight: 600, fontSize: "0.9rem" },
-            indicator: { backgroundColor: "#f59e0b", borderRadius: "9999px" },
-          }}
-        />
-      </div>
+      {/* Billing Period Filters */}
+<div className="mb-10">
+  <div className="block md:hidden fixed left-4 top-1/3 z-50">
+    <Card shadow="lg" radius="lg" padding="sm" className="bg-white/90 backdrop-blur-md border border-gray-200">
+      <SegmentedControl
+        orientation="vertical"
+        value={period}
+        onChange={(value) => setPeriod(value as BillingPeriod)}
+        data={[
+          { label: "Monthly", value: "monthly" },
+          { label: "Quarterly", value: "quarterly" },
+          { label: "Half-Yearly", value: "halfyearly" },
+          { label: "Annually", value: "annually" },
+        ]}
+        size="sm"
+        radius="md"
+        transitionDuration={200}
+        className="min-w-[140px]"
+        styles={{
+          label: { fontWeight: 600, fontSize: "0.85rem" },
+          indicator: { backgroundColor: "#f59e0b", borderRadius: "8px" },
+        }}
+      />
+    </Card>
+  </div>
+
+  {/* Desktop horizontal filters */}
+  <div className="hidden md:flex justify-center">
+    <SegmentedControl
+      value={period}
+      onChange={(value) => setPeriod(value as BillingPeriod)}
+      data={[
+        { label: "Monthly", value: "monthly" },
+        { label: "Quarterly", value: "quarterly" },
+        { label: "Half-Yearly", value: "halfyearly" },
+        { label: "Annually", value: "annually" },
+      ]}
+      size="md"
+      radius="xl"
+      transitionDuration={200}
+      className="bg-gray-50 p-2 rounded-full shadow-inner"
+      styles={{
+        label: { fontWeight: 600, fontSize: "0.9rem" },
+        indicator: { backgroundColor: "#f59e0b", borderRadius: "9999px" },
+      }}
+    />
+  </div>
+</div>
+
 
       {/* Plans Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -252,21 +281,21 @@ export default function PricingPage() {
 
                 {/* Price with USD first, KES below */}
                 <div className="flex flex-col items-center mb-6">
-              <span
-                className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
-                  plan.name
-                )}`}
-              >
-                ${usd} USD
-              </span>
-              <span
-                className={`text-sm font-medium mt-1 ${
-                  getAdaptivePriceColor(plan.name)
-                } opacity-70`}  // same color but softer
-              >
-                ≈ KSh {kes.toLocaleString()}
-              </span>
-            </div>
+            <span
+              className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
+                plan.name
+              )}`}
+            >
+              ${usd} USD
+            </span>
+            <span
+              className={`text-sm font-medium mt-1 ${
+                getAdaptivePriceColor(plan.name)
+              } opacity-70`}  // same color but softer
+            >
+              ≈ KSh {kes.toLocaleString()}
+            </span>
+          </div>
 
                 <List spacing="sm" size="sm" className="mb-6">
                   {plan.features.map((feature, i) => (
