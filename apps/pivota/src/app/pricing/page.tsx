@@ -207,7 +207,7 @@ export default function PricingPage() {
 
       {/* Mobile Floating Filter (visible only within pricing page) */}
       {showFilter && (
-        <div className="block md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] transition-all duration-500">
+        <div className="block lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] transition-all duration-500">
           <Card
             shadow="lg"
             radius="xl"
@@ -245,7 +245,7 @@ export default function PricingPage() {
         </div>
       )}
 
-      {/* Desktop Filters */}
+      {/* Desktop and tablet Filters */}
       <div className="hidden md:flex justify-center mb-10">
         <SegmentedControl
           value={period}
