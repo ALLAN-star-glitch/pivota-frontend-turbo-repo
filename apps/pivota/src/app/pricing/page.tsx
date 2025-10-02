@@ -252,21 +252,21 @@ export default function PricingPage() {
 
                 {/* Price with USD first, KES below */}
                 <div className="flex flex-col items-center mb-6">
-                  <span
-                    className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
-                      plan.name
-                    )}`}
-                  >
-                    ${usd} USD
-                  </span>
-                  <span
-                    className={`text-sm font-medium mt-1 ${
-                      getAdaptivePriceColor(plan.name)
-                    } opacity-70`}  // same color but softer
-                  >
-                    ≈ KSh {kes.toLocaleString()}
-                  </span>
-                </div>
+              <span
+                className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
+                  plan.name
+                )}`}
+              >
+                ${usd} USD
+              </span>
+              <span
+                className={`text-sm font-medium mt-1 ${
+                  getAdaptivePriceColor(plan.name)
+                } opacity-70`}  // same color but softer
+              >
+                ≈ KSh {kes.toLocaleString()}
+              </span>
+            </div>
 
                 <List spacing="sm" size="sm" className="mb-6">
                   {plan.features.map((feature, i) => (
