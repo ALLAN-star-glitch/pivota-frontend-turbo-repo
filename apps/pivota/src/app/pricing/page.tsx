@@ -18,17 +18,16 @@ interface Plan {
 
 const kesToUsd = (kes: number) => (kes / 150).toFixed(2);
 
-// simple adaptive contrast: dark text if background is light, white if dark
 const getAdaptivePriceColor = (planName: string) => {
   switch (planName) {
     case "Free":
-      return "text-teal-700"; // dark teal on light background
+      return "text-teal-700";
     case "Bronze":
-      return "text-amber-300"; // light amber on dark teal bg
+      return "text-amber-300";
     case "Silver":
-      return "text-teal-900"; // deep teal on yellow bg
+      return "text-teal-900";
     case "Gold":
-      return "text-amber-200"; // light amber on red bg
+      return "text-amber-200";
     default:
       return "text-gray-900";
   }
@@ -76,28 +75,28 @@ const plans: Record<BillingPeriod, Plan[]> = {
     },
     {
       name: "Bronze",
-      price: "1300",
+      price: "1400",
       gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
-      discount: "15% OFF",
+      discount: "Save 7%",
     },
     {
       name: "Silver",
-      price: "3000",
+      price: "3400",
       gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
-      discount: "20% OFF",
+      discount: "Save 6%",
     },
     {
       name: "Gold",
-      price: "6000",
+      price: "7000",
       gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
-      discount: "25% OFF",
+      discount: "Save 7%",
     },
   ],
   halfyearly: [
@@ -110,28 +109,28 @@ const plans: Record<BillingPeriod, Plan[]> = {
     },
     {
       name: "Bronze",
-      price: "2500",
+      price: "2700",
       gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
-      discount: "30% OFF",
+      discount: "Save 10%",
     },
     {
       name: "Silver",
-      price: "5500",
+      price: "6600",
       gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
-      discount: "35% OFF",
+      discount: "Save 8%",
     },
     {
       name: "Gold",
-      price: "11000",
+      price: "13500",
       gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
-      discount: "40% OFF",
+      discount: "Save 10%",
     },
   ],
   annually: [
@@ -144,59 +143,58 @@ const plans: Record<BillingPeriod, Plan[]> = {
     },
     {
       name: "Bronze",
-      price: "4800",
+      price: "5200",
       gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
-      discount: "40% OFF",
+      discount: "Save 13%",
     },
     {
       name: "Silver",
-      price: "10500",
+      price: "12600",
       gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
-      discount: "45% OFF",
+      discount: "Save 12%",
     },
     {
       name: "Gold",
-      price: "20000",
+      price: "25500",
       gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
-      discount: "50% OFF",
+      discount: "Save 15%",
     },
   ],
 };
 
 export default function PricingPage() {
   const [period, setPeriod] = useState<BillingPeriod>("monthly");
-  const [showFloating, setShowFloating] = useState(false);
-  const [visible, setVisible] = useState(false); // handles fade state
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [showFilter, setShowFilter] = useState(true);
+  const pricingRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 150) {
-        setShowFloating(true);
-        setVisible(true);
+      if (!pricingRef.current) return;
+
+      const rect = pricingRef.current.getBoundingClientRect();
+
+      // Check if pricing section bottom is above viewport bottom
+      if (rect.bottom <= window.innerHeight) {
+        setShowFilter(false);
+      } else {
+        setShowFilter(true);
       }
-
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-
-      scrollTimeout.current = setTimeout(() => {
-        setVisible(false); // start fade out
-        setTimeout(() => setShowFloating(false), 500); // wait for fade-out duration
-      }, 1000);
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <main className="max-w-screen-xl mx-auto px-4 py-16">
+    <main ref={pricingRef} className="max-w-screen-xl mx-auto px-4 pb-32 pt-16">
       {/* Header */}
       <div className="text-center mb-12">
         <Title order={1} className="text-4xl font-bold mb-4 text-[#008080]">
@@ -207,23 +205,17 @@ export default function PricingPage() {
         </Text>
       </div>
 
-      {/* Billing Period Filters */}
-      <div className="mb-10">
-        {/* Floating mobile filter */}
-        {showFloating && (
-          <div
-            className={`block md:hidden fixed left-4 top-1/3 z-50 transform transition-opacity duration-500 ${
-              visible ? "opacity-100" : "opacity-0"
-            }`}
+      {/* Mobile Floating Filter (visible only within pricing page) */}
+      {showFilter && (
+        <div className="block md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] transition-all duration-500">
+          <Card
+            shadow="lg"
+            radius="xl"
+            padding="sm"
+            className="bg-white/95 backdrop-blur-md border border-gray-200 shadow-lg"
           >
-            <Card
-              shadow="lg"
-              radius="lg"
-              padding="sm"
-              className="bg-white/90 backdrop-blur-md border border-gray-200"
-            >
+            <div className="flex overflow-x-auto no-scrollbar space-x-2">
               <SegmentedControl
-                orientation="vertical"
                 value={period}
                 onChange={(value) => setPeriod(value as BillingPeriod)}
                 data={[
@@ -233,43 +225,50 @@ export default function PricingPage() {
                   { label: "Annually", value: "annually" },
                 ]}
                 size="sm"
-                radius="md"
+                radius="xl"
                 transitionDuration={200}
-                className="min-w-[140px]"
+                className="min-w-max"
                 styles={{
-                  label: { fontWeight: 600, fontSize: "0.85rem" },
-                  indicator: { backgroundColor: "#f59e0b", borderRadius: "8px" },
+                  label: {
+                    fontWeight: 600,
+                    fontSize: "0.85rem",
+                    whiteSpace: "nowrap",
+                  },
+                  indicator: {
+                    backgroundColor: "#f59e0b",
+                    borderRadius: "9999px",
+                  },
                 }}
               />
-            </Card>
-          </div>
-        )}
-
-        {/* Desktop horizontal filters */}
-        <div className="hidden md:flex justify-center">
-          <SegmentedControl
-            value={period}
-            onChange={(value) => setPeriod(value as BillingPeriod)}
-            data={[
-              { label: "Monthly", value: "monthly" },
-              { label: "Quarterly", value: "quarterly" },
-              { label: "Half-Yearly", value: "halfyearly" },
-              { label: "Annually", value: "annually" },
-            ]}
-            size="md"
-            radius="xl"
-            transitionDuration={200}
-            className="bg-gray-50 p-2 rounded-full shadow-inner"
-            styles={{
-              label: { fontWeight: 600, fontSize: "0.9rem" },
-              indicator: { backgroundColor: "#f59e0b", borderRadius: "9999px" },
-            }}
-          />
+            </div>
+          </Card>
         </div>
+      )}
+
+      {/* Desktop Filters */}
+      <div className="hidden md:flex justify-center mb-10">
+        <SegmentedControl
+          value={period}
+          onChange={(value) => setPeriod(value as BillingPeriod)}
+          data={[
+            { label: "Monthly", value: "monthly" },
+            { label: "Quarterly", value: "quarterly" },
+            { label: "Half-Yearly", value: "halfyearly" },
+            { label: "Annually", value: "annually" },
+          ]}
+          size="md"
+          radius="xl"
+          transitionDuration={200}
+          className="bg-gray-50 p-2 rounded-full shadow-inner"
+          styles={{
+            label: { fontWeight: 600, fontSize: "0.9rem" },
+            indicator: { backgroundColor: "#f59e0b", borderRadius: "9999px" },
+          }}
+        />
       </div>
 
       {/* Plans Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {plans[period].map((plan) => {
           const kes = parseInt(plan.price, 10);
           const usd = kesToUsd(kes);
@@ -286,14 +285,12 @@ export default function PricingPage() {
                   : "border border-transparent"
               }`}
             >
-              {/* Popular Badge */}
               {plan.popular && (
                 <span className="absolute top-2 left-1/2 transform -translate-x-1/2 shadow-md rounded-full px-4 py-1 text-sm font-semibold bg-amber-500 text-white whitespace-nowrap">
                   ⭐ Most Popular
                 </span>
               )}
 
-              {/* Discount Ribbon */}
               {plan.discount && (
                 <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-md shadow">
                   {plan.discount}
@@ -310,7 +307,6 @@ export default function PricingPage() {
                   {plan.name}
                 </Title>
 
-                {/* Price */}
                 <div className="flex flex-col items-center mb-6">
                   <span
                     className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
@@ -334,7 +330,6 @@ export default function PricingPage() {
                   ))}
                 </List>
 
-                {/* Custom Button */}
                 <button
                   className={`w-full rounded-full cursor-pointer bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-5 text-lg shadow-md transition mt-3 ${
                     plan.name === "Free"
