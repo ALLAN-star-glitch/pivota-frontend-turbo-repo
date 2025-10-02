@@ -14,155 +14,157 @@ interface Plan {
   features: string[];
   popular?: boolean;
   discount?: string;
-  priceColor?: string;
 }
+
+const kesToUsd = (kes: number) => (kes / 150).toFixed(2);
+
+// simple adaptive contrast: dark text if background is light, white if dark
+const getAdaptivePriceColor = (planName: string) => {
+  switch (planName) {
+    case "Free":
+      return "text-teal-700"; // dark teal on light background
+    case "Bronze":
+      return "text-amber-300"; // light amber on dark teal bg
+    case "Silver":
+      return "text-teal-900"; // deep teal on yellow bg
+    case "Gold":
+      return "text-amber-200"; // light amber on red bg
+    default:
+      return "text-gray-900";
+  }
+};
 
 const plans: Record<BillingPeriod, Plan[]> = {
   monthly: [
     {
       name: "Free",
-      price: "KSh 0",
-      gradient: "from-gray-50 via-white to-gray-200", // smoother immersive gradient
+      price: "0",
+      gradient: "from-gray-50 via-white to-gray-200",
       textColor: "text-gray-800",
-      priceColor: "text-teal-700",
       features: ["Basic access", "Post limited listings", "Community support"],
     },
     {
       name: "Bronze",
-      price: "KSh 500",
-      gradient: "from-[#006666] via-[#008080] to-[#00b3b3]", // deeper teal aqua
+      price: "500",
+      gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
-      priceColor: "text-amber-300",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
     },
     {
       name: "Silver",
-      price: "KSh 1,200",
-      gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]", // metallic gold-silver vibe
+      price: "1200",
+      gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
-      priceColor: "text-teal-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
     },
     {
       name: "Gold",
-      price: "KSh 2,500",
-      gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]", // rich terracotta-orange glow
+      price: "2500",
+      gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
-      priceColor: "text-amber-200",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
     },
   ],
+  // Quarterly, halfyearly, annually remain same (just numeric values & discounts)
   quarterly: [
     {
-    name: "Free",
-      price: "KSh 0",
-      gradient: "from-gray-50 via-white to-gray-200", // smoother immersive gradient
+      name: "Free",
+      price: "0",
+      gradient: "from-gray-50 via-white to-gray-200",
       textColor: "text-gray-800",
-      priceColor: "text-teal-700",
-      features: ["Basic access", "Post limited listings", "Community support"]
+      features: ["Basic access", "Post limited listings", "Community support"],
     },
     {
       name: "Bronze",
-      price: "KSh 1,300",
+      price: "1300",
       gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
-      priceColor: "text-amber-300",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
       discount: "15% OFF",
     },
     {
       name: "Silver",
-      price: "KSh 3,000",
+      price: "3000",
       gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
-      priceColor: "text-teal-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
       discount: "20% OFF",
     },
     {
       name: "Gold",
-      price: "KSh 6,000",
+      price: "6000",
       gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
-      priceColor: "text-amber-200",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
       discount: "25% OFF",
     },
   ],
   halfyearly: [
-        {
-    name: "Free",
-      price: "KSh 0",
-      gradient: "from-gray-50 via-white to-gray-200", // smoother immersive gradient
+    {
+      name: "Free",
+      price: "0",
+      gradient: "from-gray-50 via-white to-gray-200",
       textColor: "text-gray-800",
-      priceColor: "text-teal-700",
-      features: ["Basic access", "Post limited listings", "Community support"]
+      features: ["Basic access", "Post limited listings", "Community support"],
     },
     {
       name: "Bronze",
-      price: "KSh 2,500",
+      price: "2500",
       gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
-      priceColor: "text-amber-300",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
       discount: "30% OFF",
     },
     {
       name: "Silver",
-      price: "KSh 5,500",
+      price: "5500",
       gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
-      priceColor: "text-teal-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
       discount: "35% OFF",
     },
     {
       name: "Gold",
-      price: "KSh 11,000",
+      price: "11000",
       gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
-      priceColor: "text-amber-200",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
       discount: "40% OFF",
     },
   ],
   annually: [
-        {
-    name: "Free",
-      price: "KSh 0",
-      gradient: "from-gray-50 via-white to-gray-200", // smoother immersive gradient
+    {
+      name: "Free",
+      price: "0",
+      gradient: "from-gray-50 via-white to-gray-200",
       textColor: "text-gray-800",
-      priceColor: "text-teal-700",
-      features: ["Basic access", "Post limited listings", "Community support"]
+      features: ["Basic access", "Post limited listings", "Community support"],
     },
     {
       name: "Bronze",
-      price: "KSh 4,800",
+      price: "4800",
       gradient: "from-[#006666] via-[#008080] to-[#00b3b3]",
       textColor: "text-white",
-      priceColor: "text-amber-300",
       features: ["Unlimited listings", "Standard visibility", "Basic analytics"],
       discount: "40% OFF",
     },
     {
       name: "Silver",
-      price: "KSh 10,500",
+      price: "10500",
       gradient: "from-[#ffb300] via-[#ffc107] to-[#ffe066]",
       textColor: "text-gray-900",
-      priceColor: "text-teal-900",
       features: ["Featured listings", "Priority placement", "Advanced analytics"],
       popular: true,
       discount: "45% OFF",
     },
     {
       name: "Gold",
-      price: "KSh 20,000",
+      price: "20000",
       gradient: "from-[#d95f4c] via-[#e07a5f] to-[#f39c82]",
       textColor: "text-white",
-      priceColor: "text-amber-200",
       features: ["Premium visibility", "Recruitment tools", "Access to courses"],
       discount: "50% OFF",
     },
@@ -208,72 +210,84 @@ export default function PricingPage() {
 
       {/* Plans Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        {plans[period].map((plan) => (
-          <Card
-            key={plan.name}
-            shadow="xl"
-            padding="xl"
-            radius="lg"
-            className={`relative bg-gradient-to-br ${plan.gradient} hover:scale-105 hover:shadow-2xl transform transition ${
-              plan.name === "Free"
-                ? "border-2 border-teal-500 shadow-md"
-                : "border border-transparent"
-            }`}
-          >
-            {/* Popular Badge */}
-            {plan.popular && (
-              <span className="absolute top-2 left-1/2 transform -translate-x-1/2 shadow-md rounded-full px-4 py-1 text-sm font-semibold bg-amber-500 text-white whitespace-nowrap">
-                ⭐ Most Popular
-              </span>
-            )}
+        {plans[period].map((plan) => {
+          const kes = parseInt(plan.price, 10);
+          const usd = kesToUsd(kes);
 
-            {/* Discount Ribbon */}
-            {plan.discount && (
-              <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-md shadow">
-                {plan.discount}
-              </div>
-            )}
+          return (
+            <Card
+              key={plan.name}
+              shadow="xl"
+              padding="xl"
+              radius="lg"
+              className={`relative bg-gradient-to-br ${plan.gradient} hover:scale-105 hover:shadow-2xl transform transition ${
+                plan.name === "Free"
+                  ? "border-2 border-teal-500 shadow-md"
+                  : "border border-transparent"
+              }`}
+            >
+              {/* Popular Badge */}
+              {plan.popular && (
+                <span className="absolute top-2 left-1/2 transform -translate-x-1/2 shadow-md rounded-full px-4 py-1 text-sm font-semibold bg-amber-500 text-white whitespace-nowrap">
+                  ⭐ Most Popular
+                </span>
+              )}
 
-            <div className={`${plan.textColor}`}>
-              <Title
-                order={3}
-                className={`text-xl font-semibold mb-2 ${
-                  plan.name === "Free" ? "italic" : ""
-                }`}
-              >
-                {plan.name}
-              </Title>
+              {/* Discount Ribbon */}
+              {plan.discount && (
+                <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-md shadow">
+                  {plan.discount}
+                </div>
+              )}
 
-              {/* Price with contrast */}
-              <div className="flex items-end justify-center gap-1 mb-6">
-                <span
-                  className={`text-3xl font-extrabold drop-shadow-md ${
-                    plan.priceColor ?? "text-gray-900"
+              <div className={`${plan.textColor}`}>
+                <Title
+                  order={3}
+                  className={`text-xl font-semibold mb-2 ${
+                    plan.name === "Free" ? "italic" : ""
                   }`}
                 >
-                  {plan.price}
-                </span>
+                  {plan.name}
+                </Title>
+
+                {/* Price with USD first, KES below */}
+                <div className="flex flex-col items-center mb-6">
+                  <span
+                    className={`text-3xl font-extrabold drop-shadow-md ${getAdaptivePriceColor(
+                      plan.name
+                    )}`}
+                  >
+                    ${usd} USD
+                  </span>
+                  <span
+                    className={`text-sm font-medium mt-1 ${
+                      getAdaptivePriceColor(plan.name)
+                    } opacity-70`}  // same color but softer
+                  >
+                    ≈ KSh {kes.toLocaleString()}
+                  </span>
+                </div>
+
+                <List spacing="sm" size="sm" className="mb-6">
+                  {plan.features.map((feature, i) => (
+                    <List.Item key={i}>{feature}</List.Item>
+                  ))}
+                </List>
+
+                {/* Custom Button */}
+                <button
+                  className={`w-full rounded-full cursor-pointer bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-5 text-lg shadow-md transition mt-3 ${
+                    plan.name === "Free"
+                      ? "border border-teal-600 hover:shadow-lg"
+                      : ""
+                  }`}
+                >
+                  {plan.name === "Free" ? "Get Started" : "Choose Plan"}
+                </button>
               </div>
-
-              <List spacing="sm" size="sm" className="mb-6">
-                {plan.features.map((feature, i) => (
-                  <List.Item key={i}>{feature}</List.Item>
-                ))}
-              </List>
-
-              {/* Custom Button */}
-              <button
-                className={`w-full rounded-full cursor-pointer bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-5 text-lg shadow-md transition mt-3 ${
-                  plan.name === "Free"
-                    ? "border border-teal-600 hover:shadow-lg"
-                    : ""
-                }`}
-              >
-                {plan.name === "Free" ? "Get Started" : "Choose Plan"}
-              </button>
-            </div>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </div>
 
       {/* IntaSend Secure Payment */}
