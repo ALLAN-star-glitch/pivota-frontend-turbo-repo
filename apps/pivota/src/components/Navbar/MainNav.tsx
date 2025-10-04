@@ -1,22 +1,20 @@
 "use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import {
-  Drawer,
-  ScrollArea,
-  Burger,
-} from '@mantine/core';
-import { FiUser } from 'react-icons/fi';
-import { Handshake, Heart } from 'lucide-react';
-import AuthModal from './AuthModal';
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Drawer, ScrollArea, Burger } from "@mantine/core";
+import { FiUser } from "react-icons/fi";
+import { Handshake, Heart, Search } from "lucide-react";
+import AuthModal from "./AuthModal";
 
 export default function MainNav() {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
-  const teal = '#14b8a6';
+  const [searchOpen, setSearchOpen] = useState(false);
+  const teal = "#14b8a6";
+
   const pathname = usePathname();
 
   const navLinks = [
@@ -64,27 +62,47 @@ export default function MainNav() {
           ))}
         </nav>
 
-        {/* Search bar */}
-        <div className="flex-1 sm:flex sm:justify-center md:flex">
-          <input
-            type="text"
-            placeholder="What are you looking for?"
-            className="w-full max-w-md px-4 py-2 border rounded-full text-sm placeholder:text-sm focus:outline-none focus:ring-2"
+        {/* Desktop / Tablet Search */}
+        <div className="hidden sm:flex flex-1 justify-center md:flex relative max-w-md mx-4">
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="w-full flex items-center pl-4 pr-3 py-2 border rounded-full text-sm text-gray-500 hover:bg-gray-50 transition cursor-pointer"
             style={{ borderColor: teal }}
-          />
+          >
+            <Search className="mr-2 text-gray-400" size={18} />
+            What are you looking for?
+          </button>
         </div>
 
         {/* Right section for user actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 lg:gap-4">
+          {/* Mobile Search + User */}
+          <div className="sm:hidden flex items-center gap-2">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+            >
+              <Search size={20} className="text-gray-600" />
+            </button>
+            <button
+              onClick={() => setModalOpened(true)}
+              className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+            >
+              <FiUser size={20} className="text-gray-600" />
+            </button>
+          </div>
+
+          {/* Get Started button */}
           <button
             onClick={() => setModalOpened(true)}
-            className="hidden lg:inline-block bg-amber-300 hover:bg-amber-200 text-black text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
+            className="hidden lg:inline-block bg-amber-400 hover:bg-amber-300 text-black text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
           >
             Get Started
           </button>
 
+          {/* User Account (desktop/tablet) */}
           <button
-            className="flex items-center gap-1 text-sm text-gray-700 hover:text-teal-600"
+            className="hidden sm:flex items-center gap-1 text-sm text-gray-700 hover:text-teal-600 cursor-pointer"
             onClick={() => setModalOpened(true)}
           >
             <FiUser className="text-xl" />
@@ -150,6 +168,60 @@ export default function MainNav() {
         </ScrollArea>
       </Drawer>
 
+      {/* Custom Search Modal */}
+      {searchOpen && (
+        <div
+        className="fixed inset-0 z-50 flex items-start justify-center pt-24"
+        style={{ backgroundColor: "rgba(20, 184, 166, 0.2)" }} // ✅ transparent teal
+      >
+        <div className="bg-white w-11/12 max-w-lg p-6 rounded-xl shadow-lg relative">
+          {/* Close */}
+          <button
+            onClick={() => setSearchOpen(false)}
+            className="absolute top-3 right-3 text-gray-500 hover:text-teal-600 text-xl cursor-pointer"
+          >
+            ✕
+          </button>
+
+          {/* Title */}
+          <h2 className="text-xl font-semibold mb-4 text-teal-700">Search Pivota</h2>
+
+          {/* Input */}
+          <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:ring-2 focus-within:ring-teal-500">
+            <Search className="text-gray-400" size={18} />
+            <input
+              type="text"
+              placeholder="What are you looking for?"
+              autoFocus
+              className="flex-1 outline-none text-sm text-gray-700"
+            />
+          </div>
+
+          {/* Suggested searches */}
+          <div className="mt-5">
+            <p className="text-gray-500 mb-2 text-sm">Suggested searches</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "AI-powered jobs near me",
+                "Top-rated hospitals",
+                "Community events",
+                "Affordable housing",
+                "Volunteer opportunities",
+              ].map((s, i) => (
+                <button
+                  key={i}
+                  className="px-3 py-1 text-sm bg-teal-50 text-teal-700 border border-teal-200 rounded-full hover:bg-teal-100 cursor-pointer"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* Auth Modal */}
       <AuthModal opened={modalOpened} onClose={() => setModalOpened(false)} />
     </header>
   );
