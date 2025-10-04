@@ -1,23 +1,35 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Drawer,
   ScrollArea,
   Burger,
 } from '@mantine/core';
 import { FiUser } from 'react-icons/fi';
+import { Handshake, Heart } from 'lucide-react';
 import AuthModal from './AuthModal';
 
 export default function MainNav() {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const teal = '#14b8a6';
+  const pathname = usePathname();
+
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Explore", href: "/explore" },
+    { label: "Contact", href: "/contact" },
+  ];
 
   return (
-    <header className="bg-white shadow sticky top-0 z-50">
+    <header className="bg-white sticky top-0 z-50 shadow-sm">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
@@ -31,16 +43,28 @@ export default function MainNav() {
           />
         </Link>
 
-        <nav className="hidden lg:flex gap-6 text-sm font-large text-gray-700">
-          <Link href="/" className="hover:text-teal-600">Home</Link>
-          <Link href="/about" className="hover:text-teal-600">About</Link>
-          <Link href="/services" className="hover:text-teal-600">Services</Link>
-          <Link href="/pricing" className="hover:text-teal-600">Pricing</Link>
-          <Link href="/explore" className="hover:text-teal-600">Explore</Link>
-          <Link href="/contact" className="hover:text-teal-600">Contact</Link>
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex gap-6 text-sm font-medium relative">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="relative px-1 py-1 transition-colors"
+            >
+              <span
+                className={`pb-1 border-b-2 transition-all duration-300 ${
+                  pathname === link.href
+                    ? "border-teal-600 text-teal-600"
+                    : "border-transparent text-gray-700 hover:text-teal-600"
+                }`}
+              >
+                {link.label}
+              </span>
+            </Link>
+          ))}
         </nav>
 
-        {/* Search bar for medium and smaller devices */}
+        {/* Search bar */}
         <div className="flex-1 sm:flex sm:justify-center md:flex">
           <input
             type="text"
@@ -78,6 +102,7 @@ export default function MainNav() {
         </div>
       </div>
 
+      {/* Drawer for mobile */}
       <Drawer
         opened={drawerOpened}
         onClose={() => setDrawerOpened(false)}
@@ -87,30 +112,45 @@ export default function MainNav() {
       >
         <ScrollArea className="h-full">
           <nav className="flex flex-col gap-4 py-4">
-            <Link href="/" onClick={() => setDrawerOpened(false)}>
-              Home
-            </Link>
-            <Link href="/about" onClick={() => setDrawerOpened(false)}>
-              About
-            </Link>
-            <Link href="/services" onClick={() => setDrawerOpened(false)}>
-              Services
-            </Link>
-            <Link href="/pricing" onClick={() => setDrawerOpened(false)}>
-             Pricing
-            </Link>
-            <Link href="/explore" onClick={() => setDrawerOpened(false)}>
-             Explore
-            </Link>
-            <Link href="/contact" onClick={() => setDrawerOpened(false)}>
-             Contact
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setDrawerOpened(false)}
+                className={`pb-1 border-b-2 transition-all duration-300 ${
+                  pathname === link.href
+                    ? "border-teal-600 text-teal-600"
+                    : "border-transparent text-gray-700 hover:text-teal-600"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            {/* CTA buttons in drawer */}
+            <div className="flex flex-col gap-3 mt-4">
+              <Link
+                href="/partner"
+                className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-white border border-teal-400 text-teal-600 rounded-full shadow-sm hover:shadow-md hover:bg-teal-50 transition"
+                onClick={() => setDrawerOpened(false)}
+              >
+                <Handshake size={16} />
+                Partner with Us
+              </Link>
+              <Link
+                href="/donate"
+                className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-amber-400 text-white rounded-full shadow-sm hover:shadow-md hover:opacity-90 transition"
+                onClick={() => setDrawerOpened(false)}
+              >
+                <Heart size={16} />
+                Donate
+              </Link>
+            </div>
           </nav>
         </ScrollArea>
       </Drawer>
 
       <AuthModal opened={modalOpened} onClose={() => setModalOpened(false)} />
-
     </header>
   );
 }

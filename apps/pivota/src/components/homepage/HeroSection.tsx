@@ -7,7 +7,7 @@ export default function HeroSection() {
   return (
     <section
       aria-label="Hero"
-      className="relative min-h-[500px] bg-gradient-to-r from-white via-teal-50 to-teal-100 overflow-hidden"
+      className="relative mt-[-50] min-h-[500px] bg-gradient-to-r from-white via-teal-50 to-teal-100 overflow-hidden"
     >
       {/* Faint mobile background image + gradient overlay */}
       <div className="absolute inset-0 lg:hidden">
