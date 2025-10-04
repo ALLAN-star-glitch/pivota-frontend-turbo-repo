@@ -22,18 +22,18 @@ export default function MainNav() {
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Explore", href: "/explore" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ];
 
   return (
-    <header className="bg-white sticky top-0 z-50 shadow-sm">
+    <header className="bg-white sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
             src="/pivotaconnectlogo.png"
-            alt="Pivota Logo"
+            alt="Pivotaconnect Logo"
             width={120}
             height={34}
             className="w-24 sm:w-32 h-auto object-contain"
@@ -42,7 +42,7 @@ export default function MainNav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex gap-6 text-sm font-medium relative">
+        <nav className="hidden xl:flex gap-6 text-sm font-medium relative">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -75,7 +75,7 @@ export default function MainNav() {
         </div>
 
         {/* Right section for user actions */}
-        <div className="flex items-center gap-2 lg:gap-4">
+        <div className="flex items-center gap-2 xl:gap-4">
           {/* Mobile Search + User */}
           <div className="sm:hidden flex items-center gap-2">
             <button
@@ -95,7 +95,7 @@ export default function MainNav() {
           {/* Get Started button */}
           <button
             onClick={() => setModalOpened(true)}
-            className="hidden lg:inline-block bg-amber-400 hover:bg-amber-300 text-black text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
+            className="hidden xl:inline-block bg-amber-400 hover:bg-amber-300 text-black text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
           >
             Get Started
           </button>
@@ -106,11 +106,11 @@ export default function MainNav() {
             onClick={() => setModalOpened(true)}
           >
             <FiUser className="text-xl" />
-            <span className="cursor-pointer hidden lg:inline">My Account</span>
+            <span className="cursor-pointer hidden xl:inline">My Account</span>
           </button>
 
           {/* Burger menu for mobile */}
-          <div className="lg:hidden">
+          <div className="xl:hidden">
             <Burger
               opened={drawerOpened}
               onClick={() => setDrawerOpened((o) => !o)}
@@ -171,54 +171,54 @@ export default function MainNav() {
       {/* Custom Search Modal */}
       {searchOpen && (
         <div
-        className="fixed inset-0 z-50 flex items-start justify-center pt-24"
-        style={{ backgroundColor: "rgba(20, 184, 166, 0.2)" }} // ✅ transparent teal
-      >
-        <div className="bg-white w-11/12 max-w-lg p-6 rounded-xl shadow-lg relative">
-          {/* Close */}
-          <button
-            onClick={() => setSearchOpen(false)}
-            className="absolute top-3 right-3 text-gray-500 hover:text-teal-600 text-xl cursor-pointer"
-          >
-            ✕
-          </button>
+          className="fixed inset-0 z-50 flex items-start justify-center pt-24"
+          style={{ backgroundColor: "rgba(20, 184, 166, 0.2)" }}
+        >
+          <div className="bg-white w-11/12 max-w-lg p-6 rounded-xl shadow-lg relative">
+            {/* Close */}
+            <button
+              onClick={() => setSearchOpen(false)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-teal-600 text-xl cursor-pointer"
+            >
+              ✕
+            </button>
 
-          {/* Title */}
-          <h2 className="text-xl font-semibold mb-4 text-teal-700">Search Pivota</h2>
+            {/* Title */}
+            <h2 className="text-xl font-semibold mb-4 text-teal-700">Search Pivota</h2>
 
-          {/* Input */}
-          <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:ring-2 focus-within:ring-teal-500">
-            <Search className="text-gray-400" size={18} />
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              autoFocus
-              className="flex-1 outline-none text-sm text-gray-700"
-            />
-          </div>
+            {/* Input */}
+            <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:ring-2 focus-within:ring-teal-500">
+              <Search className="text-gray-400" size={18} />
+              <input
+                type="text"
+                placeholder="What are you looking for?"
+                autoFocus
+                className="flex-1 outline-none text-sm text-gray-700"
+              />
+            </div>
 
-          {/* Suggested searches */}
-          <div className="mt-5">
-            <p className="text-gray-500 mb-2 text-sm">Suggested searches</p>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "AI-powered jobs near me",
-                "Top-rated hospitals",
-                "Community events",
-                "Affordable housing",
-                "Volunteer opportunities",
-              ].map((s, i) => (
-                <button
-                  key={i}
-                  className="px-3 py-1 text-sm bg-teal-50 text-teal-700 border border-teal-200 rounded-full hover:bg-teal-100 cursor-pointer"
-                >
-                  {s}
-                </button>
-              ))}
+            {/* Suggested searches */}
+            <div className="mt-5">
+              <p className="text-gray-500 mb-2 text-sm">Suggested searches</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "AI-powered jobs near me",
+                  "Top-rated hospitals",
+                  "Community events",
+                  "Affordable housing",
+                  "Volunteer opportunities",
+                ].map((s, i) => (
+                  <button
+                    key={i}
+                    className="px-3 py-1 text-sm bg-teal-50 text-teal-700 border border-teal-200 rounded-full hover:bg-teal-100 cursor-pointer"
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
 
       {/* Auth Modal */}

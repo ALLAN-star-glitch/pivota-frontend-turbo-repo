@@ -20,9 +20,9 @@ export default function SecondaryNav() {
   return (
     <div className="bg-teal-100/40 shadow-sm">
       <div className="max-w-screen-xl mx-auto px-2 sm:px-3 md:px-4 lg:px-6 py-1 sm:py-1.5 md:py-2 flex flex-col md:flex-row items-start md:items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4">
-        
-        {/* Scrollable services only on mobile */}
-        <div className="flex-1 w-full md:w-auto overflow-x-auto md:overflow-x-visible relative">
+
+        {/* Scrollable services on mobile + medium devices */}
+        <div className="flex-1 w-full md:w-auto overflow-x-auto relative">
           <div className="flex gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 whitespace-nowrap relative">
             {services.map((item, index) => {
               const isActive = pathname === item.href;
@@ -52,8 +52,8 @@ export default function SecondaryNav() {
               );
             })}
           </div>
-          {/* Gradient fade on right only for mobile */}
-          <div className="pointer-events-none absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-teal-100/40 md:hidden"></div>
+          {/* Gradient fade on right for mobile + medium */}
+          <div className="pointer-events-none absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-teal-100/40 md:block lg:hidden"></div>
         </div>
 
         {/* Fixed CTA buttons - hidden on mobile */}

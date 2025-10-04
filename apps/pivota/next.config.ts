@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ['flagcdn.com'],
+    domains: ['flagcdn.com', 'source.unsplash.com'],
   },
 };
 
