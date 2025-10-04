@@ -3,15 +3,16 @@
 import { Briefcase, Home, MapPin, Building2, Users, HeartPulse, Bell, Handshake, Heart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import React from "react";
 
 const services = [
+  { label: "Emergency Alert", icon: <Bell size={18} />, href: "/emergency-alert", hasBadge: true },
   { label: "Jobs", icon: <Briefcase size={18} />, href: "/jobs" },
   { label: "Houses", icon: <Home size={18} />, href: "/houses" },
   { label: "Land", icon: <MapPin size={18} />, href: "/land" },
   { label: "Other Facilities", icon: <Building2 size={18} />, href: "/other-facilities" },
   { label: "Service Providers", icon: <Users size={18} />, href: "/service-providers" },
   { label: "Social Support", icon: <HeartPulse size={18} />, href: "/social-support" },
-  { label: "Emergency Alert", icon: <Bell size={18} />, href: "/emergency-alert" },
 ];
 
 export default function SecondaryNav() {
@@ -26,24 +27,43 @@ export default function SecondaryNav() {
           <div className="flex gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 whitespace-nowrap relative">
             {services.map((item, index) => {
               const isActive = pathname === item.href;
+              const isEmergency = item.label === "Emergency Alert";
+
+              // Icon color
+              const iconColor = isEmergency ? "#e07a5f" : undefined;
+
+              // Label color: active items match icon if emergency, else teal; inactive normal
+              const labelColor = isActive 
+                ? (isEmergency ? "#e07a5f" : "text-teal-600") 
+                : "text-gray-800 hover:text-teal-600";
+
+              // Underline color: only visible when active, same as label color
+              const underlineColor = isActive 
+                ? (isEmergency ? "bg-[#e07a5f]" : "bg-teal-600") 
+                : "bg-transparent";
+
               return (
                 <div key={item.label} className="relative flex items-center">
                   <Link
                     href={item.href}
-                    className={`flex flex-col items-center gap-0.5 text-sm sm:text-sm md:text-sm font-medium px-1 sm:px-1.5 md:px-2 py-0.5 rounded-lg hover:bg-teal-50 transition-all ${
-                      isActive ? "text-teal-600" : "text-gray-800 hover:text-teal-600"
-                    }`}
+                    className={`flex flex-col items-center gap-0.5 text-sm sm:text-sm md:text-sm font-medium px-1 sm:px-1.5 md:px-2 py-0.5 rounded-lg hover:bg-teal-50 transition-all ${typeof labelColor === "string" ? labelColor : ""}`}
                   >
-                    <div className="flex items-center gap-1">
-                      {item.icon}
-                      <span>{item.label}</span>
+                    <div className="flex items-center gap-1 relative">
+                      {/* Icon */}
+                      {isEmergency ? React.cloneElement(item.icon, { color: iconColor }) : item.icon}
+
+                      {/* Badge */}
+                      {item.hasBadge && (
+                        <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
+                      )}
+
+                      <span className={isActive && isEmergency ? "text-[#e07a5f]" : ""}>{item.label}</span>
                     </div>
-                    <span
-                      className={`h-0.5 w-full rounded-full transition-all duration-300 ${
-                        isActive ? 'bg-teal-600' : 'bg-transparent'
-                      }`}
-                    ></span>
+
+                    {/* Underline */}
+                    <span className={`h-0.5 w-full rounded-full transition-all duration-300 ${underlineColor}`}></span>
                   </Link>
+
                   {/* Divider */}
                   {index !== services.length - 1 && (
                     <span className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 h-4 border-r border-gray-300"></span>
@@ -52,6 +72,7 @@ export default function SecondaryNav() {
               );
             })}
           </div>
+
           {/* Gradient fade on right for mobile + medium */}
           <div className="pointer-events-none absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-teal-100/40 md:block lg:hidden"></div>
         </div>
