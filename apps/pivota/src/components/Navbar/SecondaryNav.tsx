@@ -8,10 +8,10 @@ const services = [
   { label: "Jobs", icon: <Briefcase size={18} />, href: "/jobs" },
   { label: "Houses", icon: <Home size={18} />, href: "/houses" },
   { label: "Land", icon: <MapPin size={18} />, href: "/land" },
-  { label: "Other Facilities", icon: <Building2 size={18} />, href: "/facilities" },
-  { label: "Service Providers", icon: <Users size={18} />, href: "/providers" },
+  { label: "Other Facilities", icon: <Building2 size={18} />, href: "/other-facilities" },
+  { label: "Service Providers", icon: <Users size={18} />, href: "/service-providers" },
   { label: "Social Support", icon: <HeartPulse size={18} />, href: "/social-support" },
-  { label: "Emergency Alert", icon: <Bell size={18} />, href: "/emergency" },
+  { label: "Emergency Alert", icon: <Bell size={18} />, href: "/emergency-alert" },
 ];
 
 export default function SecondaryNav() {
@@ -59,7 +59,7 @@ export default function SecondaryNav() {
         {/* Fixed CTA buttons - hidden on mobile */}
         <div className="hidden md:flex gap-1.5 sm:gap-2 md:gap-3 lg:gap-4">
           <Link
-            href="/partner"
+            href="/partner-with-us"
             className="flex items-center gap-1 px-2 py-1 text-sm font-medium bg-white border border-teal-400 text-teal-600 rounded-full shadow-sm hover:shadow-md hover:bg-teal-50 transition"
           >
             <Handshake size={16} />

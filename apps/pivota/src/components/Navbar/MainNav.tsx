@@ -148,7 +148,7 @@ export default function MainNav() {
             {/* CTA buttons in drawer */}
             <div className="flex flex-col gap-3 mt-4">
               <Link
-                href="/partner"
+                href="/partner-with-us"
                 className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-white border border-teal-400 text-teal-600 rounded-full shadow-sm hover:shadow-md hover:bg-teal-50 transition"
                 onClick={() => setDrawerOpened(false)}
               >
