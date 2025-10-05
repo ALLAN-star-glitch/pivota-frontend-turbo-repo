@@ -165,7 +165,7 @@ export default function JobsPage() {
       {/* Hero */}
       <div className="mb-12 text-center md:text-left md:flex md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl md:text-3xl font-bold text-[#008080]">
+          <h1 className="text-xl md:text-3xl font-bold text-[#008080]">
             Discover Opportunities on PivotaConnect
           </h1>
           <p className="mt-3 text-gray-600 max-w-xl">

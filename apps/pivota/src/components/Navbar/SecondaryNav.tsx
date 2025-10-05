@@ -35,12 +35,15 @@ export default function SecondaryNav() {
               // Label color
               const labelColor = isActive 
                 ? (isEmergency ? "#e07a5f" : "text-teal-600") 
-                : "text-gray-800 hover:text-teal-600";
+                : (isEmergency ? "text-gray-800 hover:text-[#e07a5f]" : "text-gray-800 hover:text-teal-600");
+
+              
 
               // Underline color
               const underlineColor = isActive 
                 ? (isEmergency ? "bg-[#e07a5f]" : "bg-teal-600") 
                 : "bg-transparent";
+
 
               return (
                 <div key={item.label} className="relative flex items-center">
@@ -77,7 +80,7 @@ export default function SecondaryNav() {
               );
             })}
           </div>
-
+          
           {/* Gradient fade on right for mobile + medium */}
           <div className="pointer-events-none absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-teal-100/40 md:block lg:hidden"></div>
         </div>
