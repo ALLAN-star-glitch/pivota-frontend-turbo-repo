@@ -103,11 +103,11 @@ export default function EmergencyAlertsPage() {
   const totalPages = Math.ceil(filteredAlerts.length / alertsPerPage);
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 pb-20 md:pb-8">
+    <div className="max-w-screen-xl mx-auto px-4 pb-20 md:pb-8 mt-3">
       {/* Hero */}
       <div className="mb-12 text-center md:text-left md:flex md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-[#e07a5f] flex items-center gap-2">
+          <h1 className="text-3xl md:text-3xl font-bold text-[#e07a5f] flex items-center gap-2">
             <AlertTriangle /> Emergency Alerts
           </h1>
           <p className="mt-3 text-gray-600 max-w-xl">

@@ -28,7 +28,7 @@ export default function DonatePage() {
 
   if (submitted) {
     return (
-      <div className="max-w-3xl mx-auto text-center py-20">
+      <div className="max-w-3xl mx-auto text-center py-20 mt-3">
         <h1 className="text-3xl font-bold text-[#008080]">Thank you for your donation!</h1>
         <p className="mt-3 text-lg text-gray-600">
           Your contribution is making a difference in the {cause} cause.
@@ -41,7 +41,7 @@ export default function DonatePage() {
     <div className="max-w-7xl mx-auto px-4 py-12">
       {/* Hero Section */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-[#008080]">Make a Difference Today</h1>
+        <h1 className="text-3xl font-bold text-[#008080]">Make a Difference Today</h1>
         <p className="mt-3 text-lg text-gray-600">
           Your donation supports trusted causes across Kenya.
         </p>

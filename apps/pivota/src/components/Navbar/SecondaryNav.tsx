@@ -32,12 +32,12 @@ export default function SecondaryNav() {
               // Icon color
               const iconColor = isEmergency ? "#e07a5f" : undefined;
 
-              // Label color: active items match icon if emergency, else teal; inactive normal
+              // Label color
               const labelColor = isActive 
                 ? (isEmergency ? "#e07a5f" : "text-teal-600") 
                 : "text-gray-800 hover:text-teal-600";
 
-              // Underline color: only visible when active, same as label color
+              // Underline color
               const underlineColor = isActive 
                 ? (isEmergency ? "bg-[#e07a5f]" : "bg-teal-600") 
                 : "bg-transparent";
@@ -48,15 +48,20 @@ export default function SecondaryNav() {
                     href={item.href}
                     className={`flex flex-col items-center gap-0.5 text-sm sm:text-sm md:text-sm font-medium px-1 sm:px-1.5 md:px-2 py-0.5 rounded-lg hover:bg-teal-50 transition-all ${typeof labelColor === "string" ? labelColor : ""}`}
                   >
-                    <div className="flex items-center gap-1 relative">
-                      {/* Icon */}
-                      {isEmergency ? React.cloneElement(item.icon, { color: iconColor }) : item.icon}
+                    <div className="flex items-center gap-1">
+                      {/* Icon wrapper with badge */}
+                      <div className="relative">
+                        {isEmergency ? React.cloneElement(item.icon, { color: iconColor }) : item.icon}
 
-                      {/* Badge */}
-                      {item.hasBadge && (
-                        <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
-                      )}
+                        {item.hasBadge && (
+                          <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600 border border-white"></span>
+                          </span>
+                        )}
+                      </div>
 
+                      {/* Label */}
                       <span className={isActive && isEmergency ? "text-[#e07a5f]" : ""}>{item.label}</span>
                     </div>
 

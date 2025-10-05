@@ -11,10 +11,10 @@ import React from "react";
 
 export default function PartnerWithUsPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="max-w-7xl mx-auto px-4 py-16 mt-3">
       {/* Hero Section */}
       <div className="text-center mb-14">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#008080]">
+        <h1 className="text-4xl md:text-3xl font-bold text-[#008080]">
           Let us Build a Better Future Together
         </h1>
         <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
