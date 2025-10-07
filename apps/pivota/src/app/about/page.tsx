@@ -1,96 +1,198 @@
 "use client";
 
 import React from "react";
-
-/**
- * About Us Page (PivotaConnect)
- * - Elegant, professional, responsive
- * - Hero intro
- * - Mission, Vision, Values
- * - Team section (optional placeholder)
- * - Call to action
- */
+import Image from "next/image";
 
 export default function AboutUsPage() {
+  const services = [
+    {
+      title: "Employment",
+      image: "/employment.jpg",
+      description:
+        "Connecting job seekers with verified employers and opportunities across Africa.",
+    },
+    {
+      title: "Health",
+      image: "/images/health.jpg",
+      description:
+        "Access licensed healthcare professionals and trusted medical services.",
+    },
+    {
+      title: "Legal Aid",
+      image: "/images/legal.jpg",
+      description:
+        "Get legal guidance, pro bono support, and justice assistance with verified experts.",
+    },
+    {
+      title: "Education",
+      image: "/images/education.jpg",
+      description:
+        "Empowering learning through skill-building, literacy, and job-readiness programs.",
+    },
+    {
+      title: "Civic Engagement",
+      image: "/images/civic.jpg",
+      description:
+        "Promoting transparency, governance, and citizen participation across communities.",
+    },
+    {
+      title: "Emergency Response",
+      image: "/images/emergency.jpg",
+      description:
+        "Delivering geo-tagged alerts, first responder coordination, and disaster safety tools.",
+    },
+    {
+      title: "Vulnerable Support",
+      image: "/images/support.jpg",
+      description:
+        "Supporting people living with disabilities, homeless, and street-connected individuals.",
+    },
+    {
+      title: "Housing Solutions",
+      image: "/images/housing.jpg",
+      description:
+        "Providing safe, verified housing listings and landlord transparency for everyone.",
+    },
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Hero Section */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#008080]">
-          About PivotaConnect
-        </h1>
-        <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-          We are building bridges between people, organizations, and opportunities.
-          At <span className="text-[#e07a5f] font-semibold">PivotaConnect</span>,
-          our mission is to empower collaboration and create lasting impact.
-        </p>
-      </div>
+      <section className="relative h-[70vh] flex items-center justify-center text-center text-white">
+        <Image
+          src="/rural_africa.jpg"
+          alt="Pivota Hero"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#008080]/35"></div>
+        <div className="relative z-10 px-6 max-w-4xl">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
+            Empowering Africa Through Connection
+          </h1>
+          <p className="text-lg md:text-xl leading-relaxed text-white/90">
+            Pivota bridges individuals and organizations to verified life
+            services—advancing opportunity, inclusion, and social impact across
+            Africa.
+          </p>
+        </div>
+      </section>
 
       {/* Mission, Vision, Values */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 text-center">
-          <h2 className="text-2xl font-semibold text-[#008080] mb-3">Our Mission</h2>
-          <p className="text-gray-600">
-            To connect individuals and organizations with meaningful opportunities 
-            that drive positive change and sustainable growth.
-          </p>
-        </div>
-        <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 text-center">
-          <h2 className="text-2xl font-semibold text-[#008080] mb-3">Our Vision</h2>
-          <p className="text-gray-600">
-            A world where collaboration knows no boundaries, and every connection 
-            contributes to building stronger communities.
-          </p>
-        </div>
-        <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 text-center">
-          <h2 className="text-2xl font-semibold text-[#008080] mb-3">Our Values</h2>
-          <ul className="text-gray-600 space-y-2">
-            <li>🤝 Collaboration</li>
-            <li>✨ Integrity</li>
-            <li>🌍 Impact</li>
-            <li>🚀 Innovation</li>
-          </ul>
-        </div>
-      </div>
+      <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-10">
+        {[
+          {
+            title: "Our Mission",
+            text: "To connect individuals and organizations with meaningful opportunities that drive social impact, empowerment, and sustainable growth.",
+          },
+          {
+            title: "Our Vision",
+            text: "A connected Africa where technology bridges gaps, empowers communities, and ensures inclusive access to verified services for all.",
+          },
+          {
+            title: "Our Values",
+            text: "Integrity, Innovation, Collaboration, and Impact guide our journey toward social and economic transformation.",
+          },
+        ].map((item) => (
+          <div
+            key={item.title}
+            className="bg-white rounded-2xl shadow-md hover:shadow-lg border border-gray-100 p-8 text-center transition-all duration-300 hover:-translate-y-1"
+          >
+            <h3 className="text-2xl font-semibold text-[#008080] mb-4">
+              {item.title}
+            </h3>
+            <p className="text-gray-600">{item.text}</p>
+          </div>
+        ))}
+      </section>
 
-      {/* Team Section */}
-      <div className="mb-20">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
-          Meet Our Team
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {[
-            { name: "Allan Mathenge", role: "Founder & CEO" },
-            { name: "Jane Doe", role: "Partnerships Manager" },
-            { name: "John Smith", role: "Tech Lead" },
-          ].map((member) => (
+      {/* Pivota Ecosystem – Image Boxes */}
+      <section className="bg-white py-20 px-6">
+        <div className="max-w-6xl mx-auto text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            The Pivota Ecosystem
+          </h2>
+          <p className="text-gray-600 max-w-3xl mx-auto">
+            Explore our service ecosystem designed to connect individuals and
+            organizations to verified, life-changing opportunities across Africa.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {services.map((service) => (
             <div
-              key={member.name}
-              className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 text-center hover:shadow-lg transition"
+              key={service.title}
+              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-500 border border-gray-100"
             >
-              <div className="w-24 h-24 rounded-full bg-[#008080]/10 mx-auto mb-4 flex items-center justify-center text-[#008080] text-2xl font-bold">
-                {member.name.charAt(0)}
+              <div className="relative group h-48 overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  width={400}
+                  height={300}
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-[#008080]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800">
-                {member.name}
-              </h3>
-              <p className="text-gray-600">{member.role}</p>
+              <div className="p-5 text-center">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 text-sm">{service.description}</p>
+              </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Call to Action */}
-      <div className="text-center bg-[#008080] text-white py-12 px-6 rounded-2xl shadow-md">
-        <h2 className="text-3xl font-bold mb-4">Join Us on Our Journey</h2>
-        <p className="max-w-2xl mx-auto mb-6">
-          Whether you are an NGO, sponsor, volunteer, or vendor — 
-          we believe together we can create powerful change.  
+      {/* Why Pivota Matters */}
+      <section className="bg-[#f9fdfd] py-20 px-6">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+            Why Pivota Matters
+          </h2>
+          <p className="text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+            Across Africa, millions lack access to verified essential services.
+            Pivota bridges that gap by providing a trusted, inclusive, and
+            socially responsible digital ecosystem that empowers communities and
+            drives sustainable growth.
+          </p>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 text-gray-700">
+            <div>
+              <h4 className="text-[#008080] font-semibold mb-2">
+                Social Impact
+              </h4>
+              <p>Empowering vulnerable populations and promoting inclusion.</p>
+            </div>
+            <div>
+              <h4 className="text-[#008080] font-semibold mb-2">
+                Verified Access
+              </h4>
+              <p>Ensuring credibility and transparency for all listed services.</p>
+            </div>
+            <div>
+              <h4 className="text-[#008080] font-semibold mb-2">
+                Scalable Platform
+              </h4>
+              <p>Powered by modular microservices for efficiency and growth.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-[#008080] text-white py-16 px-6 text-center rounded-t-3xl">
+        <h2 className="text-3xl font-bold mb-4">Partner With Pivota</h2>
+        <p className="max-w-2xl mx-auto mb-6 text-white/90">
+          Join us in building Africa’s most trusted digital bridge between
+          people, organizations, and essential life services.
         </p>
-        <button className="bg-[#e07a5f] px-6 py-3 rounded-lg font-semibold hover:bg-[#cf674c] transition">
-          Partner With Us
+        <button className="bg-[#e07a5f] px-8 py-3 rounded-lg font-semibold hover:bg-[#cf674c] transition">
+          Become a Partner
         </button>
-      </div>
+      </section>
     </div>
   );
 }
