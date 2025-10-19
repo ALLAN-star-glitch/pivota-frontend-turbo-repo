@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10001/v1';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:10000/api/v1';
 
 // Types
 export interface ApiResponse<T> {
