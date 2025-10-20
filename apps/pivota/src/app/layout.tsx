@@ -7,6 +7,7 @@ import "@mantine/core/styles.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "../../../../packages/store/StoreProvider";
 import Footer from "@/components/footer/Footer";
+import Script from "next/script"; // ✅ Import Script from Next.js
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,6 +64,25 @@ export default function RootLayout({
             <SpeedInsights />
           </MantineProvider>
         </StoreProvider>
+
+        {/* ✅Tawk.to Live Chat Script */}
+        <Script
+          id="tawk-to"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/67afa49512b6af190bdc75b3/1ik31lql9';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );
