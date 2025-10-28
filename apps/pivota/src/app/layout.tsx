@@ -65,7 +65,7 @@ export default function RootLayout({
           </MantineProvider>
         </StoreProvider>
 
-        {/*  Tawk.to Live Chat Script */}
+        {/*  Tawk.to Live Chat Script for live chat communication*/}
         <Script
           id="tawk-to"
           strategy="afterInteractive"
