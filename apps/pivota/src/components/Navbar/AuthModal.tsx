@@ -31,7 +31,7 @@ export default function AuthModal({ opened, onClose }: AuthModalProps) {
   const handleLogin = async () => {
     try {
       const res = await login({ email: loginEmail, password: loginPassword }).unwrap();
-      console.log('✅ Login successful:', res);
+      console.log('Login successful:', res);
       onClose(); // Close modal on success
     } catch (err) {
       console.error('❌ Login failed:', err);
@@ -48,10 +48,10 @@ export default function AuthModal({ opened, onClose }: AuthModalProps) {
         lastName: registerLastName,
         phone: registerPhone,
       }).unwrap();
-      console.log('✅ Signup successful:', res);
+      console.log(' Signup successful:', res);
       onClose();
     } catch (err) {
-      console.error('❌ Signup failed:', err);
+      console.error('Signup failed:', err);
     }
   };
 

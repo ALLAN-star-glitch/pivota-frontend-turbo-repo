@@ -7,7 +7,7 @@ import "@mantine/core/styles.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "../../../../packages/store/StoreProvider";
 import Footer from "@/components/footer/Footer";
-import Script from "next/script"; // ✅ Import Script from Next.js
+import Script from "next/script"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

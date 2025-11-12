@@ -47,7 +47,7 @@ export default function TopBar() {
   useEffect(() => {
   const fetchContactInfo = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/contact-info`);
+      const res = (await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/contact-info`));
       console.log('strapi url:', `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/contact-info`); 
       console.log('Fetch response status:', res.status);  
       const data = await res.json();
