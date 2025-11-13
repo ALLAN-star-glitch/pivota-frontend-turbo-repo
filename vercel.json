@@ -1,0 +1,8 @@
+{
+  "buildCommand": "pnpm install --no-frozen-lockfile && turbo run build",
+  "installCommand": "corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install",
+  "env": {
+    "NODE_VERSION": "20",
+    "PNPM_VERSION": "9.0.0"
+  }
+}
