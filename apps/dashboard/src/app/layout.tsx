@@ -15,8 +15,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pivota Connect Dashboard",
-  description: "Dashboard for managing listings, jobs, and opportunities",
+  title: "Pivota Connect Dashboard - Manage Jobs, Listings & Opportunities",
+  description:
+    "Pivota Connect Dashboard allows you to efficiently manage jobs, listings, opportunities, and service providers. Access insights and tools to grow your business.",
+  keywords: ["Pivota Connect", "dashboard", "jobs", "listings", "service providers", "opportunities"],
+  openGraph: {
+    title: "Pivota Connect Dashboard",
+    description:
+      "Manage jobs, listings, and opportunities efficiently with Pivota Connect Dashboard. Streamline your workflow and boost productivity.",
+    url: "https://pivotaconnect.com/dashboard",
+    siteName: "Pivota Connect",
+    type: "website",
+    images: [
+      {
+        url: "https://pivotaconnect.com/_next/image?url=%2Fpivotaconnectlogo.png&w=256&q=75",
+        width: 1200,
+        height: 630,
+        alt: "Pivota Connect Dashboard",
+      },
+    ],
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
