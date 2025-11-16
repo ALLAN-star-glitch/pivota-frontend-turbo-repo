@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://pivotaconnect.com/_next/image?url=%2Fpivotaconnectlogo.png&w=256&q=75",
+        url: "https://pivotaconnect.com/_next/image?url=%2Fjoin-pivota.jpg&w=3840&q=75",
         width: 1200,
         height: 630,
         alt: "Pivota Connect Dashboard",
