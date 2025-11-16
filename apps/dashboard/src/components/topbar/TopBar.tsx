@@ -39,8 +39,8 @@ export default function Topbar() {
         <h1 className="text-lg font-semibold text-teal-700 hidden sm:block">Dashboard</h1>
       </div>
 
-      {/* Middle: Search (hidden on mobile) */}
-      <div className="flex-1 min-w-[120px] max-w-lg mx-0 sm:mx-6 w-full sm:w-auto hidden sm:block">
+      {/* Middle: Search input (Desktop only) */}
+      <div className="hidden lg:flex flex-1 min-w-[120px] max-w-lg mx-6 w-auto">
         <input
           type="text"
           placeholder="Search..."
@@ -50,14 +50,16 @@ export default function Topbar() {
 
       {/* Right: Actions + User */}
       <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0 relative">
-        {/* Add New */}
-        <button className="hidden sm:flex items-center gap-2 bg-teal-600 text-white px-3 py-1.5 rounded-full hover:bg-teal-700 transition text-sm sm:text-base shadow-sm">
+        {/* Add New (Desktop only) */}
+        <button className="hidden lg:flex items-center gap-2 bg-teal-600 text-white px-3 py-1.5 rounded-full hover:bg-teal-700 transition text-sm sm:text-base shadow-sm">
           <Plus className="h-4 w-4" />
           <span>Add New</span>
         </button>
 
-        {/* Search Icon for mobile */}
-        <Search className="h-5 w-5 text-gray-600 hover:text-amber-500 transition cursor-pointer sm:hidden" />
+        {/* Search Icon (Tablet & Mobile) */}
+        <button className="lg:hidden p-2 rounded-full hover:bg-gray-100 transition">
+          <Search className="h-5 w-5 text-gray-600 hover:text-amber-500" />
+        </button>
 
         {/* Icons */}
         <MessageSquareIcon className="h-5 w-5 text-gray-600 hover:text-amber-500 transition cursor-pointer" />
