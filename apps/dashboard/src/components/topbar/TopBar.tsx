@@ -1,6 +1,6 @@
 "use client";
 
-import { BellIcon, MessageSquareIcon, ChevronDown, Plus, LogOut } from "lucide-react";
+import { BellIcon, MessageSquareIcon, ChevronDown, Plus, LogOut, Search } from "lucide-react";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
@@ -39,8 +39,8 @@ export default function Topbar() {
         <h1 className="text-lg font-semibold text-teal-700 hidden sm:block">Dashboard</h1>
       </div>
 
-      {/* Middle: Search */}
-      <div className="flex-1 min-w-[120px] max-w-lg mx-0 sm:mx-6 w-full sm:w-auto">
+      {/* Middle: Search (hidden on mobile) */}
+      <div className="flex-1 min-w-[120px] max-w-lg mx-0 sm:mx-6 w-full sm:w-auto hidden sm:block">
         <input
           type="text"
           placeholder="Search..."
@@ -55,6 +55,9 @@ export default function Topbar() {
           <Plus className="h-4 w-4" />
           <span>Add New</span>
         </button>
+
+        {/* Search Icon for mobile */}
+        <Search className="h-5 w-5 text-gray-600 hover:text-amber-500 transition cursor-pointer sm:hidden" />
 
         {/* Icons */}
         <MessageSquareIcon className="h-5 w-5 text-gray-600 hover:text-amber-500 transition cursor-pointer" />
@@ -85,19 +88,13 @@ export default function Topbar() {
           {/* Dropdown menu */}
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50 animate-fadeIn">
-              <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition"
-              >
+              <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition">
                 Profile
               </button>
-              <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition"
-              >
+              <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition">
                 Settings
               </button>
-              <button
-                className="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg flex items-center gap-2 transition"
-              >
+              <button className="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg flex items-center gap-2 transition">
                 <LogOut className="h-4 w-4" /> Logout
               </button>
             </div>

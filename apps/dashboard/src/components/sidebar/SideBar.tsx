@@ -18,7 +18,7 @@ export default function Sidebar() {
   const [openItem, setOpenItem] = useState<string | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null); // null initially
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -31,6 +31,9 @@ export default function Sidebar() {
     setOpenItem(openItem === item ? null : item);
 
   const handleClose = () => setIsMobileOpen(false);
+
+  // Don't render sidebar until we know if it's desktop or mobile
+  if (isDesktop === null) return null;
 
   return (
     <>
@@ -182,7 +185,7 @@ export default function Sidebar() {
         <div className="h-12 w-full rounded-b-2xl flex items-center justify-center px-2 bg-gradient-to-r from-teal-500 via-teal-100 to-teal-500">
           {!isCollapsed && (
             <span className="text-xs text-gray-700 text-center select-none">
-              Collapse sidebar for more space
+              {isDesktop ? "Collapse sidebar for more space" : "Powered by PivotaConnect"}
             </span>
           )}
         </div>
