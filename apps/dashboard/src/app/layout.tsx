@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Topbar />
 
         {/* Main container: Sidebar + Main */}
-        <div className="flex pt-[5.5rem]"> {/* top padding = topbar height */}
+        <div className="flex pt-22"> {/* top padding = topbar height */}
           {/* Sidebar */}
           <Sidebar />
 
