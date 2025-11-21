@@ -5,26 +5,19 @@ import {
   Users,
   User,
   ClipboardList,
-  MessageSquare,
   PieChart,
   Settings,
-  Calendar,
   DollarSign,
-  Send,
   FileText,
-  Zap,
-  CreditCard,
-  Bell,
-  Clock,
   ShieldCheck,
-  FilePlus,
-  Clipboard,
   BookOpen,
   Archive,
   Grid,
-  Database,
-  Globe,
+  CreditCard,
   Wallet,
+  Database,
+  Clipboard,
+  Zap,
 } from "lucide-react";
 
 export interface SubItem {
@@ -45,10 +38,13 @@ export interface MenuGroup {
 }
 
 /**
- * Tailored menu for Pivota Connect Dashboard
- * - focuses on users, providers, bookings, community, payments, insights, and admin settings
+ * Super Admin Menu for PivotaConnect – MVP1
+ * Focuses on Users, Employers, Housing, Support Programs, Payments, RBAC, and Platform Analytics
  */
 export const menuGroups: MenuGroup[] = [
+  // -------------------------------------------------
+  // GENERAL
+  // -------------------------------------------------
   {
     group: "General",
     items: [
@@ -58,176 +54,176 @@ export const menuGroups: MenuGroup[] = [
         icon: Grid,
         href: "/dashboard/quick-actions",
         subItems: [
-          { name: "Book Session", href: "/dashboard/bookings/new" },
-          { name: "Add Client", href: "/dashboard/clients/add" },
-          { name: "Upload Record", href: "/dashboard/records/upload" },
+          { name: "Add User", href: "/dashboard/users/add" },
+          { name: "Create Job", href: "/dashboard/jobs/create" },
+          { name: "Add Property", href: "/dashboard/housing/add" },
         ],
       },
     ],
   },
 
+  // -------------------------------------------------
+  // USERS & PROVIDERS
+  // -------------------------------------------------
   {
     group: "Users & Providers",
     items: [
       {
-        name: "Members",
+        name: "Users",
         icon: Users,
-        href: "/dashboard/members",
+        href: "/dashboard/users",
         subItems: [
-          { name: "All Users", href: "/dashboard/members/all" },
-          { name: "Service Providers", href: "/dashboard/members/providers" },
-          { name: "Verification Requests", href: "/dashboard/members/verify" },
+          { name: "All Users", href: "/dashboard/users/all" },
+          { name: "Vulnerable Populations", href: "/dashboard/users/vulnerable" },
+          { name: "Suspended Users", href: "/dashboard/users/suspended" },
         ],
       },
       {
-        name: "Roles & Access",
+        name: "Providers",
         icon: User,
-        href: "/dashboard/access",
+        href: "/dashboard/providers",
         subItems: [
-          { name: "Roles", href: "/dashboard/access/roles" },
-          { name: "Permissions", href: "/dashboard/access/permissions" },
+          { name: "Employers", href: "/dashboard/providers/employers" },
+          { name: "Landlords", href: "/dashboard/providers/landlords" },
+          { name: "NGOs / Support Orgs", href: "/dashboard/providers/ngos" },
+          { name: "Verification Requests", href: "/dashboard/providers/verification" },
         ],
       },
       {
-        name: "Categories",
+        name: "Role Management",
+        icon: ShieldCheck,
+        href: "/role-management",
+      },
+    ],
+  },
+
+  // -------------------------------------------------
+  // EMPLOYMENT MANAGEMENT
+  // -------------------------------------------------
+  {
+    group: "Employment",
+    items: [
+      {
+        name: "Job Listings",
         icon: ClipboardList,
-        href: "/dashboard/categories",
+        href: "/dashboard/jobs",
         subItems: [
-          { name: "All Categories", href: "/dashboard/categories/all" },
-          { name: "Rules & Requirements", href: "/dashboard/categories/rules" },
-        ],
-      },
-    ],
-  },
-
-  {
-    group: "Bookings & Events",
-    items: [
-      {
-        name: "Bookings",
-        icon: Calendar,
-        href: "/dashboard/bookings",
-        subItems: [
-          { name: "Upcoming", href: "/dashboard/bookings/upcoming" },
-          { name: "Completed", href: "/dashboard/bookings/completed" },
-          { name: "Cancelled", href: "/dashboard/bookings/cancelled" },
+          { name: "All Jobs", href: "/dashboard/jobs/all" },
+          { name: "Pending Approvals", href: "/dashboard/jobs/pending" },
+          { name: "Reported Jobs", href: "/dashboard/jobs/reported" },
         ],
       },
       {
-        name: "Events",
-        icon: Clipboard,
-        href: "/dashboard/events",
-        subItems: [
-          { name: "All Events", href: "/dashboard/events/all" },
-          { name: "Create Event", href: "/dashboard/events/create" },
-          { name: "Registrations", href: "/dashboard/events/registrations" },
-        ],
-      },
-      {
-        name: "Scheduler",
-        icon: Clock,
-        href: "/dashboard/scheduler",
-        subItems: [
-          { name: "My Calendar", href: "/dashboard/scheduler/calendar" },
-          { name: "Automations", href: "/dashboard/scheduler/automations" },
-        ],
-      },
-    ],
-  },
-
-  {
-    group: "Health & Records",
-    items: [
-      {
-        name: "My Records",
+        name: "Applications",
         icon: FileText,
-        href: "/dashboard/records",
+        href: "/dashboard/jobs/applications",
         subItems: [
-          { name: "All Records", href: "/dashboard/records/all" },
-          { name: "Upload Record", href: "/dashboard/records/upload" },
-          { name: "Shared With Me", href: "/dashboard/records/shared" },
+          { name: "All Applications", href: "/dashboard/jobs/applications/all" },
+          { name: "Analytics", href: "/dashboard/jobs/applications/analytics" },
         ],
       },
+    ],
+  },
+
+  // -------------------------------------------------
+  // HOUSING MANAGEMENT
+  // -------------------------------------------------
+  {
+    group: "Housing",
+    items: [
       {
-        name: "Storage",
+        name: "Housing Listings",
         icon: Database,
-        href: "/dashboard/storage",
+        href: "/dashboard/housing",
         subItems: [
-          { name: "Usage", href: "/dashboard/storage/usage" },
-          { name: "Manage Files", href: "/dashboard/storage/manage" },
+          { name: "All Listings", href: "/dashboard/housing/all" },
+          { name: "Pending Approvals", href: "/dashboard/housing/pending" },
+          { name: "Reported Properties", href: "/dashboard/housing/reported" },
+        ],
+      },
+      {
+        name: "Compliance",
+        icon: Clipboard,
+        href: "/dashboard/housing/compliance",
+        subItems: [
+          { name: "Compliance Cases", href: "/dashboard/housing/compliance/cases" },
+          { name: "Resolved", href: "/dashboard/housing/compliance/resolved" },
         ],
       },
     ],
   },
 
+  // -------------------------------------------------
+  // SUPPORT & VULNERABLE POPULATIONS
+  // -------------------------------------------------
   {
-    group: "Community",
+    group: "Support",
     items: [
       {
-        name: "Groups",
-        icon: MessageSquare,
-        href: "/dashboard/community",
+        name: "Support Programs",
+        icon: BookOpen,
+        href: "/dashboard/support",
         subItems: [
-          { name: "My Groups", href: "/dashboard/community/my" },
-          { name: "Find Groups", href: "/dashboard/community/find" },
-        ],
-      },
-      {
-        name: "Messages",
-        icon: Send,
-        href: "/dashboard/messages",
-        subItems: [
-          { name: "Inbox", href: "/dashboard/messages/inbox" },
-          { name: "New Message", href: "/dashboard/messages/new" },
-        ],
-      },
-      {
-        name: "Notifications",
-        icon: Bell,
-        href: "/dashboard/notifications",
-        subItems: [
-          { name: "All Notifications", href: "/dashboard/notifications/all" },
-          { name: "Preferences", href: "/dashboard/notifications/settings" },
+          { name: "All Programs", href: "/dashboard/support/all" },
+          { name: "Beneficiaries", href: "/dashboard/support/beneficiaries" },
+          { name: "NGO Submissions", href: "/dashboard/support/submissions" },
+          { name: "Emergency Cases", href: "/dashboard/support/emergency" },
         ],
       },
     ],
   },
 
+  // -------------------------------------------------
+  // PLANS & BILLING
+  // -------------------------------------------------
   {
-    group: "Plans & Payments",
+    group: "Plans & Billing",
     items: [
       {
-        name: "Billing & Plans",
+        name: "Subscription Plans",
         icon: CreditCard,
+        href: "/dashboard/plans",
+        subItems: [
+          { name: "All Plans", href: "/dashboard/plans/all" },
+          { name: "Corporate Packages", href: "/dashboard/plans/corporate" },
+          { name: "Rules & Limits", href: "/dashboard/plans/rules" },
+        ],
+      },
+      {
+        name: "Billing & Usage",
+        icon: Wallet,
         href: "/dashboard/billing",
         subItems: [
-          { name: "My Subscription", href: "/dashboard/billing/subscription" },
           { name: "Invoices", href: "/dashboard/billing/invoices" },
-          { name: "Usage & Limits", href: "/dashboard/billing/usage" },
-        ],
-      },
-      {
-        name: "Earnings",
-        icon: DollarSign,
-        href: "/dashboard/earnings",
-        subItems: [
-          { name: "Payouts", href: "/dashboard/earnings/payouts" },
-          { name: "Payment Methods", href: "/dashboard/earnings/methods" },
-        ],
-      },
-      {
-        name: "Wallet",
-        icon: Wallet,
-        href: "/dashboard/wallet",
-        subItems: [
-          { name: "Transactions", href: "/dashboard/wallet/transactions" },
-          { name: "Top-up", href: "/dashboard/wallet/topup" },
-          { name: "Withdraw", href: "/dashboard/wallet/withdraw" },
+          { name: "Usage & Overages", href: "/dashboard/billing/usage" },
         ],
       },
     ],
   },
 
+  // -------------------------------------------------
+  // PAYMENTS
+  // -------------------------------------------------
+  {
+    group: "Payments",
+    items: [
+      {
+        name: "Financials",
+        icon: DollarSign,
+        href: "/dashboard/payments",
+        subItems: [
+          { name: "Transactions", href: "/dashboard/payments/transactions" },
+          { name: "Payouts", href: "/dashboard/payments/payouts" },
+          { name: "Refund Requests", href: "/dashboard/payments/refunds" },
+          { name: "Reconciliation", href: "/dashboard/payments/reconciliation" },
+        ],
+      },
+    ],
+  },
+
+  // -------------------------------------------------
+  // REPORTS & ANALYTICS
+  // -------------------------------------------------
   {
     group: "Reports & Insights",
     items: [
@@ -236,9 +232,11 @@ export const menuGroups: MenuGroup[] = [
         icon: PieChart,
         href: "/dashboard/reports",
         subItems: [
-          { name: "Booking Trends", href: "/dashboard/reports/bookings" },
-          { name: "Revenue", href: "/dashboard/reports/revenue" },
-          { name: "User Activity", href: "/dashboard/reports/users" },
+          { name: "User Analytics", href: "/dashboard/reports/users" },
+          { name: "Employment Reports", href: "/dashboard/reports/jobs" },
+          { name: "Housing Reports", href: "/dashboard/reports/housing" },
+          { name: "Support Impact", href: "/dashboard/reports/support" },
+          { name: "Revenue Analytics", href: "/dashboard/reports/revenue" },
         ],
       },
       {
@@ -253,79 +251,32 @@ export const menuGroups: MenuGroup[] = [
     ],
   },
 
+  // -------------------------------------------------
+  // SYSTEM ADMIN & SETTINGS
+  // -------------------------------------------------
   {
-    group: "Integrations",
+    group: "System Administration",
     items: [
       {
-        name: "Connected Apps",
+        name: "Integrations",
         icon: Zap,
         href: "/dashboard/integrations",
         subItems: [
-          { name: "Zoom / Google Meet", href: "/dashboard/integrations/meet" },
-          { name: "Google Calendar", href: "/dashboard/integrations/calendar" },
-          { name: "Fitbit / Health Apps", href: "/dashboard/integrations/fitbit" },
-          { name: "WhatsApp Business", href: "/dashboard/integrations/whatsapp" },
+          { name: "Government APIs", href: "/dashboard/integrations/gov" },
+          { name: "SMS / Email", href: "/dashboard/integrations/communication" },
+          { name: "Payment Gateways", href: "/dashboard/integrations/payments" },
+          { name: "Webhooks", href: "/dashboard/integrations/webhooks" },
         ],
       },
-      {
-        name: "API & Developer Tools",
-        icon: Globe,
-        href: "/dashboard/developer",
-        subItems: [
-          { name: "API Keys", href: "/dashboard/developer/api-keys" },
-          { name: "Webhooks", href: "/dashboard/developer/webhooks" },
-        ],
-      },
-    ],
-  },
-
-  {
-    group: "Admin & Settings",
-    items: [
       {
         name: "Platform Settings",
         icon: Settings,
         href: "/dashboard/settings",
         subItems: [
-          { name: "Profile", href: "/dashboard/settings/profile" },
+          { name: "General", href: "/dashboard/settings/general" },
           { name: "Security", href: "/dashboard/settings/security" },
-          { name: "Notifications", href: "/dashboard/settings/notifications" },
-          { name: "Integrations", href: "/dashboard/settings/integrations" },
-        ],
-      },
-      {
-        name: "Admin Console",
-        icon: ShieldCheck,
-        href: "/dashboard/admin",
-        subItems: [
-          { name: "User Management", href: "/dashboard/admin/users" },
-          { name: "Plans & Pricing", href: "/dashboard/admin/plans" },
-          { name: "System Usage", href: "/dashboard/admin/usage" },
-        ],
-      },
-    ],
-  },
-
-  {
-    group: "Help & Support",
-    items: [
-      {
-        name: "Knowledge Base",
-        icon: BookOpen,
-        href: "/dashboard/help",
-        subItems: [
-          { name: "Getting Started", href: "/dashboard/help/start" },
-          { name: "FAQs", href: "/dashboard/help/faqs" },
-          { name: "API Docs", href: "/dashboard/help/api" },
-        ],
-      },
-      {
-        name: "Support Center",
-        icon: FilePlus,
-        href: "/dashboard/support",
-        subItems: [
-          { name: "Open Ticket", href: "/dashboard/support/new" },
-          { name: "My Tickets", href: "/dashboard/support/list" },
+          { name: "API Keys", href: "/dashboard/settings/api" },
+          { name: "Feature Flags", href: "/dashboard/settings/features" },
         ],
       },
     ],
