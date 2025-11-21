@@ -110,11 +110,21 @@ export default function Sidebar() {
                 {group.items.map((item) => {
                   const isActive = pathname === item.href;
 
+                  // Unified click handler
+                  const handleItemClick = () => {
+                    // On desktop, if collapsed, open sidebar
+                    if (isDesktop && isCollapsed) setIsCollapsed(false);
+                    // Toggle sub-menu if it exists
+                    if (item.subItems) toggleItem(item.name);
+                    // Close mobile sidebar
+                    if (!isDesktop) handleClose();
+                  };
+
                   if (item.subItems) {
                     return (
                       <div key={item.name}>
                         <button
-                          onClick={() => toggleItem(item.name)}
+                          onClick={handleItemClick}
                           className={`
                             flex items-center justify-between w-full px-3 py-2 rounded-lg
                             text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition cursor-pointer
@@ -165,7 +175,7 @@ export default function Sidebar() {
                     <Link
                       key={item.name}
                       href={item.href || "#"}
-                      onClick={handleClose}
+                      onClick={handleItemClick}
                       className={`
                         flex items-center w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition cursor-pointer
                         ${isActive ? "bg-teal-100 font-medium" : ""}
