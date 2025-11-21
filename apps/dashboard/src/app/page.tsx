@@ -100,7 +100,7 @@ const DashboardOverview: FC = () => {
   });
 
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Main Section */}
       <div className="flex-1 p-8 space-y-8">
         {/* Header */}

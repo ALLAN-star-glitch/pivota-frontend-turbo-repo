@@ -18,7 +18,14 @@ export const metadata: Metadata = {
   title: "Pivota Connect Dashboard - Manage Jobs, Listings & Opportunities",
   description:
     "Pivota Connect Dashboard allows you to efficiently manage jobs, listings, opportunities, and service providers. Access insights and tools to grow your business.",
-  keywords: ["Pivota Connect", "dashboard", "jobs", "listings", "service providers", "opportunities"],
+  keywords: [
+    "Pivota Connect",
+    "dashboard",
+    "jobs",
+    "listings",
+    "service providers",
+    "opportunities",
+  ],
   openGraph: {
     title: "Pivota Connect Dashboard",
     description:
@@ -34,18 +41,21 @@ export const metadata: Metadata = {
         alt: "Pivota Connect Dashboard",
       },
     ],
-  }
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}>
+      {/* Faint teal background */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Topbar */}
+        <div className="min-h-screen bg-gradient-to-br from-teal-50/20 via-white to-teal-50/10 flex flex-col">
+
         <Topbar />
 
         {/* Main container: Sidebar + Main */}
-        <div className="flex pt-22"> {/* top padding = topbar height */}
+        <div className="flex pt-22 min-h-screen">
           {/* Sidebar */}
           <Sidebar />
 
@@ -53,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="flex-1 p-6 transition-all duration-300">
             {children}
           </main>
+        </div>
         </div>
       </body>
     </html>
