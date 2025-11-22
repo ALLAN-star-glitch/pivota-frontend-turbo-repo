@@ -1,58 +1,60 @@
-import { useState } from 'react'
-import { XIcon, SearchIcon, FilterIcon } from 'lucide-react'
-import { Permission } from '../../../libs/types/role-management/type'
+"use client";
 
+import { useState } from 'react';
+import { XIcon, SearchIcon, FilterIcon } from 'lucide-react';
+import {  SystemPermission } from '../../../../libs/types/access-management/type';
 
-interface ManagePermissionsModalProps {
-  isOpen: boolean
-  onClose: () => void
+interface ViewPermissionsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-// Mock data typed using Permission interface
-const allPermissions: Permission[] = [
+// Mock permissions data
+const allPermissions: SystemPermission[] = [
+  // User Management
   { id: '1', name: 'user.view', category: 'User Management', description: 'View user details' },
   { id: '2', name: 'user.create', category: 'User Management', description: 'Create new users' },
   { id: '3', name: 'user.edit', category: 'User Management', description: 'Edit user details' },
   { id: '4', name: 'user.delete', category: 'User Management', description: 'Delete users' },
-  { id: '5', name: 'listing.view', category: 'Listings', description: 'View listings' },
-  { id: '6', name: 'listing.create', category: 'Listings', description: 'Create listings' },
-  { id: '7', name: 'listing.edit', category: 'Listings', description: 'Edit listings' },
-  { id: '8', name: 'listing.approve', category: 'Listings', description: 'Approve listings' },
-  { id: '9', name: 'listing.delete', category: 'Listings', description: 'Delete listings' },
-  { id: '10', name: 'role.assign', category: 'Role Management', description: 'Assign roles' },
-  { id: '11', name: 'permission.assign', category: 'Role Management', description: 'Assign permissions' },
-  { id: '12', name: 'dashboard.view', category: 'Dashboard', description: 'View dashboard' },
-  { id: '13', name: 'reports.view', category: 'Reports', description: 'View reports' },
-  { id: '14', name: 'reports.export', category: 'Reports', description: 'Export reports' },
-  { id: '15', name: 'settings.edit', category: 'Settings', description: 'Edit system settings' },
-]
 
-export function ManagePermissionsModal({ isOpen, onClose }: ManagePermissionsModalProps) {
-  const [search, setSearch] = useState('')
-  const [filterCategory, setFilterCategory] = useState<string>('')
+  // Role Management
+  { id: '11', name: 'role.assign', category: 'Role Management', description: 'Assign roles to users' },
+  { id: '12', name: 'permission.assign', category: 'Role Management', description: 'Assign permissions' },
 
-  if (!isOpen) return null
+  // Dashboard & Reports
+  { id: '13', name: 'dashboard.view', category: 'Dashboard', description: 'View dashboard' },
+  { id: '14', name: 'reports.view', category: 'Reports', description: 'View reports' },
+  { id: '15', name: 'reports.export', category: 'Reports', description: 'Export reports' },
 
-  // Extract unique categories
-  const categories = Array.from(new Set(allPermissions.map(p => p.category)))
+  // Settings
+  { id: '16', name: 'settings.edit', category: 'Settings', description: 'Edit system settings' },
+];
 
-  // Apply searching and filtering
+export function ViewPermissionsModal({ isOpen, onClose }: ViewPermissionsModalProps) {
+  const [search, setSearch] = useState('');
+  const [filterCategory, setFilterCategory] = useState('');
+
+  if (!isOpen) return null;
+
+  // Unique high-level categories for dropdown
+  const categories = Array.from(new Set(allPermissions.map(p => p.category)));
+
+  // Filter permissions by search and category
   const filtered = allPermissions.filter(permission => {
     const searchMatch =
       permission.name.toLowerCase().includes(search.toLowerCase()) ||
-      permission.description.toLowerCase().includes(search.toLowerCase())
+      permission.description.toLowerCase().includes(search.toLowerCase());
 
-    const categoryMatch =
-      !filterCategory || permission.category === filterCategory
+    const categoryMatch = !filterCategory || permission.category === filterCategory;
 
-    return searchMatch && categoryMatch
-  })
+    return searchMatch && categoryMatch;
+  });
 
   return (
-    <div className="fixed inset-0 z-1000 overflow-y-auto">
+    <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4 text-center">
-        
-        {/* Background Overlay */}
+
+        {/* Background overlay */}
         <div className="fixed inset-0 bg-gray-500 opacity-75" aria-hidden="true" />
 
         <div className="inline-block w-full max-w-3xl bg-white rounded-lg shadow-xl transform transition-all p-6 relative text-left">
@@ -60,20 +62,20 @@ export function ManagePermissionsModal({ isOpen, onClose }: ManagePermissionsMod
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:ring-2 focus:ring-teal-500 rounded-md"
+            className="cursor-pointer absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:ring-2 focus:ring-teal-500 rounded-md"
           >
             <XIcon className="h-6 w-6" />
           </button>
 
           {/* Header */}
           <h3 className="text-lg font-semibold text-gray-900">
-            Manage Permissions
+            Quick Permissions Glance
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            View and maintain all permissions available in the system.
+            View all permissions grouped by high-level categories.
           </p>
 
-          {/* Search + Filter */}
+          {/* Search + Category Filter */}
           <div className="mt-4 flex flex-col sm:flex-row gap-3">
             {/* Search */}
             <div className="relative flex-1">
@@ -105,7 +107,7 @@ export function ManagePermissionsModal({ isOpen, onClose }: ManagePermissionsMod
             </div>
           </div>
 
-          {/* Permission List */}
+          {/* Permissions List */}
           <div className="mt-6 max-h-96 overflow-y-auto border border-gray-100 rounded-md">
             <ul className="divide-y divide-gray-200 bg-white">
               {filtered.map(permission => (
@@ -118,12 +120,9 @@ export function ManagePermissionsModal({ isOpen, onClose }: ManagePermissionsMod
                       {permission.category}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm text-gray-600">
-                    {permission.description}
-                  </p>
+                  <p className="mt-1 text-sm text-gray-600">{permission.description}</p>
                 </li>
               ))}
-
               {filtered.length === 0 && (
                 <li className="px-4 py-6 text-center text-gray-500 text-sm">
                   No permissions found
@@ -133,10 +132,10 @@ export function ManagePermissionsModal({ isOpen, onClose }: ManagePermissionsMod
           </div>
 
           {/* Footer */}
-          <div className="mt-6 flex flex-row-reverse">
+          <div className="cursor-pointer mt-6 flex flex-row-reverse">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-md bg-teal-600 text-white text-sm font-medium hover:bg-teal-700 focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              className="cursor-pointer px-4 py-2 rounded-md bg-teal-600 text-white text-sm font-medium hover:bg-teal-700 focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             >
               Done
             </button>
@@ -145,5 +144,5 @@ export function ManagePermissionsModal({ isOpen, onClose }: ManagePermissionsMod
         </div>
       </div>
     </div>
-  )
+  );
 }

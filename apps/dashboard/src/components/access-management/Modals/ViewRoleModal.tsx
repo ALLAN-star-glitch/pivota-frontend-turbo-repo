@@ -2,13 +2,13 @@
 
 import React from 'react'
 import { XIcon, UserIcon } from 'lucide-react'
-import { Role, User } from '../../../../libs/types/role-management/type'
+import {  SystemRole, User } from '../../../../libs/types/access-management/type'
 
 
 interface ViewRoleModalProps {
   isOpen: boolean
   onClose: () => void
-  role: Role | null
+  role: SystemRole | null
 }
 
 export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
@@ -33,7 +33,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            className="cursor-pointer absolute top-4 right-4 text-gray-500 hover:text-gray-700"
           >
             <XIcon className="h-6 w-6" />
           </button>
@@ -66,7 +66,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
               className={`ml-2 px-2 py-1 text-xs rounded-full font-semibold ${
                 role.type === 'RootGuardian'
                   ? 'bg-purple-100 text-purple-800'
-                  : role.type === 'Admin'
+                  : role.type === 'CategoryManager'
                   ? 'bg-teal-100 text-teal-800'
                   : role.type === 'ServiceProvider'
                   ? 'bg-blue-100 text-blue-800'
@@ -149,7 +149,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
 
               {role.usersAssigned > 3 && (
                 <div className="mt-2 text-center text-sm">
-                  <button className="text-teal-600 hover:text-teal-800 font-medium">
+                  <button className="cursor-pointer text-teal-600 hover:text-teal-800 font-medium">
                     View all {role.usersAssigned} users
                   </button>
                 </div>
@@ -161,7 +161,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
           <div className="mt-8 flex justify-end">
             <button
               onClick={onClose}
-              className="px-4 py-2 border rounded-md text-sm bg-white hover:bg-gray-50 border-gray-300"
+              className="cursor-pointer px-4 py-2 border rounded-md text-sm bg-white hover:bg-gray-50 border-gray-300"
             >
               Close
             </button>

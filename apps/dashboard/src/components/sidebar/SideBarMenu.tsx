@@ -8,7 +8,6 @@ import {
   PieChart,
   Settings,
   DollarSign,
-  FileText,
   ShieldCheck,
   BookOpen,
   Archive,
@@ -37,10 +36,6 @@ export interface MenuGroup {
   items: MenuItem[];
 }
 
-/**
- * Super Admin Menu for PivotaConnect – MVP1
- * Focuses on Users, Employers, Housing, Support Programs, Payments, RBAC, and Platform Analytics
- */
 export const menuGroups: MenuGroup[] = [
   // -------------------------------------------------
   // GENERAL
@@ -55,7 +50,7 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/quick-actions",
         subItems: [
           { name: "Add User", href: "/dashboard/users/add" },
-          { name: "Create Job", href: "/dashboard/jobs/create" },
+          { name: "Create Job", href: "/dashboard/jobs/add" },
           { name: "Add Property", href: "/dashboard/housing/add" },
         ],
       },
@@ -63,63 +58,42 @@ export const menuGroups: MenuGroup[] = [
   },
 
   // -------------------------------------------------
-  // USERS & PROVIDERS
+  // USERS & PARTNERS
   // -------------------------------------------------
   {
-    group: "Users & Providers",
+    group: "Users & Partners",
     items: [
+      { name: "All Users", icon: Users, href: "/dashboard/users/all" },
       {
-        name: "Users",
-        icon: Users,
-        href: "/dashboard/users",
-        subItems: [
-          { name: "All Users", href: "/dashboard/users/all" },
-          { name: "Vulnerable Populations", href: "/dashboard/users/vulnerable" },
-          { name: "Suspended Users", href: "/dashboard/users/suspended" },
-        ],
-      },
-      {
-        name: "Providers",
+        name: "Individuals",
         icon: User,
-        href: "/dashboard/providers",
+        href: "/dashboard/partners/individuals",
         subItems: [
-          { name: "Employers", href: "/dashboard/providers/employers" },
-          { name: "Landlords", href: "/dashboard/providers/landlords" },
-          { name: "NGOs / Support Orgs", href: "/dashboard/providers/ngos" },
-          { name: "Verification Requests", href: "/dashboard/providers/verification" },
+          { name: "Landlords", href: "/dashboard/partners/individuals/landlords" },
+          { name: "Freelancers / Professionals", href: "/dashboard/partners/individuals/professionals" },
+          { name: "Pending Approvals", href: "/dashboard/partners/individuals/pending" },
+          { name: "Reported Listings", href: "/dashboard/partners/individuals/reported" },
         ],
       },
       {
-        name: "Role Management",
-        icon: ShieldCheck,
-        href: "/role-management",
-      },
-    ],
-  },
-
-  // -------------------------------------------------
-  // EMPLOYMENT MANAGEMENT
-  // -------------------------------------------------
-  {
-    group: "Employment",
-    items: [
-      {
-        name: "Job Listings",
-        icon: ClipboardList,
-        href: "/dashboard/jobs",
+        name: "Organizations",
+        icon: User,
+        href: "/dashboard/partners/organizations",
         subItems: [
-          { name: "All Jobs", href: "/dashboard/jobs/all" },
-          { name: "Pending Approvals", href: "/dashboard/jobs/pending" },
-          { name: "Reported Jobs", href: "/dashboard/jobs/reported" },
+          { name: "Employers", href: "/dashboard/partners/organizations/employers" },
+          { name: "NGOs / Support Orgs", href: "/dashboard/partners/organizations/ngos" },
+          { name: "Businesses", href: "/dashboard/partners/organizations/businesses" },
+          { name: "Pending Approvals", href: "/dashboard/partners/organizations/pending" },
+          { name: "Reported Listings", href: "/dashboard/partners/organizations/reported" },
         ],
       },
       {
-        name: "Applications",
-        icon: FileText,
-        href: "/dashboard/jobs/applications",
+        name: "The Vulnerable",
+        icon: Users,
+        href: "/dashboard/users/vulnerable",
         subItems: [
-          { name: "All Applications", href: "/dashboard/jobs/applications/all" },
-          { name: "Analytics", href: "/dashboard/jobs/applications/analytics" },
+          { name: "List Vulnerable Users", href: "/dashboard/users/vulnerable/list" },
+          { name: "Add Vulnerable User", href: "/dashboard/users/vulnerable/add" },
         ],
       },
     ],
@@ -132,13 +106,28 @@ export const menuGroups: MenuGroup[] = [
     group: "Housing",
     items: [
       {
-        name: "Housing Listings",
+        name: "Rentals",
         icon: Database,
-        href: "/dashboard/housing",
+        href: "/dashboard/housing/rentals",
         subItems: [
-          { name: "All Listings", href: "/dashboard/housing/all" },
-          { name: "Pending Approvals", href: "/dashboard/housing/pending" },
-          { name: "Reported Properties", href: "/dashboard/housing/reported" },
+          { name: "All Rentals", href: "/dashboard/housing/rentals/all" },
+          { name: "Pending Approvals", href: "/dashboard/housing/rentals/pending" },
+          { name: "Reported Rentals", href: "/dashboard/housing/rentals/reported" },
+          { name: "Maintenance Requests", href: "/dashboard/housing/rentals/maintenance" },
+          { name: "Tenant Applications", href: "/dashboard/housing/rentals/applications" },
+          { name: "Payments / Deposits", href: "/dashboard/housing/rentals/payments" },
+        ],
+      },
+      {
+        name: "Houses for Sale",
+        icon: Database,
+        href: "/dashboard/housing/sales",
+        subItems: [
+          { name: "All Houses", href: "/dashboard/housing/sales/all" },
+          { name: "Pending Approvals", href: "/dashboard/housing/sales/pending" },
+          { name: "Reported Listings", href: "/dashboard/housing/sales/reported" },
+          { name: "Buyer Applications", href: "/dashboard/housing/sales/applications" },
+          { name: "Payments / Deposits", href: "/dashboard/housing/sales/payments" },
         ],
       },
       {
@@ -147,20 +136,53 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/housing/compliance",
         subItems: [
           { name: "Compliance Cases", href: "/dashboard/housing/compliance/cases" },
-          { name: "Resolved", href: "/dashboard/housing/compliance/resolved" },
+          { name: "Resolved Cases", href: "/dashboard/housing/compliance/resolved" },
         ],
       },
     ],
   },
 
   // -------------------------------------------------
-  // SUPPORT & VULNERABLE POPULATIONS
+  // JOBS MANAGEMENT
+  // -------------------------------------------------
+  {
+    group: "Jobs",
+    items: [
+      {
+        name: "Formal Jobs",
+        icon: ClipboardList,
+        href: "/dashboard/jobs/formal",
+        subItems: [
+          { name: "All Jobs", href: "/dashboard/jobs/formal/all" },
+          { name: "Pending Approvals", href: "/dashboard/jobs/formal/pending" },
+          { name: "Reported Jobs", href: "/dashboard/jobs/formal/reported" },
+          { name: "Applications", href: "/dashboard/jobs/formal/applications" },
+          { name: "Payments / Compensation", href: "/dashboard/jobs/formal/payments" },
+        ],
+      },
+      {
+        name: "Informal Jobs",
+        icon: ClipboardList,
+        href: "/dashboard/jobs/informal",
+        subItems: [
+          { name: "All Jobs", href: "/dashboard/jobs/informal/all" },
+          { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending" },
+          { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported" },
+          { name: "Applications", href: "/dashboard/jobs/informal/applications" },
+          { name: "Payments / Compensation", href: "/dashboard/jobs/informal/payments" },
+        ],
+      },
+    ],
+  },
+
+  // -------------------------------------------------
+  // SUPPORT PROGRAMS
   // -------------------------------------------------
   {
     group: "Support",
     items: [
       {
-        name: "Support Programs",
+        name: "Programs",
         icon: BookOpen,
         href: "/dashboard/support",
         subItems: [
@@ -174,55 +196,51 @@ export const menuGroups: MenuGroup[] = [
   },
 
   // -------------------------------------------------
-  // PLANS & BILLING
-  // -------------------------------------------------
-  {
-    group: "Plans & Billing",
-    items: [
-      {
-        name: "Subscription Plans",
-        icon: CreditCard,
-        href: "/dashboard/plans",
-        subItems: [
-          { name: "All Plans", href: "/dashboard/plans/all" },
-          { name: "Corporate Packages", href: "/dashboard/plans/corporate" },
-          { name: "Rules & Limits", href: "/dashboard/plans/rules" },
-        ],
-      },
-      {
-        name: "Billing & Usage",
-        icon: Wallet,
-        href: "/dashboard/billing",
-        subItems: [
-          { name: "Invoices", href: "/dashboard/billing/invoices" },
-          { name: "Usage & Overages", href: "/dashboard/billing/usage" },
-        ],
-      },
-    ],
-  },
+// PLANS & BILLING
+// -------------------------------------------------
+{
+  group: "Plans & Billing",
+  items: [
+    {
+      name: "Subscription Plans",
+      icon: CreditCard,
+      href: "/dashboard/plans",
+      subItems: [
+        { name: "Free Plan", href: "/dashboard/plans/free" },
+        { name: "Bronze Plan", href: "/dashboard/plans/bronze" },
+        { name: "Silver Plan", href: "/dashboard/plans/silver" },
+        { name: "Gold Plan", href: "/dashboard/plans/gold" },
+        { name: "Corporate Plan", href: "/dashboard/plans/corporate" },
+        { name: "Rules & Limits", href: "/dashboard/plans/rules" },
+      ],
+    },
+    {
+      name: "Billing & Usage",
+      icon: Wallet,
+      href: "/dashboard/billing",
+      subItems: [
+        { name: "Invoices", href: "/dashboard/billing/invoices" },
+        { name: "Usage & Overages", href: "/dashboard/billing/usage" },
+      ],
+    },
+    {
+      name: "Payment Methods",
+      icon: DollarSign,
+      href: "/dashboard/payments",
+      subItems: [
+        { name: "Cards", href: "/dashboard/payments/cards" },
+        { name: "MPesa", href: "/dashboard/payments/mpesa" },
+        { name: "Transactions", href: "/dashboard/payments/transactions" },
+        { name: "Payouts", href: "/dashboard/payments/payouts" },
+        { name: "Refund Requests", href: "/dashboard/payments/refunds" },
+        { name: "Reconciliation", href: "/dashboard/payments/reconciliation" },
+      ],
+    },
+  ],
+},
 
   // -------------------------------------------------
-  // PAYMENTS
-  // -------------------------------------------------
-  {
-    group: "Payments",
-    items: [
-      {
-        name: "Financials",
-        icon: DollarSign,
-        href: "/dashboard/payments",
-        subItems: [
-          { name: "Transactions", href: "/dashboard/payments/transactions" },
-          { name: "Payouts", href: "/dashboard/payments/payouts" },
-          { name: "Refund Requests", href: "/dashboard/payments/refunds" },
-          { name: "Reconciliation", href: "/dashboard/payments/reconciliation" },
-        ],
-      },
-    ],
-  },
-
-  // -------------------------------------------------
-  // REPORTS & ANALYTICS
+  // REPORTS & INSIGHTS
   // -------------------------------------------------
   {
     group: "Reports & Insights",
@@ -233,30 +251,36 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/reports",
         subItems: [
           { name: "User Analytics", href: "/dashboard/reports/users" },
-          { name: "Employment Reports", href: "/dashboard/reports/jobs" },
+          { name: "Jobs Reports", href: "/dashboard/reports/jobs" },
           { name: "Housing Reports", href: "/dashboard/reports/housing" },
           { name: "Support Impact", href: "/dashboard/reports/support" },
           { name: "Revenue Analytics", href: "/dashboard/reports/revenue" },
-        ],
-      },
-      {
-        name: "System Logs",
-        icon: Archive,
-        href: "/dashboard/logs",
-        subItems: [
-          { name: "Audit Logs", href: "/dashboard/logs/audit" },
-          { name: "Access History", href: "/dashboard/logs/access" },
         ],
       },
     ],
   },
 
   // -------------------------------------------------
-  // SYSTEM ADMIN & SETTINGS
+  // SYSTEM ADMINISTRATION
   // -------------------------------------------------
   {
     group: "System Administration",
     items: [
+      {
+        name: "System Access",
+        icon: ShieldCheck,
+        href: "/system-access",
+      },
+      {
+        name: "Domain Access",
+        icon: Clipboard,
+        href: "/dashboard/access/domains",
+        subItems: [
+          { name: "Housing Access", href: "/dashboard/access/domains/housing" },
+          { name: "Jobs Access", href: "/dashboard/access/domains/jobs" },
+          { name: "Support & Services Access", href: "/dashboard/access/domains/support" },
+        ],
+      },
       {
         name: "Integrations",
         icon: Zap,
@@ -277,6 +301,15 @@ export const menuGroups: MenuGroup[] = [
           { name: "Security", href: "/dashboard/settings/security" },
           { name: "API Keys", href: "/dashboard/settings/api" },
           { name: "Feature Flags", href: "/dashboard/settings/features" },
+        ],
+      },
+      {
+        name: "System Logs",
+        icon: Archive,
+        href: "/dashboard/logs",
+        subItems: [
+          { name: "Audit Logs", href: "/dashboard/logs/audit" },
+          { name: "Access History", href: "/dashboard/logs/access" },
         ],
       },
     ],

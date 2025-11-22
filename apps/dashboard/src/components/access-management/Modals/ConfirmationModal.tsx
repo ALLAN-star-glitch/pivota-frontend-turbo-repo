@@ -1,15 +1,13 @@
-"use client";
-
-import React from 'react'
-import { AlertTriangleIcon } from 'lucide-react'
-import { Permission, Role } from '../../../../libs/types/role-management/type'
+import { AlertTriangleIcon } from "lucide-react"
+import { SystemRole, SystemPermission } from "../../../../libs/types/access-management/type"
 
 interface ConfirmationModalProps {
   isOpen: boolean
   onClose: () => void
   onConfirm: () => void
-  role: Role
-  permission: Permission
+  role: SystemRole
+  permission: SystemPermission
+  isAssigned: boolean // <-- add this
 }
 
 export function ConfirmationModal({
@@ -18,10 +16,9 @@ export function ConfirmationModal({
   onConfirm,
   role,
   permission,
+  isAssigned,
 }: ConfirmationModalProps) {
   if (!isOpen) return null
-
-  const isAssigned = true // temporary logic
 
   return (
     <div className="fixed inset-0 z-1000 overflow-y-auto">
@@ -29,13 +26,13 @@ export function ConfirmationModal({
         {/* Backdrop */}
         <div
           className="fixed inset-0 bg-gray-500 opacity-75"
-          onClick={onClose} // click outside closes modal
+          onClick={onClose}
         />
 
         {/* Modal */}
         <div
           className="relative bg-white rounded-lg shadow-xl w-full max-w-lg p-6 z-20"
-          onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+          onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="sm:flex sm:items-start">
@@ -67,7 +64,7 @@ export function ConfirmationModal({
           <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
             <button
               onClick={onConfirm}
-              className={`w-full sm:w-auto inline-flex justify-center px-4 py-2 rounded-md text-white shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+              className={`cursor-pointer w-full sm:w-auto inline-flex justify-center px-4 py-2 rounded-md text-white shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                 isAssigned
                   ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500'
                   : 'bg-teal-600 hover:bg-teal-700 focus:ring-teal-500'
@@ -78,7 +75,7 @@ export function ConfirmationModal({
 
             <button
               onClick={onClose}
-              className="mt-3 sm:mt-0 sm:mr-3 w-full sm:w-auto inline-flex justify-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              className="cursor-pointer mt-3 sm:mt-0 sm:mr-3 w-full sm:w-auto inline-flex justify-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             >
               Cancel
             </button>

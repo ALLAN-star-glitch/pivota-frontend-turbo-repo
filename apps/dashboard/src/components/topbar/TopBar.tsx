@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 export default function Topbar() {
   const user = {
     firstName: "Allan",
-    role: "Service Provider",
+    role: "Super Admin",
     avatar: "/avatar.jpg",
   };
 

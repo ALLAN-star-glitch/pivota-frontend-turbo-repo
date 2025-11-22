@@ -2,30 +2,26 @@
 
 import React, { useState } from 'react'
 import { CheckIcon, FilterIcon, SearchIcon } from 'lucide-react'
-import {
-  Permission,
-  Role,
-  PermissionMatrixEntry,
-  PermissionMatrixProps,
-} from '../../../libs/types/role-management/type'
+import { SystemPermission, SystemPermissionMatrixEntry, SystemPermissiosMatrixProps, SystemRole } from '../../../libs/types/access-management/type'
 
-export function PermissionMatrix({
+
+export function SystemPermissionMatrix({
   roles: initialRoles,
   permissions: initialPermissions,
   matrix: initialMatrix,
   onTogglePermission,
-}: PermissionMatrixProps) {
+}: SystemPermissiosMatrixProps) {
   // Optional mock data if props are not provided
-  const roles: Role[] = initialRoles ?? [
+  const roles: SystemRole[] = initialRoles ?? [
     { id: '1', name: 'RootGuardian', type: 'RootGuardian' },
-    { id: '2', name: 'Content Administrator', type: 'Admin' },
+    { id: '2', name: 'Content Administrator', type: 'ContentManager' },
     { id: '3', name: 'User Administrator', type: 'Admin' },
     { id: '4', name: 'Healthcare Provider', type: 'ServiceProvider' },
     { id: '5', name: 'Education Provider', type: 'ServiceProvider' },
     { id: '6', name: 'Standard User', type: 'RegisteredUser' },
   ]
 
-  const permissions: Permission[] = initialPermissions ?? [
+  const permissions: SystemPermission[] = initialPermissions ?? [
     { id: '1', name: 'user.view', category: 'User Management', description: 'View user details' },
     { id: '2', name: 'user.create', category: 'User Management', description: 'Create new users' },
     { id: '3', name: 'user.edit', category: 'User Management', description: 'Edit user details' },
@@ -39,7 +35,7 @@ export function PermissionMatrix({
     { id: '11', name: 'permission.assign', category: 'Role Management', description: 'Assign permissions' },
   ]
 
-  const matrix: PermissionMatrixEntry[] = initialMatrix ?? [
+  const matrix: SystemPermissionMatrixEntry[] = initialMatrix ?? [
     // RootGuardian has all permissions
     ...permissions.map((permission) => ({ roleId: '1', permissionId: permission.id, assigned: true })),
     // Content Administrator
@@ -85,7 +81,7 @@ export function PermissionMatrix({
     matrix.find((item) => item.roleId === roleId && item.permissionId === permissionId)?.assigned ?? false
 
   // Handle toggle
-  const handleTogglePermission = (role: Role, permission: Permission) => {
+  const handleTogglePermission = (role: SystemRole, permission: SystemPermission) => {
     onTogglePermission(role, permission)
   }
 
@@ -93,7 +89,7 @@ export function PermissionMatrix({
     <div className="bg-white shadow rounded-lg overflow-hidden">
       <div className="px-6 py-5 border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h2 className="text-lg font-medium text-gray-900 mb-4 sm:mb-0">Permission Matrix</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4 sm:mb-0">System Permission Matrix</h2>
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
             <div className="relative flex-1">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -162,7 +158,7 @@ export function PermissionMatrix({
                     <td key={`${role.id}-${permission.id}`} className="px-4 py-4 whitespace-nowrap text-sm text-center">
                       <button
                         title={`${assigned ? 'Remove' : 'Assign'} ${permission.name} permission from ${role.name}`}
-                        className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors duration-150 ${
+                        className={` cursor-pointer w-8 h-8 rounded-md flex items-center justify-center transition-colors duration-150 ${
                           assigned
                             ? 'bg-teal-100 text-teal-700 hover:bg-teal-200'
                             : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
