@@ -26,7 +26,7 @@ export default function Topbar() {
   }, []);
 
   return (
-    <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[96%] sm:w-[92%] bg-white/70 backdrop-blur-md shadow-lg border border-gray-100 rounded-2xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+    <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[96%] sm:w-[96%] bg-white/70 backdrop-blur-md shadow-lg border border-gray-100 rounded-2xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
       {/* Left: Logo + Dashboard */}
       <div className="flex items-center gap-3 flex-shrink-0">
         <Image

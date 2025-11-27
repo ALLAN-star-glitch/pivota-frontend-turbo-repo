@@ -18,7 +18,7 @@ export default function Sidebar() {
   const [openItem, setOpenItem] = useState<string | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState<boolean | null>(null); // null initially
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -32,7 +32,21 @@ export default function Sidebar() {
 
   const handleClose = () => setIsMobileOpen(false);
 
-  // Don't render sidebar until we know if it's desktop or mobile
+  const handleItemClick = (item: typeof menuGroups[0]["items"][0]) => {
+    // On desktop, open sidebar if collapsed
+    if (isDesktop && isCollapsed) setIsCollapsed(false);
+
+    // Toggle sub-menu if exists
+    if (item.subItems) {
+      toggleItem(item.name);
+      // Do not close sidebar on mobile if subitems exist
+      return;
+    }
+
+    // Close mobile sidebar for leaf items
+    if (!isDesktop) handleClose();
+  };
+
   if (isDesktop === null) return null;
 
   return (
@@ -110,21 +124,11 @@ export default function Sidebar() {
                 {group.items.map((item) => {
                   const isActive = pathname === item.href;
 
-                  // Unified click handler
-                  const handleItemClick = () => {
-                    // On desktop, if collapsed, open sidebar
-                    if (isDesktop && isCollapsed) setIsCollapsed(false);
-                    // Toggle sub-menu if it exists
-                    if (item.subItems) toggleItem(item.name);
-                    // Close mobile sidebar
-                    if (!isDesktop) handleClose();
-                  };
-
                   if (item.subItems) {
                     return (
                       <div key={item.name}>
                         <button
-                          onClick={handleItemClick}
+                          onClick={() => handleItemClick(item)}
                           className={`
                             flex items-center justify-between w-full px-3 py-2 rounded-lg
                             text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition cursor-pointer
@@ -175,7 +179,7 @@ export default function Sidebar() {
                     <Link
                       key={item.name}
                       href={item.href || "#"}
-                      onClick={handleItemClick}
+                      onClick={() => handleItemClick(item)}
                       className={`
                         flex items-center w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition cursor-pointer
                         ${isActive ? "bg-teal-100 font-medium" : ""}
@@ -195,7 +199,9 @@ export default function Sidebar() {
         <div className="h-12 w-full rounded-b-2xl flex items-center justify-center px-2 bg-gradient-to-r from-teal-500 via-teal-100 to-teal-500">
           {!isCollapsed && (
             <span className="text-xs text-gray-700 text-center select-none">
-              {isDesktop ? "Collapse sidebar for more space" : "Powered by PivotaConnect"}
+              {isDesktop
+                ? "Collapse sidebar for more space"
+                : "Powered by PivotaConnect"}
             </span>
           )}
         </div>
