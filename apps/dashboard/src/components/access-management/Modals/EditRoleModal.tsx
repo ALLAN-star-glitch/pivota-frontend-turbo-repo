@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { XIcon } from 'lucide-react';
-import { RoleStatus, RoleType, SystemRole } from '../../../../libs/types/access-management/type';
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { XIcon } from "lucide-react";
+import { SystemRole } from "../../../../libs/types/access-management/type";
 
 interface RoleFormData {
   name: string;
   description?: string;
-  type: RoleType;
-  status: RoleStatus;
 }
 
 interface EditRoleModalProps {
@@ -20,10 +18,8 @@ interface EditRoleModalProps {
 
 export function EditRoleModal({ isOpen, onClose, role, onSave }: EditRoleModalProps) {
   const [formData, setFormData] = useState<RoleFormData>({
-    name: '',
-    description: '',
-    type: 'RegisteredUser',
-    status: 'Active',
+    name: "",
+    description: "",
   });
 
   // Populate formData when role changes
@@ -32,37 +28,28 @@ export function EditRoleModal({ isOpen, onClose, role, onSave }: EditRoleModalPr
       setFormData({
         name: role.name,
         description: role.description,
-        type: role.type,
-        status: role.status || 'Active',
       });
     }
   }, [role]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (role && onSave) {
-      onSave({ ...role, name: formData.name, description: formData.description });
+      onSave({
+        ...role,
+        name: formData.name,
+        description: formData.description,
+      });
     }
     onClose();
-  };
-
-  const getRoleBadgeColor = (type: RoleType) => {
-    switch (type) {
-      case 'RootGuardian': return 'bg-red-100 text-red-700';
-      case 'CategoryManager': return 'bg-teal-100 text-teal-700';
-      case 'ServiceProvider': return 'bg-amber-100 text-amber-700';
-      case 'RegisteredUser': return 'bg-gray-100 text-gray-700';
-      default: return 'bg-gray-100 text-gray-700';
-    }
-  };
-
-  const getStatusBadgeColor = (status: RoleStatus) => {
-    return status === 'Active' ? 'bg-teal-100 text-teal-700' : 'bg-red-100 text-red-700';
   };
 
   if (!isOpen || !role) return null;
@@ -83,16 +70,7 @@ export function EditRoleModal({ isOpen, onClose, role, onSave }: EditRoleModalPr
             <XIcon className="w-5 h-5" />
           </button>
 
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Edit Role: {role.name}</h3>
-
-          <div className="mb-4 flex gap-2">
-            <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getRoleBadgeColor(role.type)}`}>
-              {role.type}
-            </span>
-            <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadgeColor(role.status || 'Active')}`}>
-              {role.status}
-            </span>
-          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Edit Role: {role.name}</h3>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Role Name */}

@@ -2,8 +2,12 @@
 
 import React, { useState } from 'react'
 import { CheckIcon, FilterIcon, SearchIcon } from 'lucide-react'
-import { SystemPermission, SystemPermissionMatrixEntry, SystemPermissiosMatrixProps, SystemRole } from '../../../libs/types/access-management/type'
-
+import {
+  SystemPermission,
+  SystemPermissionMatrixEntry,
+  SystemPermissiosMatrixProps,
+  SystemRole,
+} from '../../../libs/types/access-management/type'
 
 export function SystemPermissionMatrix({
   roles: initialRoles,
@@ -11,86 +15,111 @@ export function SystemPermissionMatrix({
   matrix: initialMatrix,
   onTogglePermission,
 }: SystemPermissiosMatrixProps) {
-  // Optional mock data if props are not provided
-  const roles: SystemRole[] = initialRoles ?? [
-    { id: '1', name: 'RootGuardian', type: 'RootGuardian' },
-    { id: '2', name: 'Content Administrator', type: 'ContentManager' },
-    { id: '3', name: 'User Administrator', type: 'Admin' },
-    { id: '4', name: 'Healthcare Provider', type: 'ServiceProvider' },
-    { id: '5', name: 'Education Provider', type: 'ServiceProvider' },
-    { id: '6', name: 'Standard User', type: 'RegisteredUser' },
-  ]
+  // --------------------------------------------
+  // MOCK DATA (only used if props not provided)
+  // --------------------------------------------
+  const roles: SystemRole[] =
+    initialRoles ??
+    [
+      { id: '1', name: 'Root Guardian', type: 'RootGuardian' },
+      { id: '2', name: 'System Administrator', type: 'SystemAdmin' },
+      { id: '3', name: 'Business System Admin', type: 'BusinessSystemAdmin' },
+      { id: '4', name: 'Business Content Manager', type: 'BusinessContentManager' },
+      { id: '5', name: 'General User', type: 'GeneralUser' },
+    ]
 
-  const permissions: SystemPermission[] = initialPermissions ?? [
-    { id: '1', name: 'user.view', category: 'User Management', description: 'View user details' },
-    { id: '2', name: 'user.create', category: 'User Management', description: 'Create new users' },
-    { id: '3', name: 'user.edit', category: 'User Management', description: 'Edit user details' },
-    { id: '4', name: 'user.delete', category: 'User Management', description: 'Delete users' },
-    { id: '5', name: 'listing.view', category: 'Listings', description: 'View listings' },
-    { id: '6', name: 'listing.create', category: 'Listings', description: 'Create listings' },
-    { id: '7', name: 'listing.edit', category: 'Listings', description: 'Edit listings' },
-    { id: '8', name: 'listing.approve', category: 'Listings', description: 'Approve listings' },
-    { id: '9', name: 'listing.delete', category: 'Listings', description: 'Delete listings' },
-    { id: '10', name: 'role.assign', category: 'Role Management', description: 'Assign roles' },
-    { id: '11', name: 'permission.assign', category: 'Role Management', description: 'Assign permissions' },
-  ]
+  const permissions: SystemPermission[] =
+    initialPermissions ??
+    [
+      // ---- System Scope ----
+      { id: '1', name: 'user.view', description: 'View all users', scope: 'system' },
+      { id: '2', name: 'user.create', description: 'Create users', scope: 'system' },
+      { id: '3', name: 'user.edit', description: 'Edit user details', scope: 'system' },
+      { id: '4', name: 'user.delete', description: 'Delete users', scope: 'system' },
+      { id: '5', name: 'role.assign', description: 'Assign system roles', scope: 'system' },
+      { id: '6', name: 'permission.assign', description: 'Assign system permissions', scope: 'system' },
 
-  const matrix: SystemPermissionMatrixEntry[] = initialMatrix ?? [
-    // RootGuardian has all permissions
-    ...permissions.map((permission) => ({ roleId: '1', permissionId: permission.id, assigned: true })),
-    // Content Administrator
-    { roleId: '2', permissionId: '5', assigned: true },
-    { roleId: '2', permissionId: '6', assigned: true },
-    { roleId: '2', permissionId: '7', assigned: true },
-    { roleId: '2', permissionId: '8', assigned: true },
-    { roleId: '2', permissionId: '9', assigned: true },
-    // User Administrator
-    { roleId: '3', permissionId: '1', assigned: true },
-    { roleId: '3', permissionId: '2', assigned: true },
-    { roleId: '3', permissionId: '3', assigned: true },
-    { roleId: '3', permissionId: '4', assigned: true },
-    // Healthcare Provider
-    { roleId: '4', permissionId: '5', assigned: true },
-    { roleId: '4', permissionId: '6', assigned: true },
-    { roleId: '4', permissionId: '7', assigned: true },
-    // Education Provider
-    { roleId: '5', permissionId: '5', assigned: true },
-    { roleId: '5', permissionId: '6', assigned: true },
-    { roleId: '5', permissionId: '7', assigned: true },
-    // Standard User
-    { roleId: '6', permissionId: '5', assigned: true },
-  ]
+      // ---- Business Scope ----
+      { id: '7', name: 'listing.view', description: 'View listings', scope: 'business' },
+      { id: '8', name: 'listing.create', description: 'Create listings', scope: 'business' },
+      { id: '9', name: 'listing.edit', description: 'Edit listings', scope: 'business' },
+      { id: '10', name: 'listing.approve', description: 'Approve listings', scope: 'business' },
+      { id: '11', name: 'listing.delete', description: 'Delete listings', scope: 'business' },
+    ]
 
-  // State for search and filter
+  const matrix: SystemPermissionMatrixEntry[] =
+    initialMatrix ??
+    [
+      // RootGuardian → all permissions
+      ...permissions.map((p) => ({
+        roleId: '1',
+        permissionId: p.id,
+        assigned: true,
+      })),
+
+      // SystemAdmin → all system permissions only
+      ...permissions
+        .filter((p) => p.scope === 'system')
+        .map((p) => ({
+          roleId: '2',
+          permissionId: p.id,
+          assigned: true,
+        })),
+
+      // Business System Admin → all business permissions
+      ...permissions
+        .filter((p) => p.scope === 'business')
+        .map((p) => ({
+          roleId: '3',
+          permissionId: p.id,
+          assigned: true,
+        })),
+
+      // Business Content Manager → only listing.edit & listing.approve
+      { roleId: '4', permissionId: '7', assigned: true },
+      { roleId: '4', permissionId: '9', assigned: true },
+      { roleId: '4', permissionId: '10', assigned: true },
+
+      // General User → listing.view
+      { roleId: '5', permissionId: '7', assigned: true },
+    ]
+
+  // --------------------------------------------
+  // SEARCH & FILTER
+  // --------------------------------------------
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedScope, setSelectedScope] = useState('')
 
-  // Unique categories
-  const categories = Array.from(new Set(permissions.map((p) => p.category)))
+  const scopes = ['system', 'business']
 
-  // Filtered permissions
   const filteredPermissions = permissions.filter(
     (permission) =>
       (permission.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         permission.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (!selectedCategory || permission.category === selectedCategory),
+      (!selectedScope || permission.scope === selectedScope)
   )
 
-  // Check if a permission is assigned
+  // --------------------------------------------
+  // Permission Toggle
+  // --------------------------------------------
   const isPermissionAssigned = (roleId: string, permissionId: string) =>
     matrix.find((item) => item.roleId === roleId && item.permissionId === permissionId)?.assigned ?? false
 
-  // Handle toggle
   const handleTogglePermission = (role: SystemRole, permission: SystemPermission) => {
     onTogglePermission(role, permission)
   }
 
+  // --------------------------------------------
+  // RENDER
+  // --------------------------------------------
   return (
     <div className="bg-white shadow rounded-lg overflow-hidden">
       <div className="px-6 py-5 border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <h2 className="text-lg font-medium text-gray-900 mb-4 sm:mb-0">System Permission Matrix</h2>
-          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+
+          <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
+            {/* Search Input */}
             <div className="relative flex-1">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon className="h-5 w-5 text-gray-400" />
@@ -98,24 +127,26 @@ export function SystemPermissionMatrix({
               <input
                 type="text"
                 placeholder="Search permissions"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
+
+            {/* Scope Filter */}
             <div className="relative flex-1">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FilterIcon className="h-5 w-5 text-gray-400" />
               </div>
               <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                value={selectedScope}
+                onChange={(e) => setSelectedScope(e.target.value)}
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none"
               >
-                <option value="">All Categories</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
+                <option value="">All Scopes</option>
+                {scopes.map((scope) => (
+                  <option key={scope} value={scope}>
+                    {scope.toUpperCase()}
                   </option>
                 ))}
               </select>
@@ -124,6 +155,7 @@ export function SystemPermissionMatrix({
         </div>
       </div>
 
+      {/* PERMISSION TABLE */}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -131,34 +163,30 @@ export function SystemPermissionMatrix({
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Role / Permission
               </th>
+
               {filteredPermissions.map((permission) => (
-                <th
-                  key={permission.id}
-                  className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
+                <th key={permission.id} className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
                   <div className="flex flex-col items-center">
-                    <span className="whitespace-nowrap">{permission.name}</span>
-                    <span className="text-xs normal-case font-normal text-gray-400 mt-1">
-                      {permission.category}
-                    </span>
+                    <span>{permission.name}</span>
+                    <span className="text-xs text-gray-400 mt-1">{permission.scope}</span>
                   </div>
                 </th>
               ))}
             </tr>
           </thead>
+
           <tbody className="bg-white divide-y divide-gray-200">
             {roles.map((role) => (
               <tr key={role.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {role.name}
-                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{role.name}</td>
+
                 {filteredPermissions.map((permission) => {
                   const assigned = isPermissionAssigned(role.id, permission.id)
+
                   return (
-                    <td key={`${role.id}-${permission.id}`} className="px-4 py-4 whitespace-nowrap text-sm text-center">
+                    <td key={`${role.id}-${permission.id}`} className="px-4 py-4 text-center">
                       <button
-                        title={`${assigned ? 'Remove' : 'Assign'} ${permission.name} permission from ${role.name}`}
-                        className={` cursor-pointer w-8 h-8 rounded-md flex items-center justify-center transition-colors duration-150 ${
+                        className={`cursor-pointer w-8 h-8 rounded-md flex items-center justify-center transition-colors ${
                           assigned
                             ? 'bg-teal-100 text-teal-700 hover:bg-teal-200'
                             : 'bg-gray-100 text-gray-400 hover:bg-gray-200'

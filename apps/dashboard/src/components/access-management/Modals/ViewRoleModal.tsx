@@ -2,8 +2,7 @@
 
 import React from 'react'
 import { XIcon, UserIcon } from 'lucide-react'
-import {  SystemRole, User } from '../../../../libs/types/access-management/type'
-
+import { SystemRole, User } from '../../../../libs/types/access-management/type'
 
 interface ViewRoleModalProps {
   isOpen: boolean
@@ -14,12 +13,23 @@ interface ViewRoleModalProps {
 export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
   if (!isOpen || !role) return null
 
-  // Example users (temporary placeholder)
+  // Temporary user sample list
   const users: User[] = [
     { id: '1', name: 'John Doe', email: 'john.doe@example.com' },
     { id: '2', name: 'Jane Smith', email: 'jane.smith@example.com' },
     { id: '3', name: 'Robert Johnson', email: 'robert.johnson@example.com' },
   ]
+
+  // Role type color mapping
+  const roleColorMap: Record<string, string> = {
+    RootGuardian: 'bg-purple-100 text-purple-800',
+    SystemAdmin: 'bg-amber-100 text-amber-800',
+    BusinessAdmin: 'bg-blue-100 text-blue-800',
+    BusinessStaff: 'bg-teal-100 text-teal-800',
+    CategoryManager: 'bg-indigo-100 text-indigo-800',
+    BasicUser: 'bg-gray-100 text-gray-800',
+    PremiumUser: 'bg-green-100 text-green-800',
+  }
 
   return (
     <div className="fixed inset-0 z-1000 overflow-y-auto">
@@ -56,7 +66,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
 
           {/* Description */}
           <div className="mt-4 text-sm text-gray-600 border-t pt-4">
-            {role.description}
+            {role.description || 'No description provided.'}
           </div>
 
           {/* Role Type */}
@@ -64,25 +74,19 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
             <h4 className="text-sm font-medium text-gray-900">Role Type:</h4>
             <span
               className={`ml-2 px-2 py-1 text-xs rounded-full font-semibold ${
-                role.type === 'RootGuardian'
-                  ? 'bg-purple-100 text-purple-800'
-                  : role.type === 'CategoryManager'
-                  ? 'bg-teal-100 text-teal-800'
-                  : role.type === 'ServiceProvider'
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'bg-gray-100 text-gray-800'
+                roleColorMap[role.type] ?? 'bg-gray-100 text-gray-800'
               }`}
             >
               {role.type}
             </span>
           </div>
 
-          {/* Categories (Service Provider Only) */}
-          {role.type === 'ServiceProvider' && role.categories && (
+          {/* Content Manager only */}
+          {role.type === 'ContentManagerAdmin' && role.modules && (
             <div className="mt-6">
-              <h4 className="text-sm font-medium text-gray-900 mb-2">Categories</h4>
+              <h4 className="text-sm font-medium text-gray-900 mb-2">Managed Categories</h4>
               <div className="flex flex-wrap gap-2">
-                {role.categories.map(category => (
+                {role.modules.map(category => (
                   <span
                     key={category.id}
                     className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full"
@@ -109,7 +113,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
                           {permission.name}
                         </span>
                         <span className="ml-2 text-xs text-gray-500">
-                          {permission.category}
+                          {permission.module}
                         </span>
                       </div>
                     </div>
@@ -120,7 +124,7 @@ export function ViewRoleModal({ isOpen, onClose, role }: ViewRoleModalProps) {
           )}
 
           {/* Assigned Users */}
-          {role.usersAssigned && (
+          {role.usersAssigned !== undefined && (
             <div className="mt-6">
               <h4 className="text-sm font-medium text-gray-900 mb-2">
                 Assigned Users ({role.usersAssigned})

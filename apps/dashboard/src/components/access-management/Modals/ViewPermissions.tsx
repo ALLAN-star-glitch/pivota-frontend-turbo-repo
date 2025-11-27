@@ -2,52 +2,68 @@
 
 import { useState } from 'react';
 import { XIcon, SearchIcon, FilterIcon } from 'lucide-react';
-import {  SystemPermission } from '../../../../libs/types/access-management/type';
+import { SystemPermission } from '../../../../libs/types/access-management/type';
 
 interface ViewPermissionsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-// Mock permissions data
+// Mock permissions data using MODULES and including both system & business scopes
 const allPermissions: SystemPermission[] = [
+  // -------- System Scope --------
   // User Management
-  { id: '1', name: 'user.view', category: 'User Management', description: 'View user details' },
-  { id: '2', name: 'user.create', category: 'User Management', description: 'Create new users' },
-  { id: '3', name: 'user.edit', category: 'User Management', description: 'Edit user details' },
-  { id: '4', name: 'user.delete', category: 'User Management', description: 'Delete users' },
+  { id: '1', name: 'user.view', module: 'User Management', description: 'View user details', scope: 'system' },
+  { id: '2', name: 'user.create', module: 'User Management', description: 'Create new users', scope: 'system' },
+  { id: '3', name: 'user.edit', module: 'User Management', description: 'Edit user details', scope: 'system' },
+  { id: '4', name: 'user.delete', module: 'User Management', description: 'Delete users', scope: 'system' },
 
   // Role Management
-  { id: '11', name: 'role.assign', category: 'Role Management', description: 'Assign roles to users' },
-  { id: '12', name: 'permission.assign', category: 'Role Management', description: 'Assign permissions' },
+  { id: '11', name: 'role.assign', module: 'Role Management', description: 'Assign roles to users', scope: 'system' },
+  { id: '12', name: 'permission.assign', module: 'Role Management', description: 'Assign permissions to roles', scope: 'system' },
 
   // Dashboard & Reports
-  { id: '13', name: 'dashboard.view', category: 'Dashboard', description: 'View dashboard' },
-  { id: '14', name: 'reports.view', category: 'Reports', description: 'View reports' },
-  { id: '15', name: 'reports.export', category: 'Reports', description: 'Export reports' },
+  { id: '13', name: 'dashboard.view', module: 'Dashboard', description: 'View analytics dashboard', scope: 'system' },
+  { id: '14', name: 'reports.view', module: 'Reports', description: 'View system reports', scope: 'system' },
+  { id: '15', name: 'reports.export', module: 'Reports', description: 'Export report data', scope: 'system' },
 
   // Settings
-  { id: '16', name: 'settings.edit', category: 'Settings', description: 'Edit system settings' },
+  { id: '16', name: 'settings.edit', module: 'Settings', description: 'Edit core system settings', scope: 'system' },
+
+  // -------- Business Scope --------
+  // Generic Listings (business-scoped)
+  { id: '20', name: 'listing.view', module: 'Listings', description: 'View listings (business scope)', scope: 'business' },
+  { id: '21', name: 'listing.create', module: 'Listings', description: 'Create listings (business scope)', scope: 'business' },
+  { id: '22', name: 'listing.edit', module: 'Listings', description: 'Edit listings (business scope)', scope: 'business' },
+  { id: '23', name: 'listing.approve', module: 'Listings', description: 'Approve listings (business scope)', scope: 'business' },
+  { id: '24', name: 'listing.delete', module: 'Listings', description: 'Delete listings (business scope)', scope: 'business' },
+
+  // Module-specific business permissions (examples)
+  { id: '25', name: 'listings.housing.create', module: 'Housing', description: 'Create housing listing', scope: 'business' },
+  { id: '26', name: 'listings.housing.approve', module: 'Housing', description: 'Approve housing listing', scope: 'business' },
+  { id: '27', name: 'listings.jobs.create', module: 'Jobs', description: 'Create job listing', scope: 'business' },
+  { id: '28', name: 'listings.jobs.approve', module: 'Jobs', description: 'Approve job listing', scope: 'business' },
 ];
+
 
 export function ViewPermissionsModal({ isOpen, onClose }: ViewPermissionsModalProps) {
   const [search, setSearch] = useState('');
-  const [filterCategory, setFilterCategory] = useState('');
+  const [filterModule, setFilterModule] = useState('');
 
   if (!isOpen) return null;
 
-  // Unique high-level categories for dropdown
-  const categories = Array.from(new Set(allPermissions.map(p => p.category)));
+  // Unique modules for dropdown
+  const modules = Array.from(new Set(allPermissions.map(p => p.module)));
 
-  // Filter permissions by search and category
+  // Filter permissions
   const filtered = allPermissions.filter(permission => {
     const searchMatch =
       permission.name.toLowerCase().includes(search.toLowerCase()) ||
       permission.description.toLowerCase().includes(search.toLowerCase());
 
-    const categoryMatch = !filterCategory || permission.category === filterCategory;
+    const moduleMatch = !filterModule || permission.module === filterModule;
 
-    return searchMatch && categoryMatch;
+    return searchMatch && moduleMatch;
   });
 
   return (
@@ -69,41 +85,42 @@ export function ViewPermissionsModal({ isOpen, onClose }: ViewPermissionsModalPr
 
           {/* Header */}
           <h3 className="text-lg font-semibold text-gray-900">
-            Quick Permissions Glance
+            System Permissions Overview
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            View all permissions grouped by high-level categories.
+            Browse permissions grouped by system modules.
           </p>
 
-          {/* Search + Category Filter */}
+          {/* Search + Module Filter */}
           <div className="mt-4 flex flex-col sm:flex-row gap-3">
             {/* Search */}
             <div className="relative flex-1">
               <SearchIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400 pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search permissions"
+                placeholder="Search permission name or description"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 focus:border-teal-500 focus:ring-teal-500 text-sm"
               />
             </div>
 
-            {/* Category Filter */}
+            {/* Module Filter */}
             <div className="relative flex-1">
               <FilterIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400 pointer-events-none" />
               <select
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value)}
+                value={filterModule}
+                onChange={(e) => setFilterModule(e.target.value)}
                 className="w-full border border-gray-300 rounded-md pl-10 pr-3 py-2 focus:border-teal-500 focus:ring-teal-500 text-sm"
               >
-                <option value="">All Categories</option>
-                {categories.map(category => (
-                  <option key={category} value={category}>
-                    {category}
+                <option value="">All Modules</option>
+                {modules.map((module) => (
+                  <option key={module} value={module ?? ''}>
+                    {module ?? 'Unknown'}
                   </option>
                 ))}
               </select>
+
             </div>
           </div>
 
@@ -117,12 +134,13 @@ export function ViewPermissionsModal({ isOpen, onClose }: ViewPermissionsModalPr
                       {permission.name}
                     </p>
                     <span className="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-0.5 rounded-full">
-                      {permission.category}
+                      {permission.module}
                     </span>
                   </div>
                   <p className="mt-1 text-sm text-gray-600">{permission.description}</p>
                 </li>
               ))}
+
               {filtered.length === 0 && (
                 <li className="px-4 py-6 text-center text-gray-500 text-sm">
                   No permissions found

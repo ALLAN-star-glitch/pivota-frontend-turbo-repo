@@ -2,7 +2,7 @@
 
 import React from "react";
 import { EyeIcon, EditIcon } from "lucide-react";
-import { SystemRole } from "../../../libs/types/access-management/type";
+import { SystemRole, RoleType } from "../../../libs/types/access-management/type";
 
 interface SystemRolesTableProps {
   onViewRole: (role: SystemRole) => void;
@@ -10,28 +10,31 @@ interface SystemRolesTableProps {
 }
 
 export function SystemRolesTable({ onViewRole, onEditRole }: SystemRolesTableProps) {
+  // Updated roles array with valid RoleTypes
   const roles: SystemRole[] = [
     { id: "1", type: "RootGuardian", name: "Root Guardian", description: "Full system authority", usersAssigned: 1, status: "Active" },
     { id: "2", type: "ContentManagerAdmin", name: "Content Manager Admin", description: "Manages all content", usersAssigned: 6, status: "Active" },
     { id: "3", type: "ComplianceAdmin", name: "Compliance Admin", description: "Ensures compliance", usersAssigned: 4, status: "Active" },
     { id: "4", type: "FraudAdmin", name: "Fraud Admin", description: "Handles risk & fraud", usersAssigned: 2, status: "Active" },
     { id: "5", type: "AnalyticsAdmin", name: "Analytics Admin", description: "Trends & reporting", usersAssigned: 1, status: "Active" },
-    { id: "6", type: "CategoryManager", name: "Category Manager", description: "Manages business modules", usersAssigned: 3, status: "Active" },
-    { id: "7", type: "ServiceProvider", name: "Service Provider", description: "Businesses posting listings", usersAssigned: 122, status: "Active" },
-    { id: "8", type: "RegisteredUser", name: "Registered User", description: "Basic platform account", usersAssigned: 800, status: "Active" },
+    { id: "7", type: "BusinessSystemAdmin", name: "Business System Admin", description: "Businesses posting listings", usersAssigned: 122, status: "Active" },
+    { id: "6", type: "BusinessContentManager", name: "Business Content Manager", description: "Manages business content", usersAssigned: 3, status: "Active" },
+    { id: "8", type: "GeneralUser", name: "General User", description: "Basic platform account", usersAssigned: 800, status: "Active" },
   ];
 
-  const systemOrder = [
+  // Corrected display order
+  const systemOrder: RoleType[] = [
     "RootGuardian",
     "ContentManagerAdmin",
     "ComplianceAdmin",
     "FraudAdmin",
     "AnalyticsAdmin",
-    "CategoryManager",
-    "ServiceProvider",
-    "RegisteredUser",
+    "BusinessSystemAdmin",
+    "BusinessContentManager",
+    "GeneralUser",
   ];
 
+  // Sort roles according to the order
   const sortedRoles = [...roles].sort((a, b) => {
     const aIndex = systemOrder.indexOf(a.type);
     const bIndex = systemOrder.indexOf(b.type);
@@ -41,16 +44,17 @@ export function SystemRolesTable({ onViewRole, onEditRole }: SystemRolesTablePro
     return 0;
   });
 
-  const getRoleBadgeColor = (type: SystemRole["type"]) => {
+  // Badge color mapping
+  const getRoleBadgeColor = (type: RoleType) => {
     switch (type) {
       case "RootGuardian": return "bg-red-100 text-red-700";
       case "ContentManagerAdmin": return "bg-blue-100 text-blue-700";
       case "ComplianceAdmin": return "bg-purple-100 text-purple-700";
       case "FraudAdmin": return "bg-pink-100 text-pink-700";
       case "AnalyticsAdmin": return "bg-indigo-100 text-indigo-700";
-      case "CategoryManager": return "bg-teal-100 text-teal-700";
-      case "ServiceProvider": return "bg-amber-100 text-amber-700";
-      case "RegisteredUser": default: return "bg-gray-100 text-gray-700";
+      case "BusinessSystemAdmin": return "bg-amber-100 text-amber-700";
+      case "BusinessContentManager": return "bg-teal-100 text-teal-700";
+      case "GeneralUser": default: return "bg-gray-100 text-gray-700";
     }
   };
 
