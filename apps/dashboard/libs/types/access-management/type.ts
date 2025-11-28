@@ -33,7 +33,7 @@ export interface ModuleScope {
 // ---------- Permissions ----------
 export interface SystemPermission {
   id: string
-  name: string // e.g., listings.view, listings.housing.create
+  name: string 
   description: string
   scope: 'system' | 'business'
   module?: string | null // null for global permissions
