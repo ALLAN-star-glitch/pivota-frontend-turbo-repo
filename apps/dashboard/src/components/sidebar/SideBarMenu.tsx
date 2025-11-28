@@ -50,8 +50,8 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/quick-actions",
         subItems: [
           { name: "Add User", href: "/dashboard/users/add" },
-          { name: "Add Informal Job", href: "/add-informal-job-listing" },
-          { name: "Add Formal Job", href: "/add-formal-job-listing" },
+          { name: "Add Informal Job", href: "/add-informal-job" },
+          { name: "Add Formal Job", href: "/add-formal-job" },
           { name: "Add Property", href: "/dashboard/housing/add" },
           { name: "Add Freelancer / Professional", href: "/dashboard/partners/individuals/professionals/add" },
           { name: "Add Organization Service", href: "/dashboard/services/organizations/add" },
@@ -160,7 +160,7 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/jobs/formal",
         subItems: [
           { name: "All Jobs", href: "/dashboard/jobs/formal/all" },
-          { name: "Create Job Listing", href: "/dashboard/jobs/formal/add" },
+          { name: "Add Formal Job ", href: "/add-formal-job" },
           { name: "Pending Approvals", href: "/dashboard/jobs/formal/pending" },
           { name: "Reported Jobs", href: "/dashboard/jobs/formal/reported" },
           { name: "Applications", href: "/dashboard/jobs/formal/applications" },
@@ -173,7 +173,7 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/jobs/informal",
         subItems: [
           { name: "All Jobs", href: "/dashboard/jobs/informal/all" },
-          { name: "Create Job Listing", href: "/create-job-listing" },
+          { name: "Add Informal Job", href: "/add-informal-job" },
           { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending" },
           { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported" },
           { name: "Applications", href: "/dashboard/jobs/informal/applications" },
