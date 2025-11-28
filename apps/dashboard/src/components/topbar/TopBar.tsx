@@ -2,6 +2,7 @@
 
 import { BellIcon, MessageSquareIcon, ChevronDown, Plus, LogOut, Search } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 export default function Topbar() {
@@ -30,11 +31,11 @@ export default function Topbar() {
   }, []);
 
   const addOptions = [
-    "Informal Job",
-    "Formal Job",
-    "Rental House",
-    "House for Sale",
-    "Service",
+    { label: "Informal Job", href: "/add-informal-job-listing" },
+    { label: "Formal Job", href: "/jobs/formal" },
+    { label: "Rental House", href: "/houses/rental" },
+    { label: "House for Sale", href: "/houses/sale" },
+    { label: "Service", href: "/services" },
   ];
 
   return (
@@ -78,12 +79,13 @@ export default function Topbar() {
           {addDropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50 animate-fadeIn">
               {addOptions.map((option, idx) => (
-                <button
+                <Link
                   key={idx}
-                  className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg transition cursor-pointer"
+                  href={option.href}
+                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg transition cursor-pointer"
                 >
-                  {option}
-                </button>
+                  {option.label}
+                </Link>
               ))}
             </div>
           )}
@@ -122,15 +124,24 @@ export default function Topbar() {
 
           {userDropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50 animate-fadeIn">
-              <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer">
+              <Link
+                href="/profile"
+                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+              >
                 Profile
-              </button>
-              <button className="w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer">
+              </Link>
+              <Link
+                href="/settings"
+                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+              >
                 Settings
-              </button>
-              <button className="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg flex items-center gap-2 transition cursor-pointer">
+              </Link>
+              <Link
+                href="/logout"
+                className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+              >
                 <LogOut className="h-4 w-4" /> Logout
-              </button>
+              </Link>
             </div>
           )}
         </div>
