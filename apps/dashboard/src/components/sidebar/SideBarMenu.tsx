@@ -268,15 +268,9 @@ export const menuGroups: MenuGroup[] = [
     items: [
     
       {
-        name: "RBAC Management",
+        name: "System Access",
         icon: ShieldCheck,
-        href: "/dashboard/access/domains",
-        subItems: [
-          {name: "System Access", href: "/system-access"},
-          { name: "Housing Access", href: "/dashboard/access/domains/housing" },
-          { name: "Jobs Access", href: "/dashboard/access/domains/jobs" },
-          { name: "Support & Services Access", href: "/dashboard/access/domains/support" },
-        ],
+        href: "/system-access",
       },
       {
         name: "Integrations",
