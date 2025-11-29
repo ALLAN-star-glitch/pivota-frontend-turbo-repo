@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -29,12 +29,11 @@ export default function CreateJobListing() {
     removeEquipment,
     getError,
     publish,
+    resetForm,
   } = useJobListingForm()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -62,11 +61,10 @@ export default function CreateJobListing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 
-            {/* Left: Title */}
             <div className="flex items-center gap-2 sm:gap-3 flex-1">
               <button
                 onClick={() => window.history.back()}
-                className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="cursor-pointer p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowLeftIcon size={20} className="text-gray-600" />
               </button>
@@ -81,10 +79,8 @@ export default function CreateJobListing() {
               </div>
             </div>
 
-            {/* Right: Buttons — improved mobile layout */}
             <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
 
-              {/* Preview (mobile only) */}
               <Button
                 variant="ghost"
                 icon={EyeIcon}
@@ -112,7 +108,6 @@ export default function CreateJobListing() {
       <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-          {/* Left Column: Form */}
           <div className="lg:col-span-7">
             <JobListingForm
               formData={formData}
@@ -133,9 +128,8 @@ export default function CreateJobListing() {
             />
           </div>
 
-          {/* Right Column: Preview — desktop only */}
           <div className="lg:col-span-5 hidden md:hidden lg:block">
-            <JobPreviewPanel formData={formData} />
+            <JobPreviewPanel formData={formData} onReset={resetForm} />
           </div>
 
         </div>
@@ -168,7 +162,7 @@ export default function CreateJobListing() {
               </button>
             </div>
 
-            <JobPreviewPanel formData={formData}/>
+            <JobPreviewPanel formData={formData} onReset={resetForm} />
           </motion.div>
         </motion.div>
       )}

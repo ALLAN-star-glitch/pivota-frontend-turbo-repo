@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useCallback } from "react";
 import { JobListing, ValidationError } from "../types/jobs/job";
@@ -6,8 +6,6 @@ import { JobListing, ValidationError } from "../types/jobs/job";
 // -----------------------------------------
 // Strong Utility Types for Deep Keys
 // -----------------------------------------
-
-// Prevents widening issues & removes undefined possibilities
 export type NestedKeyOf<T> = {
   [K in keyof T & string]:
     T[K] extends object
@@ -25,7 +23,6 @@ export type ValueAtPath<T, P extends string> =
       : never;
 
 // -----------------------------------------
-
 const initialFormState: JobListing = {
   title: "",
   category: "",
@@ -60,42 +57,38 @@ export function useJobListingForm() {
   const [currentEquipmentInput, setCurrentEquipmentInput] = useState("");
 
   // -----------------------------------------
-  // Strongly typed updateField (perfectly safe)
+  // Strongly typed updateField
   // -----------------------------------------
   const updateField = useCallback(
-  <P extends NestedKeyOf<JobListing>>(
-    field: P,
-    value: ValueAtPath<JobListing, P>
-  ) => {
-    setFormData((prev) => {
-      const parts = field.split(".");
+    <P extends NestedKeyOf<JobListing>>(field: P, value: ValueAtPath<JobListing, P>) => {
+      setFormData((prev) => {
+        const parts = field.split(".");
+        const newData: JobListing = { ...prev };
 
-      const newData: JobListing = { ...prev };
-
-      // Recursive helper to update nested objects safely
-      const setNested = <T extends object>(
-        obj: T,
-        keys: string[],
-        val: unknown
-      ): T => {
-        const [first, ...rest] = keys;
-        if (!rest.length) {
-          return { ...obj, [first]: val } as T;
-        }
-        return {
-          ...obj,
-          [first]: setNested(obj[first as keyof T] as object, rest, val),
+        const setNested = <T extends object>(obj: T, keys: string[], val: unknown): T => {
+          const [first, ...rest] = keys;
+          if (!rest.length) return { ...obj, [first]: val } as T;
+          return { ...obj, [first]: setNested(obj[first as keyof T] as object, rest, val) };
         };
-      };
 
-      return setNested(newData, parts, value) as JobListing;
-    });
+        return setNested(newData, parts, value) as JobListing;
+      });
 
-    setErrors((prev) => prev.filter((e) => e.field !== field));
-  },
-  []
-);
+      setErrors((prev) => prev.filter((e) => e.field !== field));
+    },
+    []
+  );
 
+  // -----------------------------------------
+  // Reset Form Hook
+  // -----------------------------------------
+  const resetForm = useCallback(() => {
+    setFormData(initialFormState);
+    setErrors([]);
+    setCurrentSkillInput("");
+    setCurrentDocumentInput("");
+    setCurrentEquipmentInput("");
+  }, []);
 
   // -----------------------------------------
   // Skill List
@@ -124,10 +117,7 @@ export function useJobListingForm() {
     if (currentDocumentInput.trim()) {
       setFormData((prev) => ({
         ...prev,
-        documentsNeeded: [
-          ...prev.documentsNeeded,
-          currentDocumentInput.trim(),
-        ],
+        documentsNeeded: [...prev.documentsNeeded, currentDocumentInput.trim()],
       }));
       setCurrentDocumentInput("");
     }
@@ -147,10 +137,7 @@ export function useJobListingForm() {
     if (currentEquipmentInput.trim()) {
       setFormData((prev) => ({
         ...prev,
-        equipmentRequired: [
-          ...prev.equipmentRequired,
-          currentEquipmentInput.trim(),
-        ],
+        equipmentRequired: [...prev.equipmentRequired, currentEquipmentInput.trim()],
       }));
       setCurrentEquipmentInput("");
     }
@@ -168,68 +155,21 @@ export function useJobListingForm() {
   // -----------------------------------------
   const validate = useCallback((): boolean => {
     const newErrors: ValidationError[] = [];
-
-    if (!formData.title.trim()) {
-      newErrors.push({ field: "title", message: "Job title is required" });
-    }
-    if (!formData.category) {
-      newErrors.push({
-        field: "category",
-        message: "Please select a job category",
-      });
-    }
-    if (!formData.description.trim()) {
-      newErrors.push({
-        field: "description",
-        message: "Job description is required",
-      });
-    }
-    if (!formData.experienceLevel) {
-      newErrors.push({
-        field: "experienceLevel",
-        message: "Please select experience level",
-      });
-    }
-    if (!formData.employmentType) {
-      newErrors.push({
-        field: "employmentType",
-        message: "Please select employment type",
-      });
-    }
-    if (!formData.location.city.trim()) {
-      newErrors.push({
-        field: "location.city",
-        message: "City is required",
-      });
-    }
-    if (!formData.pay.amount.trim()) {
-      newErrors.push({
-        field: "pay.amount",
-        message: "Pay amount is required",
-      });
-    }
-    if (!formData.applicationPeriod.startDate) {
-      newErrors.push({
-        field: "applicationPeriod.startDate",
-        message: "Start date is required",
-      });
-    }
-    if (!formData.applicationPeriod.endDate) {
-      newErrors.push({
-        field: "applicationPeriod.endDate",
-        message: "End date is required",
-      });
-    }
+    if (!formData.title.trim()) newErrors.push({ field: "title", message: "Job title is required" });
+    if (!formData.category) newErrors.push({ field: "category", message: "Please select a job category" });
+    if (!formData.description.trim()) newErrors.push({ field: "description", message: "Job description is required" });
+    if (!formData.experienceLevel) newErrors.push({ field: "experienceLevel", message: "Please select experience level" });
+    if (!formData.employmentType) newErrors.push({ field: "employmentType", message: "Please select employment type" });
+    if (!formData.location.city.trim()) newErrors.push({ field: "location.city", message: "City is required" });
+    if (!formData.pay.amount.trim()) newErrors.push({ field: "pay.amount", message: "Pay amount is required" });
+    if (!formData.applicationPeriod.startDate) newErrors.push({ field: "applicationPeriod.startDate", message: "Start date is required" });
+    if (!formData.applicationPeriod.endDate) newErrors.push({ field: "applicationPeriod.endDate", message: "End date is required" });
 
     setErrors(newErrors);
     return newErrors.length === 0;
   }, [formData]);
 
-  const getError = useCallback(
-    (field: string) =>
-      errors.find((err) => err.field === field)?.message,
-    [errors]
-  );
+  const getError = useCallback((field: string) => errors.find((err) => err.field === field)?.message, [errors]);
 
   // -----------------------------------------
   // Actions
@@ -251,7 +191,6 @@ export function useJobListingForm() {
   // -----------------------------------------
   // Export API
   // -----------------------------------------
-
   return {
     formData,
     updateField,
@@ -270,9 +209,6 @@ export function useJobListingForm() {
     getError,
     saveDraft,
     publish,
+    resetForm, // <-- added here
   };
-
-
-
-  
 }

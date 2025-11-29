@@ -9,12 +9,15 @@ import {
   ClockIcon,
   LightbulbIcon,
   FileTextIcon,
+  RefreshCwIcon,
 } from 'lucide-react'
 import { Badge } from '../../shared/Badge'
 import { JobListing } from '../../../../libs/types/jobs/job'
+import Button from '../../shared/Button'
 
 interface JobPreviewPanelProps {
   formData: JobListing
+  onReset: () => void
 }
 
 const jobCategories = [
@@ -46,7 +49,7 @@ const employmentTypes = [
   { value: 'contract', label: 'Contract' },
 ] as const
 
-export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
+export default function JobPreviewPanel({ formData, onReset }: JobPreviewPanelProps) {
   const formatPayRate = (rate: JobListing['pay']['rate']) => {
     const rates: Record<JobListing['pay']['rate'], string> = {
       daily: 'per day',
@@ -70,7 +73,7 @@ export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
   const isEmptyForm = !formData.title && !formData.category
 
   return (
-    <div className="sticky top-60 space-y-6">
+    <div className="sticky top-48 space-y-6">
 
       {/* Main Panel */}
       <motion.div
@@ -80,20 +83,32 @@ export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
         className="bg-white rounded-xl shadow-md p-6 space-y-6"
       >
         <div className="flex items-center justify-between pb-4 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-900">Live Preview</h3>
-          <Badge variant="teal">{formData.status === 'draft' ? 'Draft' : 'Published'}</Badge>
+          <h3 className="text-lg font-semibold text-gray-900">Preview</h3>
+          <div className="flex items-center gap-2">
+            <Badge variant="teal">{formData.status === 'draft' ? 'Draft' : 'Published'}</Badge>
+            {formData.status === 'draft' && (
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={RefreshCwIcon}
+                onClick={onReset}
+                className='cursor-pointer'
+              >
+                Reset
+              </Button>
+            )}
+          </div>
         </div>
 
         {isEmptyForm ? (
-          // Dotted border placeholder inside the panel
           <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 flex flex-col items-center justify-center text-center space-y-3">
             <FileTextIcon size={36} className="text-gray-400" />
             <h4 className="text-lg font-semibold text-gray-900">Start filling the form</h4>
             <p className="text-sm text-gray-400">Your job listing preview will appear here</p>
           </div>
         ) : (
-          // Live preview content
           <div className="space-y-4">
+
             {/* Job Title */}
             <div>
               <h4 className="text-xl font-bold text-gray-900">{formData.title}</h4>
@@ -166,6 +181,18 @@ export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
               </div>
             )}
 
+            {/* Documents */}
+            {formData.documentsNeeded.length > 0 && (
+              <div className="pt-4 border-t border-gray-100">
+                <h5 className="text-sm font-semibold text-gray-900 mb-2">Documents Needed</h5>
+                <div className="flex flex-wrap gap-2">
+                  {formData.documentsNeeded.map((equipment, index) => (
+                    <Badge key={index}>{equipment}</Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Equipment */}
             {formData.equipmentRequired.length > 0 && (
               <div className="pt-4 border-t border-gray-100">
@@ -177,11 +204,19 @@ export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
                 </div>
               </div>
             )}
+
+              {/* Additional Notes */}
+            {formData.additionalNotes && (
+              <div className="pt-4 border-t border-gray-100">
+                <h5 className="text-sm font-semibold text-gray-900 mb-2">Additional Notes</h5>
+                <p className="text-sm text-gray-600 whitespace-pre-wrap line-clamp-4">{formData.additionalNotes}</p>
+              </div>
+            )}
           </div>
         )}
       </motion.div>
 
-      {/* Tips & Quick Actions remain unchanged */}
+      {/* Tips */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -199,8 +234,6 @@ export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
           <li className="flex items-start gap-2"><span className="text-teal-500 mt-1">•</span>Include location details and transport info</li>
         </ul>
       </motion.div>
-
-    
     </div>
   )
 }
