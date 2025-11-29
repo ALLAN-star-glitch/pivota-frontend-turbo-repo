@@ -11,7 +11,7 @@ import {
   AlignLeftIcon,
   AlignRightIcon,
 } from "lucide-react";
-import { menuGroups } from "./SideBarMenu";
+import { menuGroups } from "../../../libs/constants/SideBarMenu";
 
 export default function Sidebar() {
   const pathname = usePathname();

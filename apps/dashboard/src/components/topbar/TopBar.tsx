@@ -4,6 +4,7 @@ import { BellIcon, MessageSquareIcon, ChevronDown, Plus, LogOut, Search } from "
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { addOptions } from "../../../libs/constants/topBarConstants";
 
 export default function Topbar() {
   const user = {
@@ -30,13 +31,6 @@ export default function Topbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const addOptions = [
-    { label: "Informal Job", href: "/add-informal-job-listing" },
-    { label: "Formal Job", href: "/jobs/formal" },
-    { label: "Rental House", href: "/houses/rental" },
-    { label: "House for Sale", href: "/houses/sale" },
-    { label: "Service", href: "/services" },
-  ];
 
   return (
     <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[96%] sm:w-[98%] bg-white/70 backdrop-blur-md shadow-lg border border-gray-100 rounded-2xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
@@ -63,7 +57,7 @@ export default function Topbar() {
       </div>
 
       {/* Right: Actions + User */}
-      <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0 relative">
+      <div className="flex items-center gap-3 sm:gap-5 shrink-0 relative">
 
         {/* Add New Dropdown */}
         <div ref={addDropdownRef} className="relative hidden lg:flex">
