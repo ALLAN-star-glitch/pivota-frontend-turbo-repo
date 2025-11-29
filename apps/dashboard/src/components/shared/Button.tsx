@@ -9,7 +9,7 @@ interface ButtonProps {
   onClick?: () => void
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
-  icon?: LucideIcon        // ✅ correct type
+  icon?: LucideIcon        //correct type
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   className?: string
@@ -30,11 +30,11 @@ export default function Button({
 
   const variants = {
     primary:
-      'bg-teal-500 text-white hover:bg-teal-600 focus:ring-teal-500 shadow-sm',
+      'bg-teal-500 text-white hover:bg-teal-600 focus:ring-teal-500 shadow-sm cursor-pointer',
     secondary:
-      'bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500 shadow-sm',
+      'bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500 shadow-sm cursor-pointer',
     outline:
-      'border-2 border-teal-500 text-teal-600 hover:bg-teal-50 focus:ring-teal-500',
+      'border-2 border-teal-500 text-teal-600 hover:bg-teal-50 focus:ring-teal-500 cursor-pointer',
     ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-300',
   }
 

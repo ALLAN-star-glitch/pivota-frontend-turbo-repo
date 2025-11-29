@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { EyeIcon, SendIcon, ArrowLeftIcon } from 'lucide-react'
 import { useJobListingForm } from '../../../libs/hooks/useJobListingForm'
-import Button from '@/components/jobs-module/informal-jobs/Button';
+import Button from '@/components/shared/Button';
 import JobListingForm from '@/components/jobs-module/informal-jobs/JobListingForm';
 import JobPreviewPanel from '@/components/jobs-module/informal-jobs/JobPreviewPanel';
 

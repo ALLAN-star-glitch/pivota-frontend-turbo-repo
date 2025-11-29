@@ -13,12 +13,12 @@ import {
 import { Input } from '@/components/shared/Input'
 import { Select } from '@/components/shared/Select'
 import { Textarea } from '@/components/shared/Textarea'
-import { Badge } from './Badge'
+import { Badge } from '../../shared/Badge'
 import { Tooltip } from '@/components/shared/Tooltip'
 import { NestedKeyOf, ValueAtPath } from '../../../../libs/hooks/useJobListingForm'
 import { JobListing } from '../../../../libs/types/jobs/job'
 import DatePicker from '@/components/shared/DatePicker'
-import Button from './Button'
+import Button from '../../shared/Button'
 
 // -------------------- Dropdown Options --------------------
 const jobCategories = [

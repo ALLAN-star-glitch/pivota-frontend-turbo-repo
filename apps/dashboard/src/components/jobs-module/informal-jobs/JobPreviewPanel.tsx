@@ -11,9 +11,9 @@ import {
   CopyIcon,
   FileTextIcon,
 } from 'lucide-react'
-import { Badge } from './Badge'
+import { Badge } from '../../shared/Badge'
 import { JobListing } from '../../../../libs/types/jobs/job'
-import Button from './Button'
+import Button from '../../shared/Button'
 
 interface JobPreviewPanelProps {
   formData: JobListing
@@ -208,9 +208,9 @@ export default function JobPreviewPanel({ formData }: JobPreviewPanelProps) {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="bg-white rounded-xl shadow-sm p-4 space-y-3"
       >
-        <h3 className="text-sm font-semibold text-gray-900">Quick Actions</h3>
+        <h3 className="text-sm font-semibold text-gray-900">Quick Action</h3>
         <div className="space-y-2">
-          <Button variant="ghost" icon={CopyIcon} className="w-full justify-start">Clone this listing</Button>
+          <Button variant="ghost" icon={CopyIcon} className="cursor-pointer w-full justify-start">Clone this listing</Button>
         </div>
       </motion.div>
     </div>

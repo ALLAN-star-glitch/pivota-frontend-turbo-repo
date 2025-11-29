@@ -42,7 +42,7 @@ export function Badge({
       {onRemove && (
         <button
           onClick={onRemove}
-          className="hover:bg-black/10 rounded-full p-0.5 transition-colors"
+          className="hover:bg-black/10 rounded-full p-0.5 transition-colors cursor-pointer"
           aria-label="Remove"
         >
           <XIcon size={14} />
