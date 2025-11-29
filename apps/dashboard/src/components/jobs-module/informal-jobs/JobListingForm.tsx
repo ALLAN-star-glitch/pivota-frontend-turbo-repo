@@ -9,6 +9,7 @@ import {
   DollarSignIcon,
   FileTextIcon,
   WrenchIcon,
+  SendIcon,
 } from 'lucide-react'
 import { Input } from '@/components/shared/Input'
 import { Select } from '@/components/shared/Select'
@@ -55,10 +56,10 @@ const payRates: JobListing['pay']['rate'][] = ['daily', 'weekly', 'hourly', 'fix
 // -------------------- Props --------------------
 interface JobListingFormProps {
   formData: JobListing
- updateField: <P extends NestedKeyOf<JobListing>>(
+  updateField: <P extends NestedKeyOf<JobListing>>(
     field: P,
     value: ValueAtPath<JobListing, P>
-  ) => void;
+  ) => void
   currentSkillInput: string
   setCurrentSkillInput: (value: string) => void
   addSkill: () => void
@@ -100,8 +101,8 @@ export default function JobListingForm({
       className="space-y-8"
     >
       {/* Basic Information */}
-      <section className="bg-white rounded-xl shadow-sm p-6 space-y-6">
-        <div className="flex items-center gap-2 pb-4 border-b border-gray-100">
+      <section className="bg-white rounded-xl shadow-sm p-4 sm:p-6 space-y-6">
+        <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-gray-100">
           <BriefcaseIcon size={20} className="text-teal-500" />
           <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
         </div>
@@ -129,7 +130,7 @@ export default function JobListingForm({
           label="Job Description"
           value={formData.description}
           onChange={(value) => updateField('description', value)}
-          placeholder="Describe the job responsibilities, requirements, and what makes this opportunity great..."
+          placeholder="Describe the job responsibilities..."
           error={getError('description')}
           required
           rows={6}
@@ -138,26 +139,27 @@ export default function JobListingForm({
       </section>
 
       {/* Skills & Experience */}
-      <section className="bg-white rounded-xl shadow-sm p-6 space-y-6">
-        <div className="flex items-center gap-2 pb-4 border-b border-gray-100">
+      <section className="bg-white rounded-xl shadow-sm p-4 sm:p-6 space-y-6">
+        <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-gray-100">
           <WrenchIcon size={20} className="text-teal-500" />
           <h2 className="text-lg font-semibold text-gray-900">Skills & Experience</h2>
         </div>
 
+        {/* Skills */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <label className="block text-sm font-medium text-gray-700">Skills / Competencies</label>
-            <Tooltip content="Add specific skills needed for this job. These can be technical or soft skills." />
+            <label className="block text-sm font-medium text-gray-700">
+              Skills / Competencies
+            </label>
+            <Tooltip content="Add technical or soft skills needed for this job." />
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               value={currentSkillInput}
               onChange={(e) => setCurrentSkillInput(e.target.value)}
-              onKeyPress={(e) =>
-                e.key === 'Enter' && (e.preventDefault(), addSkill())
-              }
+              onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addSkill())}
               placeholder="e.g., Electrical wiring, Problem solving"
               className="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 focus:outline-none transition-all"
             />
@@ -197,13 +199,13 @@ export default function JobListingForm({
       </section>
 
       {/* Location */}
-      <section className="bg-white rounded-xl shadow-sm p-6 space-y-6">
-        <div className="flex items-center gap-2 pb-4 border-b border-gray-100">
+      <section className="bg-white rounded-xl shadow-sm p-4 sm:p-6 space-y-6">
+        <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-gray-100">
           <MapPinIcon size={20} className="text-teal-500" />
           <h2 className="text-lg font-semibold text-gray-900">Location</h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input
             label="City"
             value={formData.location.city}
@@ -229,7 +231,10 @@ export default function JobListingForm({
             type="checkbox"
             checked={formData.location.isRemote}
             onChange={(e) =>
-              updateField('location', { ...formData.location, isRemote: e.target.checked })
+              updateField('location', {
+                ...formData.location,
+                isRemote: e.target.checked,
+              })
             }
             className="w-4 h-4 text-teal-500 border-gray-300 rounded focus:ring-teal-500"
           />
@@ -238,13 +243,13 @@ export default function JobListingForm({
       </section>
 
       {/* Pay & Compensation */}
-      <section className="bg-white rounded-xl shadow-sm p-6 space-y-6">
-        <div className="flex items-center gap-2 pb-4 border-b border-gray-100">
+      <section className="bg-white rounded-xl shadow-sm p-4 sm:p-6 space-y-6">
+        <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-gray-100">
           <DollarSignIcon size={20} className="text-teal-500" />
           <h2 className="text-lg font-semibold text-gray-900">Pay & Compensation</h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input
             label="Pay Amount (KES)"
             value={formData.pay.amount}
@@ -260,7 +265,10 @@ export default function JobListingForm({
             label="Pay Rate"
             value={formData.pay.rate}
             onChange={(value) =>
-              updateField('pay', { ...formData.pay, rate: value as JobListing['pay']['rate'] })
+              updateField('pay', {
+                ...formData.pay,
+                rate: value as JobListing['pay']['rate'],
+              })
             }
             options={payRates.map((rate) => ({ value: rate, label: rate }))}
             required
@@ -269,18 +277,21 @@ export default function JobListingForm({
       </section>
 
       {/* Application Period */}
-      <section className="bg-white rounded-xl shadow-sm p-6 space-y-6">
-        <div className="flex items-center gap-2 pb-4 border-b border-gray-100">
+      <section className="bg-white rounded-xl shadow-sm p-4 sm:p-6 space-y-6">
+        <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-gray-100">
           <FileTextIcon size={20} className="text-teal-500" />
           <h2 className="text-lg font-semibold text-gray-900">Application Period</h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <DatePicker
             label="Application Start Date"
             value={formData.applicationPeriod.startDate}
             onChange={(value) =>
-              updateField('applicationPeriod', { ...formData.applicationPeriod, startDate: value })
+              updateField('applicationPeriod', {
+                ...formData.applicationPeriod,
+                startDate: value,
+              })
             }
             error={getError('applicationPeriod')}
             required
@@ -289,7 +300,10 @@ export default function JobListingForm({
             label="Application End Date"
             value={formData.applicationPeriod.endDate}
             onChange={(value) =>
-              updateField('applicationPeriod', { ...formData.applicationPeriod, endDate: value })
+              updateField('applicationPeriod', {
+                ...formData.applicationPeriod,
+                endDate: value,
+              })
             }
             min={formData.applicationPeriod.startDate}
             required
@@ -298,22 +312,24 @@ export default function JobListingForm({
       </section>
 
       {/* Additional Requirements */}
-      <section className="bg-white rounded-xl shadow-sm p-6 space-y-6">
+      <section className="bg-white rounded-xl shadow-sm p-4 sm:p-6 space-y-6">
         {/* Documents */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <label className="block text-sm font-medium text-gray-700">Documents Needed (Optional)</label>
-            <Tooltip content="List any documents applicants should have. Keep it flexible for informal workers." />
+            <label className="block text-sm font-medium text-gray-700">
+              Documents Needed (Optional)
+            </label>
+            <Tooltip content="List any documents applicants should have." />
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               value={currentDocumentInput}
               onChange={(e) => setCurrentDocumentInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addDocument())}
-              placeholder="e.g., ID copy, Reference letter (optional)"
-              className="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 focus:outline-none transition-all"
+              placeholder="e.g., ID copy, Reference letter"
+              className="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
             />
             <Button onClick={addDocument} icon={PlusIcon} size="md">Add</Button>
           </div>
@@ -321,7 +337,9 @@ export default function JobListingForm({
           {formData.documentsNeeded.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
               {formData.documentsNeeded.map((doc, index) => (
-                <Badge key={index} variant="amber" onRemove={() => removeDocument(index)}>{doc}</Badge>
+                <Badge key={index} variant="amber" onRemove={() => removeDocument(index)}>
+                  {doc}
+                </Badge>
               ))}
             </div>
           )}
@@ -330,18 +348,20 @@ export default function JobListingForm({
         {/* Equipment */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <label className="block text-sm font-medium text-gray-700">Equipment / Tools Required</label>
-            <Tooltip content="List any tools or equipment the worker should have or bring." />
+            <label className="block text-sm font-medium text-gray-700">
+              Equipment / Tools Required
+            </label>
+            <Tooltip content="Tools the worker should bring or have." />
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               value={currentEquipmentInput}
               onChange={(e) => setCurrentEquipmentInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addEquipment())}
               placeholder="e.g., Own tools, Motorcycle"
-              className="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 focus:outline-none transition-all"
+              className="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
             />
             <Button onClick={addEquipment} icon={PlusIcon} size="md">Add</Button>
           </div>
@@ -349,7 +369,9 @@ export default function JobListingForm({
           {formData.equipmentRequired.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
               {formData.equipmentRequired.map((eq, index) => (
-                <Badge key={index} onRemove={() => removeEquipment(index)}>{eq}</Badge>
+                <Badge key={index} onRemove={() => removeEquipment(index)}>
+                  {eq}
+                </Badge>
               ))}
             </div>
           )}
@@ -360,10 +382,26 @@ export default function JobListingForm({
           label="Additional Notes / Instructions"
           value={formData.additionalNotes}
           onChange={(value) => updateField('additionalNotes', value)}
-          placeholder="Any other important information for applicants..."
+          placeholder="Any other important information..."
           rows={4}
         />
       </section>
+
+      {/* -------------------------------- */}
+      {/*        PUBLISH BUTTON            */}
+      {/* -------------------------------- */}
+      <div className="flex justify-end pt-4">
+
+         <Button
+            variant="primary"
+            icon={SendIcon}
+                        
+        >
+          Publish Job
+          </Button>
+               
+      </div>
+
     </motion.div>
   )
 }

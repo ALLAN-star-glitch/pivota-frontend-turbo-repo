@@ -2,7 +2,12 @@
 
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { EyeIcon, SendIcon, ArrowLeftIcon } from 'lucide-react'
+import {
+  EyeIcon,
+  SendIcon,
+  ArrowLeftIcon,
+  RefreshCwIcon,
+} from 'lucide-react'
 import { useJobListingForm } from '../../../libs/hooks/useJobListingForm'
 import Button from '@/components/shared/Button';
 import JobListingForm from '@/components/jobs-module/informal-jobs/JobListingForm';
@@ -61,6 +66,7 @@ export default function CreateJobListing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 
+            {/* Back + Title */}
             <div className="flex items-center gap-2 sm:gap-3 flex-1">
               <button
                 onClick={() => window.history.back()}
@@ -79,32 +85,59 @@ export default function CreateJobListing() {
               </div>
             </div>
 
+            {/* Actions */}
             <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
 
-              <Button
-                variant="ghost"
-                icon={EyeIcon}
-                onClick={() => setShowPreview(true)}
-                className="md:hidden w-full"
-              >
-                Preview
-              </Button>
+              {/* MOBILE: Text Links */}
+              <div className="flex md:hidden items-center justify-center gap-4 text-sm font-medium">
 
-              <Button
-                variant="primary"
-                icon={SendIcon}
-                onClick={handlePublish}
-                className="w-full sm:w-auto"
-              >
-                Publish Job
-              </Button>
+                <button
+                  onClick={() => setShowPreview(true)}
+                  className="flex items-center gap-1 text-gray-700 hover:text-teal-600"
+                >
+                  <EyeIcon size={16} />
+                  Preview
+                </button>
+
+                <button
+                  onClick={resetForm}
+                  className="flex items-center gap-1 text-gray-700 hover:text-orange-600"
+                >
+                  <RefreshCwIcon size={16} />
+                  Reset
+                </button>
+
+                <button
+                  onClick={handlePublish}
+                  className="flex items-center gap-1 text-teal-700 hover:text-teal-900 font-semibold"
+                >
+                  <SendIcon size={16} />
+                  Publish
+                </button>
+
+              </div>
+
+              {/* DESKTOP BUTTONS */}
+              <div className="hidden md:flex gap-2">
+
+
+                <Button
+                  variant="primary"
+                  icon={SendIcon}
+                  onClick={handlePublish}
+                >
+                  Publish Job
+                </Button>
+
+              </div>
+
             </div>
 
           </div>
         </div>
       </motion.header>
 
-      {/* Main Content */}
+      {/* Main */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
