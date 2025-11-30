@@ -67,7 +67,7 @@ export default function CreateJobListing() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 
             {/* Back + Title */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-1">
+            <div className="hidden sm:block flex items-center gap-2 sm:gap-3 flex-1">
               <button
                 onClick={() => window.history.back()}
                 className="cursor-pointer p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -76,10 +76,10 @@ export default function CreateJobListing() {
               </button>
 
               <div>
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-tight">
-                  Create Job Listing
+                <h1 className="hidden sm:block text-lg sm:text-xl font-bold text-gray-900 leading-tight">
+                  Post Inform Job 
                 </h1>
-                <p className="text-xs sm:text-sm text-gray-600">
+                <p className="hidden sm:block text-xs sm:text-sm text-gray-600">
                   Post opportunities for informal workers in Kenya
                 </p>
               </div>
