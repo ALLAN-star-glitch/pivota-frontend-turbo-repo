@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Topbar from "@/components/topbar/TopBar";
 import Sidebar from "@/components/sidebar/SideBar";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,23 +48,38 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/* Faint teal background */}
+      {/* --- GOOGLE ANALYTICS SCRIPTS --- */}
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-WD01V6808S"
+      />
+
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WD01V6808S');
+        `}
+      </Script>
+      {/* --- END GOOGLE ANALYTICS --- */}
+
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Topbar */}
-        <div className="min-h-screen bg-gradient-to-br from-teal-50/20 via-white to-teal-50/10 flex flex-col">
+        {/* Background wrapper */}
+        <div className="min-h-screen bg-linear-to-br from-teal-50/20 via-white to-teal-50/10 flex flex-col">
 
-        <Topbar />
+          {/* Topbar */}
+          <Topbar />
 
-        {/* Main container: Sidebar + Main */}
-        <div className="flex pt-22 min-h-screen">
-          {/* Sidebar */}
-          <Sidebar />
+          {/* Main container: Sidebar + Main */}
+          <div className="flex pt-22 min-h-screen">
+            <Sidebar />
 
-          {/* Main content */}
-          <main className="flex-1 p-6 transition-all duration-300">
-            {children}
-          </main>
-        </div>
+            {/* Content */}
+            <main className="flex-1 p-6 transition-all duration-300">
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>
