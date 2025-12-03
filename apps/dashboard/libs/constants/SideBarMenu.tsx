@@ -159,7 +159,7 @@ export const menuGroups: MenuGroup[] = [
         icon: ClipboardList,
         href: "/dashboard/jobs/formal",
         subItems: [
-          { name: "All Jobs", href: "/dashboard/jobs/formal/all" },
+          { name: "All Formal Jobs", href: "/all-formal-jobs" },
           { name: "Add Formal Job ", href: "/add-formal-job" },
           { name: "Pending Approvals", href: "/dashboard/jobs/formal/pending" },
           { name: "Reported Jobs", href: "/dashboard/jobs/formal/reported" },
@@ -172,7 +172,7 @@ export const menuGroups: MenuGroup[] = [
         icon: ClipboardList,
         href: "/dashboard/jobs/informal",
         subItems: [
-          { name: "All Jobs", href: "/dashboard/jobs/informal/all" },
+          { name: "All Informal Jobs", href: "/all-informal-jobs" },
           { name: "Add Informal Job", href: "/add-informal-job" },
           { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending" },
           { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported" },
