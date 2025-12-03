@@ -90,7 +90,7 @@ export function PostJobModal({ isOpen, onClose, onSubmit }: PostJobModalProps) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
+                  className="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -230,13 +230,13 @@ export function PostJobModal({ isOpen, onClose, onSubmit }: PostJobModalProps) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-white bg-teal-500 hover:bg-teal-600 transition-colors shadow-sm"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-white bg-teal-500 hover:bg-teal-600 transition-colors shadow-sm"
                 >
                   Post Job
                 </button>

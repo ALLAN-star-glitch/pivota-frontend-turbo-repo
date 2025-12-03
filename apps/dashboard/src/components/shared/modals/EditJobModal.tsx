@@ -85,7 +85,7 @@ export function EditJobModal({
                 <h2 className="text-2xl font-bold text-slate-900">Edit Job</h2>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
+                  className="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -181,13 +181,13 @@ export function EditJobModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-white bg-amber-500 hover:bg-amber-600 transition-colors"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-white bg-amber-500 hover:bg-amber-600 transition-colors"
                 >
                   Save Changes
                 </button>

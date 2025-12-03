@@ -89,7 +89,7 @@ export function Sidebar({ onPostJob }: SidebarProps) {
             <button
               key={index}
               onClick={action.action}
-              className={`w-full flex items-center gap-3 p-3 rounded-xl transition-colors ${action.color === 'teal' ? 'bg-teal-50 hover:bg-teal-100 text-teal-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700'}`}
+              className={`cursor-pointer w-full flex items-center gap-3 p-3 rounded-xl transition-colors ${action.color === 'teal' ? 'bg-teal-50 hover:bg-teal-100 text-teal-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700'}`}
             >
               <div
                 className={`p-2 rounded-lg ${action.color === 'teal' ? 'bg-teal-100' : 'bg-amber-100'}`}

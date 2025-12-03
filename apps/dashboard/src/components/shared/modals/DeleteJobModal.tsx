@@ -43,7 +43,7 @@ export function DeleteJobModal({
               opacity: 0,
             }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50"
+            className="cursor-pointer fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50"
           />
 
           {/* Modal */}
@@ -87,7 +87,7 @@ export function DeleteJobModal({
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
+                  className="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -110,13 +110,13 @@ export function DeleteJobModal({
               <div className="flex items-center justify-end gap-3 p-6 border-t border-slate-100">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors"
                 >
                   Delete Job
                 </button>

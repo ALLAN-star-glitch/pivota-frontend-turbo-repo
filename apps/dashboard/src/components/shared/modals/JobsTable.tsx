@@ -184,21 +184,21 @@ export function JobsTable() {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => handleView(job)}
-                        className="p-2 rounded-xl hover:bg-teal-50 text-teal-600 transition-colors"
+                        className="cursor-pointer p-2 rounded-xl hover:bg-teal-50 text-teal-600 transition-colors"
                         aria-label="View job"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleEdit(job)}
-                        className="p-2 rounded-xl hover:bg-amber-50 text-amber-600 transition-colors"
+                        className="cursor-pointer p-2 rounded-xl hover:bg-amber-50 text-amber-600 transition-colors"
                         aria-label="Edit job"
                       >
                         <Pencil className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(job)}
-                        className="p-2 rounded-xl hover:bg-red-50 text-red-600 transition-colors"
+                        className="cursor-pointer p-2 rounded-xl hover:bg-red-50 text-red-600 transition-colors"
                         aria-label="Delete job"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -251,21 +251,21 @@ export function JobsTable() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleView(job)}
-                    className="p-2 rounded-xl hover:bg-teal-100 text-teal-600 transition-colors"
+                    className="cursor-pointer p-2 rounded-xl hover:bg-teal-100 text-teal-600 transition-colors"
                     aria-label="View job"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleEdit(job)}
-                    className="p-2 rounded-xl hover:bg-amber-100 text-amber-600 transition-colors"
+                    className="cursor-pointer p-2 rounded-xl hover:bg-amber-100 text-amber-600 transition-colors"
                     aria-label="Edit job"
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(job)}
-                    className="p-2 rounded-xl hover:bg-red-100 text-red-600 transition-colors"
+                    className="cursor-pointer p-2 rounded-xl hover:bg-red-100 text-red-600 transition-colors"
                     aria-label="Delete job"
                   >
                     <Trash2 className="w-4 h-4" />

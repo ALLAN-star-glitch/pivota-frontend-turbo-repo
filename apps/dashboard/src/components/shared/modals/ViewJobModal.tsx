@@ -89,7 +89,7 @@ export function ViewJobModal({ isOpen, onClose, job }: ViewJobModalProps) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
+                  className="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-500 transition-colors"
                   aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
@@ -175,7 +175,7 @@ export function ViewJobModal({ isOpen, onClose, job }: ViewJobModalProps) {
               <div className="flex items-center justify-end gap-3 p-6 border-t border-slate-100">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="cursor-pointer px-6 py-2.5 rounded-xl font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   Close
                 </button>

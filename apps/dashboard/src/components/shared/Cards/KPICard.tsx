@@ -56,7 +56,7 @@ export function KPICard({
           duration: 0.2,
         },
       }}
-      className={`relative bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden`}
+      className={`cursor-pointer relative bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden`}
     >
       {/* Gradient Background */}
       <div
