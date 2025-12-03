@@ -66,7 +66,7 @@ export const menuGroups: MenuGroup[] = [
   {
     group: "Users & Partners",
     items: [
-      { name: "All Users", icon: Users, href: "/dashboard/users/all" },
+      { name: "All Users", icon: Users, href: "/all-users" },
       {
         name: "Individuals",
         icon: User,

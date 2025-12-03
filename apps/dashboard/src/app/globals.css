@@ -3,11 +3,90 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* -------------------------------------- */
+  /*   PIVOTA TEAL COLORS                  */
+  /* -------------------------------------- */
+  --pivota-teal-50:  #e6f7f7;
+  --pivota-teal-100: #cceeee;
+  --pivota-teal-200: #99dede;
+  --pivota-teal-300: #66cdcd;
+  --pivota-teal-400: #33bdbc;
+  --pivota-teal-500: #00adac;
+  --pivota-teal-600: #009a99;
+  --pivota-teal-700: #007b7a;
+  --pivota-teal-800: #005c5c;
+  --pivota-teal-900: #003e3d;
+
+  /* -------------------------------------- */
+  /*   AMBER COLORS                         */
+  /* -------------------------------------- */
+  --amber-50:  #fffbea;
+  --amber-100: #fef3c7;
+  --amber-200: #fde68a;
+  --amber-300: #fcd34d;
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+  --amber-600: #d97706;
+  --amber-700: #b45309;
+  --amber-800: #92400e;
+  --amber-900: #78350f;
+
+  /* -------------------------------------- */
+  /*   SOFT RED COLORS                      */
+  /* -------------------------------------- */
+  --soft-red-50:  #feecec;
+  --soft-red-100: #fcd4d4;
+  --soft-red-200: #f8a9a9;
+  --soft-red-300: #f57d7d;
+  --soft-red-400: #f25454;
+  --soft-red-500: #ef2c2c;
+  --soft-red-600: #d42121;
+  --soft-red-700: #a81717;
+  --soft-red-800: #7b1010;
+  --soft-red-900: #4f0909;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* PIVOTA TEAL */
+  --color-pivota-teal-50:  var(--pivota-teal-50);
+  --color-pivota-teal-100: var(--pivota-teal-100);
+  --color-pivota-teal-200: var(--pivota-teal-200);
+  --color-pivota-teal-300: var(--pivota-teal-300);
+  --color-pivota-teal-400: var(--pivota-teal-400);
+  --color-pivota-teal-500: var(--pivota-teal-500);
+  --color-pivota-teal-600: var(--pivota-teal-600);
+  --color-pivota-teal-700: var(--pivota-teal-700);
+  --color-pivota-teal-800: var(--pivota-teal-800);
+  --color-pivota-teal-900: var(--pivota-teal-900);
+
+  /* AMBER */
+  --color-amber-50:  var(--amber-50);
+  --color-amber-100: var(--amber-100);
+  --color-amber-200: var(--amber-200);
+  --color-amber-300: var(--amber-300);
+  --color-amber-400: var(--amber-400);
+  --color-amber-500: var(--amber-500);
+  --color-amber-600: var(--amber-600);
+  --color-amber-700: var(--amber-700);
+  --color-amber-800: var(--amber-800);
+  --color-amber-900: var(--amber-900);
+
+  /* SOFT RED */
+  --color-soft-red-50:  var(--soft-red-50);
+  --color-soft-red-100: var(--soft-red-100);
+  --color-soft-red-200: var(--soft-red-200);
+  --color-soft-red-300: var(--soft-red-300);
+  --color-soft-red-400: var(--soft-red-400);
+  --color-soft-red-500: var(--soft-red-500);
+  --color-soft-red-600: var(--soft-red-600);
+  --color-soft-red-700: var(--soft-red-700);
+  --color-soft-red-800: var(--soft-red-800);
+  --color-soft-red-900: var(--soft-red-900);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -25,13 +104,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-
 .animate-fade {
   animation: fadeIn 0.15s ease-in-out;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-2px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
