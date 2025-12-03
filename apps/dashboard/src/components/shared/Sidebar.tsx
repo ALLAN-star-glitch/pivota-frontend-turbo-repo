@@ -1,4 +1,4 @@
-import React, { act } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Plus, TrendingUp, Users, Bell, FileText, Calendar } from 'lucide-react'
 import Link from 'next/link'
@@ -88,7 +88,7 @@ export function Sidebar() {
         <div className="space-y-3">
           {quickActions.map((action, index) => (
             <Link
-              href={action.href}
+              href= {action}
               key={index}
               className={`cursor-pointer w-full flex items-center gap-3 p-3 rounded-xl transition-colors ${action.color === 'teal' ? 'bg-teal-50 hover:bg-teal-100 text-teal-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700'}`}
             >
