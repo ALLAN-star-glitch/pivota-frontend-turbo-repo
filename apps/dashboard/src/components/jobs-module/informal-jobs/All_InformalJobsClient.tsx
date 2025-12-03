@@ -109,6 +109,7 @@ export default function AllInformalJobsClient() {
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-4">
                 <button
+                  onClick={() => window.history.back()}
                   className="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-600 transition-colors"
                   aria-label="Go back"
                 >
