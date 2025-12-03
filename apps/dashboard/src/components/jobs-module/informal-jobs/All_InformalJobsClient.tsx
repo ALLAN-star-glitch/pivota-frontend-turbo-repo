@@ -1,7 +1,6 @@
 
 "use client";
 
-import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   Briefcase,
@@ -16,9 +15,8 @@ import ApplicationTrendChart from '@/components/shared/Charts/ApplicationTrendCh
 import CategoryActivityChart from '@/components/shared/Charts/CategoryActivityChart'
 import JobsTable from '@/components/shared/modals/JobsTable'
 import Sidebar from '@/components/shared/Sidebar'
-import PostJobModal from '@/components/shared/modals/PostJobModal'
+import Link from 'next/link';
 export default function AllInformalJobsClient() {
-  const [postJobModalOpen, setPostJobModalOpen] = useState(false)
   const kpiData = [
     {
       title: 'Total Jobs',
@@ -59,10 +57,6 @@ export default function AllInformalJobsClient() {
         staggerChildren: 0.1,
       },
     },
-  }
-  const handlePostJob = (job: unknown) => {
-    console.log('New job posted:', job)
-    // Handle job posting logic here
   }
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-teal-50/30 to-amber-50/20">
@@ -115,7 +109,7 @@ export default function AllInformalJobsClient() {
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-4">
                 <button
-                  className="p-2 rounded-xl hover:bg-slate-100 text-slate-600 transition-colors"
+                  className="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-600 transition-colors"
                   aria-label="Go back"
                 >
                   <ArrowLeft className="w-5 h-5" />
@@ -130,13 +124,13 @@ export default function AllInformalJobsClient() {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => setPostJobModalOpen(true)}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-teal-500 hover:bg-teal-600 transition-colors shadow-sm"
+              <Link
+                href="/add-informal-job"
+                className="cursor-pointer flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-teal-500 hover:bg-teal-600 transition-colors shadow-sm"
               >
                 <Plus className="w-5 h-5" />
                 <span>Post Informal Job</span>
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>
@@ -171,19 +165,12 @@ export default function AllInformalJobsClient() {
             {/* Sidebar */}
             <div className="lg:col-span-4">
               <div className="lg:sticky lg:top-32">
-                <Sidebar onPostJob={() => setPostJobModalOpen(true)} />
+                <Sidebar />
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Post Job Modal */}
-      <PostJobModal
-        isOpen={postJobModalOpen}
-        onClose={() => setPostJobModalOpen(false)}
-        onSubmit={handlePostJob}
-      />
     </div>
   )
 }

@@ -1,26 +1,27 @@
-import React from 'react'
+import React, { act } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, TrendingUp, Users, Bell, FileText, Calendar } from 'lucide-react'
-interface SidebarProps {
-  onPostJob: () => void
-}
-export function Sidebar({ onPostJob }: SidebarProps) {
+import Link from 'next/link'
+
+export function Sidebar() {
   const quickActions = [
     {
       icon: Plus,
       label: 'Post New Job',
       color: 'teal',
-      action: onPostJob,
+      href: '/add-informal-job'
     },
     {
       icon: FileText,
       label: 'View Reports',
       color: 'amber',
+      href: '/reports'
     },
     {
       icon: Users,
       label: 'Manage Users',
       color: 'teal',
+      href: '/users'
     },
   ]
   const recentActivity = [
@@ -86,9 +87,9 @@ export function Sidebar({ onPostJob }: SidebarProps) {
         <h3 className="text-lg font-bold text-slate-900 mb-4">Quick Actions</h3>
         <div className="space-y-3">
           {quickActions.map((action, index) => (
-            <button
+            <Link
+              href={action.href}
               key={index}
-              onClick={action.action}
               className={`cursor-pointer w-full flex items-center gap-3 p-3 rounded-xl transition-colors ${action.color === 'teal' ? 'bg-teal-50 hover:bg-teal-100 text-teal-700' : 'bg-amber-50 hover:bg-amber-100 text-amber-700'}`}
             >
               <div
@@ -97,7 +98,7 @@ export function Sidebar({ onPostJob }: SidebarProps) {
                 <action.icon className="w-4 h-4" />
               </div>
               <span className="font-semibold text-sm">{action.label}</span>
-            </button>
+            </Link>
           ))}
         </div>
       </motion.div>
