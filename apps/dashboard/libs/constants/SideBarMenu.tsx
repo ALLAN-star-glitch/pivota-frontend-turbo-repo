@@ -22,6 +22,7 @@ import {
 export interface SubItem {
   name: string;
   href: string;
+  disabled?: boolean;
 }
 
 export interface MenuItem {
@@ -29,6 +30,8 @@ export interface MenuItem {
   icon: React.ElementType;
   href: string;
   subItems?: SubItem[];
+  disabled?: boolean;
+  roles?: string[]; // Optional: restrict visibility per role
 }
 
 export interface MenuGroup {
@@ -43,18 +46,17 @@ export const menuGroups: MenuGroup[] = [
   {
     group: "General",
     items: [
-      { name: "Overview", icon: Home, href: "/" },
+      { name: "Overview", icon: Home, href: "/", roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager","GeneralUser"] },
       {
         name: "Quick Actions",
         icon: Grid,
         href: "/dashboard/quick-actions",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin"],
         subItems: [
           { name: "Add User", href: "/dashboard/users/add" },
           { name: "Add Informal Job", href: "/add-informal-job" },
           { name: "Add Formal Job", href: "/add-formal-job" },
           { name: "Add Property", href: "/dashboard/housing/add" },
-          { name: "Add Freelancer / Professional", href: "/dashboard/partners/individuals/professionals/add" },
-          { name: "Add Organization Service", href: "/dashboard/services/organizations/add" },
         ],
       },
     ],
@@ -66,15 +68,15 @@ export const menuGroups: MenuGroup[] = [
   {
     group: "Users & Partners",
     items: [
-      { name: "All Users", icon: Users, href: "/all-users" },
+      { name: "All Users", icon: Users, href: "/all-users", roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin"] },
       {
         name: "Individuals",
         icon: User,
         href: "/dashboard/partners/individuals",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "Landlords", href: "/dashboard/partners/individuals/landlords" },
           { name: "Freelancers / Professionals", href: "/dashboard/partners/individuals/professionals" },
-          { name: "Add Freelancer / Professional", href: "/dashboard/partners/individuals/professionals/add" },
           { name: "Pending Approvals", href: "/dashboard/partners/individuals/pending" },
           { name: "Reported Listings", href: "/dashboard/partners/individuals/reported" },
         ],
@@ -83,6 +85,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Organizations",
         icon: User,
         href: "/dashboard/partners/organizations",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "Employers", href: "/dashboard/partners/organizations/employers" },
           { name: "NGOs / Support Orgs", href: "/dashboard/partners/organizations/ngos" },
@@ -95,6 +98,7 @@ export const menuGroups: MenuGroup[] = [
         name: "The Vulnerable",
         icon: Users,
         href: "/dashboard/users/vulnerable",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "List Vulnerable Users", href: "/dashboard/users/vulnerable/list" },
           { name: "Add Vulnerable User", href: "/dashboard/users/vulnerable/add" },
@@ -113,6 +117,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Rentals",
         icon: Database,
         href: "/dashboard/housing/rentals",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "All Rentals", href: "/dashboard/housing/rentals/all" },
           { name: "Create Rental Listing", href: "/dashboard/housing/rentals/add" },
@@ -127,6 +132,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Houses for Sale",
         icon: Database,
         href: "/dashboard/housing/sales",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "All Houses", href: "/dashboard/housing/sales/all" },
           { name: "Create Sale Listing", href: "/dashboard/housing/sales/add" },
@@ -140,6 +146,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Compliance",
         icon: Clipboard,
         href: "/dashboard/housing/compliance",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "Compliance Cases", href: "/dashboard/housing/compliance/cases" },
           { name: "Resolved Cases", href: "/dashboard/housing/compliance/resolved" },
@@ -158,85 +165,95 @@ export const menuGroups: MenuGroup[] = [
         name: "Formal Jobs",
         icon: ClipboardList,
         href: "/dashboard/jobs/formal",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "All Formal Jobs", href: "/all-formal-jobs" },
-          { name: "Add Formal Job ", href: "/add-formal-job" },
-          { name: "Pending Approvals", href: "/dashboard/jobs/formal/pending" },
-          { name: "Reported Jobs", href: "/dashboard/jobs/formal/reported" },
+          { name: "Add Formal Job", href: "/add-formal-job" },
           { name: "Applications", href: "/dashboard/jobs/formal/applications" },
-          { name: "Payments / Compensation", href: "/dashboard/jobs/formal/payments" },
+          { name: "Pending Approvals", href: "/dashboard/jobs/formal/pending", disabled: true },
+          { name: "Reported Jobs", href: "/dashboard/jobs/formal/reported", disabled: true },
         ],
       },
       {
         name: "Informal Jobs",
         icon: ClipboardList,
         href: "/dashboard/jobs/informal",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "All Informal Jobs", href: "/all-informal-jobs" },
           { name: "Add Informal Job", href: "/add-informal-job" },
-          { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending" },
-          { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported" },
           { name: "Applications", href: "/dashboard/jobs/informal/applications" },
-          { name: "Payments / Compensation", href: "/dashboard/jobs/informal/payments" },
+          { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending", disabled: true },
+          { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported", disabled: true },
         ],
       },
     ],
   },
 
-  // -------------------------------------------------
-  // SERVICES MANAGEMENT
-  // -------------------------------------------------
-  {
-    group: "Services",
-    items: [
-      {
-        name: "For Professionals",
-        icon: ClipboardList,
-        href: "/dashboard/services/freelancers",
-        subItems: [
-          { name: "All Services", href: "/dashboard/services/freelancers/all" },
-          { name: "Create Service Listing", href: "/dashboard/services/freelancers/add" },
-          { name: "Pending Approvals", href: "/dashboard/services/freelancers/pending" },
-          { name: "Reported Services", href: "/dashboard/services/freelancers/reported" },
-          { name: "Service Applications / Requests", href: "/dashboard/services/freelancers/applications" },
-          { name: "Payments / Compensation", href: "/dashboard/services/freelancers/payments" },
-        ],
-      },
-      {
-        name: "For Organizations",
-        icon: Users,
-        href: "/dashboard/services/organizations",
-        subItems: [
-          { name: "All Services", href: "/dashboard/services/organizations/all" },
-          { name: "Create Service Listing", href: "/dashboard/services/organizations/add" },
-          { name: "Pending Approvals", href: "/dashboard/services/organizations/pending" },
-          { name: "Reported Services", href: "/dashboard/services/organizations/reported" },
-          { name: "Service Applications / Requests", href: "/dashboard/services/organizations/applications" },
-          { name: "Payments / Compensation", href: "/dashboard/services/organizations/payments" },
-        ],
-      },
-    ],
-  },
+// -------------------------------------------------
+// SOCIAL SUPPORT
+// -------------------------------------------------
+{
+  group: "Support",
+  items: [
+    // Admin / System View
+    {
+      name: "Programs",
+      icon: BookOpen,
+      href: "/dashboard/support/programs",
+      roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
+    },
+    {
+      name: "NGOs",
+      icon: Users,
+      href: "/dashboard/support/ngos",
+      roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
+    },
+    {
+      name: "Services",
+      icon: ClipboardList,
+      href: "/dashboard/support/services",
+      roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
+    },
+    {
+      name: "Add Service",
+      icon: ClipboardList,
+      href: "/dashboard/support/services/add",
+      roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
+    },
+    {
+      name: "Add Program",
+      icon: BookOpen,
+      href: "/dashboard/support/programs/add",
+      roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
+    },
 
-  // -------------------------------------------------
-  // SUPPORT PROGRAMS
-  // -------------------------------------------------
-  {
-    group: "Support",
-    items: [
-      {
-        name: "Programs",
-        icon: BookOpen,
-        href: "/dashboard/support",
-        subItems: [
-          { name: "All Programs", href: "/dashboard/support/all" },
-          { name: "Beneficiaries", href: "/dashboard/support/beneficiaries" },
-          { name: "NGO Submissions", href: "/dashboard/support/submissions" },
-          { name: "Emergency Cases", href: "/dashboard/support/emergency" },
-        ],
-      },
-    ],
-  },
+    // NGO / Partner View
+    {
+      name: "My Programs",
+      icon: BookOpen,
+      href: "/dashboard/support/my-programs",
+      roles: ["PartnerNGO","PartnerOrg"], 
+      subItems: [
+        { name: "Submit Program", href: "/dashboard/support/my-programs/submit" },
+        { name: "View Beneficiaries", href: "/dashboard/support/my-programs/beneficiaries" },
+        { name: "Emergency Requests", href: "/dashboard/support/my-programs/emergency" },
+      ],
+    },
+    {
+      name: "My Services",
+      icon: ClipboardList,
+      href: "/dashboard/support/my-services",
+      roles: ["PartnerNGO","PartnerOrg"], 
+      subItems: [
+        { name: "Submit Service", href: "/dashboard/support/my-services/submit" },
+        { name: "Service Applications", href: "/dashboard/support/my-services/applications" },
+      ],
+    },
+  ],
+},
+
+
 
   // -------------------------------------------------
   // PLANS & BILLING
@@ -248,6 +265,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Subscription Plans",
         icon: CreditCard,
         href: "/dashboard/plans",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin"],
         subItems: [
           { name: "Free Plan", href: "/dashboard/plans/free" },
           { name: "Bronze Plan", href: "/dashboard/plans/bronze" },
@@ -261,6 +279,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Billing & Usage",
         icon: Wallet,
         href: "/dashboard/billing",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin"],
         subItems: [
           { name: "Invoices", href: "/dashboard/billing/invoices" },
           { name: "Usage & Overages", href: "/dashboard/billing/usage" },
@@ -270,6 +289,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Payment Methods",
         icon: DollarSign,
         href: "/dashboard/payments",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin"],
         subItems: [
           { name: "Cards", href: "/dashboard/payments/cards" },
           { name: "MPesa", href: "/dashboard/payments/mpesa" },
@@ -292,11 +312,11 @@ export const menuGroups: MenuGroup[] = [
         name: "Analytics",
         icon: PieChart,
         href: "/dashboard/reports",
+        roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "User Analytics", href: "/dashboard/reports/users" },
           { name: "Jobs Reports", href: "/dashboard/reports/jobs" },
           { name: "Housing Reports", href: "/dashboard/reports/housing" },
-          { name: "Services Reports", href: "/dashboard/reports/services" },
           { name: "Support Impact", href: "/dashboard/reports/support" },
           { name: "Revenue Analytics", href: "/dashboard/reports/revenue" },
         ],
@@ -310,11 +330,12 @@ export const menuGroups: MenuGroup[] = [
   {
     group: "System Administration",
     items: [
-      { name: "System Access", icon: ShieldCheck, href: "/system-access" },
+      { name: "System Access", icon: ShieldCheck, href: "/system-access", roles: ["SuperAdmin","SystemAdmin"] },
       {
         name: "Integrations",
         icon: Zap,
         href: "/dashboard/integrations",
+        roles: ["SuperAdmin","SystemAdmin"],
         subItems: [
           { name: "Government APIs", href: "/dashboard/integrations/gov" },
           { name: "SMS / Email", href: "/dashboard/integrations/communication" },
@@ -326,6 +347,7 @@ export const menuGroups: MenuGroup[] = [
         name: "Platform Settings",
         icon: Settings,
         href: "/dashboard/settings",
+        roles: ["SuperAdmin","SystemAdmin"],
         subItems: [
           { name: "General", href: "/dashboard/settings/general" },
           { name: "Security", href: "/dashboard/settings/security" },
@@ -337,6 +359,7 @@ export const menuGroups: MenuGroup[] = [
         name: "System Logs",
         icon: Archive,
         href: "/dashboard/logs",
+        roles: ["SuperAdmin","SystemAdmin"],
         subItems: [
           { name: "Audit Logs", href: "/dashboard/logs/audit" },
           { name: "Access History", href: "/dashboard/logs/access" },

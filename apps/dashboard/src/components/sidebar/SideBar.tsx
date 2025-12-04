@@ -33,17 +33,13 @@ export default function Sidebar() {
   const handleClose = () => setIsMobileOpen(false);
 
   const handleItemClick = (item: typeof menuGroups[0]["items"][0]) => {
-    // On desktop, open sidebar if collapsed
     if (isDesktop && isCollapsed) setIsCollapsed(false);
 
-    // Toggle sub-menu if exists
     if (item.subItems) {
       toggleItem(item.name);
-      // Do not close sidebar on mobile if subitems exist
       return;
     }
 
-    // Close mobile sidebar for leaf items
     if (!isDesktop) handleClose();
   };
 
@@ -54,7 +50,7 @@ export default function Sidebar() {
       {/* Mobile toggle button */}
       {!isDesktop && (
         <button
-          className="fixed top-[5.8rem] left-5 z-50 p-3 rounded-full bg-teal-500 text-white shadow-lg transition hover:bg-teal-600"
+          className="fixed top-[5.8rem] left-5 z-50 p-3 rounded-full bg-teal-500 text-white shadow-lg transition hover:bg-teal-600 cursor-pointer"
           onClick={() => setIsMobileOpen(true)}
           aria-label="Open sidebar"
         >
@@ -65,7 +61,7 @@ export default function Sidebar() {
       {/* Mobile overlay */}
       {isMobileOpen && !isDesktop && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 cursor-pointer"
           onClick={handleClose}
         />
       )}
@@ -151,6 +147,22 @@ export default function Sidebar() {
                           <div className="ml-9 mt-1 space-y-1">
                             {item.subItems.map((sub) => {
                               const isSubActive = pathname === sub.href;
+                              const disabled = sub.disabled;
+
+                              if (disabled) {
+                                return (
+                                  <div
+                                    key={sub.name}
+                                    className="
+                                      block text-sm px-3 py-1 rounded-md cursor-not-allowed
+                                      text-gray-400 bg-gray-100 opacity-60
+                                    "
+                                  >
+                                    {sub.name}
+                                  </div>
+                                );
+                              }
+
                               return (
                                 <Link
                                   key={sub.name}
@@ -181,7 +193,8 @@ export default function Sidebar() {
                       href={item.href || "#"}
                       onClick={() => handleItemClick(item)}
                       className={`
-                        flex items-center w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition cursor-pointer
+                        flex items-center w-full px-3 py-2 rounded-lg text-gray-700 
+                        hover:bg-teal-50 hover:text-teal-600 transition cursor-pointer
                         ${isActive ? "bg-teal-100 font-medium" : ""}
                       `}
                     >
