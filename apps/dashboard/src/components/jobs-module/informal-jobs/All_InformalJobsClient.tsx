@@ -126,7 +126,7 @@ export default function AllInformalJobsClient() {
                 </div>
               </div>
               <Link
-                href="/add-informal-job"
+                href="/jobs/informal-jobs/add-informal-job"
                 className="cursor-pointer flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-teal-500 hover:bg-teal-600 transition-colors shadow-sm"
               >
                 <Plus className="w-5 h-5" />

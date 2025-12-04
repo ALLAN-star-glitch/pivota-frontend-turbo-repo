@@ -54,7 +54,7 @@ export const menuGroups: MenuGroup[] = [
         roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin"],
         subItems: [
           { name: "Add User", href: "/dashboard/users/add" },
-          { name: "Add Informal Job", href: "/add-informal-job" },
+          { name: "Add Informal Job", href: "/jobs/informal-jobs/add-informal-job" },
           { name: "Add Formal Job", href: "/add-formal-job" },
           { name: "Add Property", href: "/dashboard/housing/add" },
         ],
@@ -180,8 +180,8 @@ export const menuGroups: MenuGroup[] = [
         href: "/dashboard/jobs/informal",
         roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
-          { name: "All Informal Jobs", href: "/all-informal-jobs" },
-          { name: "Add Informal Job", href: "/add-informal-job" },
+          { name: "All Informal Jobs", href: "/jobs/informal-jobs/all-informal-jobs" },
+          { name: "Add Informal Job", href: "/jobs/informal-jobs/add-informal-job" },
           { name: "Applications", href: "/dashboard/jobs/informal/applications" },
           { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending", disabled: true },
           { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported", disabled: true },
