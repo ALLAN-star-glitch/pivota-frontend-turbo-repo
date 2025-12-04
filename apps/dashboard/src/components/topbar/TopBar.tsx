@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { addOptions } from "../../../libs/constants/topBarConstants";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Topbar() {
   const user = {
@@ -18,6 +19,7 @@ export default function Topbar() {
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const addDropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close dropdowns if clicked outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
@@ -30,7 +32,6 @@ export default function Topbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
 
   return (
     <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[96%] sm:w-[98%] bg-white/70 backdrop-blur-md shadow-lg border border-gray-100 rounded-2xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
@@ -70,19 +71,28 @@ export default function Topbar() {
             <ChevronDown className={`h-4 w-4 transition-transform ${addDropdownOpen ? "rotate-180" : ""}`} />
           </button>
 
-          {addDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50 animate-fadeIn">
-              {addOptions.map((option, idx) => (
-                <Link
-                  key={idx}
-                  href={option.href}
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg transition cursor-pointer"
-                >
-                  {option.label}
-                </Link>
-              ))}
-            </div>
-          )}
+          <AnimatePresence>
+            {addDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute right-0 mt-10 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50"
+              >
+                {addOptions.map((option, idx) => (
+                  <Link
+                    key={idx}
+                    href={option.href}
+                    onClick={() => setAddDropdownOpen(false)} // close dropdown on click
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg transition cursor-pointer"
+                  >
+                    {option.label}
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Search Icon (Tablet & Mobile) */}
@@ -116,28 +126,39 @@ export default function Topbar() {
             />
           </div>
 
-          {userDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50 animate-fadeIn">
-              <Link
-                href="/profile"
-                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+          <AnimatePresence>
+            {userDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50"
               >
-                Profile
-              </Link>
-              <Link
-                href="/settings"
-                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
-              >
-                Settings
-              </Link>
-              <Link
-                href="/logout"
-                className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
-              >
-                <LogOut className="h-4 w-4" /> Logout
-              </Link>
-            </div>
-          )}
+                <Link
+                  href="/profile"
+                  onClick={() => setUserDropdownOpen(false)}
+                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+                >
+                  Profile
+                </Link>
+                <Link
+                  href="/settings"
+                  onClick={() => setUserDropdownOpen(false)}
+                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+                >
+                  Settings
+                </Link>
+                <Link
+                  href="/logout"
+                  onClick={() => setUserDropdownOpen(false)}
+                  className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg flex items-center gap-2 transition cursor-pointer"
+                >
+                  <LogOut className="h-4 w-4" /> Logout
+                </Link>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </header>
