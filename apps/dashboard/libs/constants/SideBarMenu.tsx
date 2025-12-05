@@ -182,7 +182,7 @@ export const menuGroups: MenuGroup[] = [
         subItems: [
           { name: "Dashboard", href: "/jobs/informal-jobs/dashboard" },
           { name: "Add Job", href: "/jobs/informal-jobs/add-informal-job" },
-          { name: "Applications", href: "/dashboard/jobs/informal/applications" },
+          { name: "Applications", href: "/jobs/informal-jobs/applications" },
           { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending", disabled: true },
           { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported", disabled: true },
         ],

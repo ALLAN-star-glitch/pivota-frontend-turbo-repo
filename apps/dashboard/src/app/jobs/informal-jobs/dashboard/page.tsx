@@ -12,7 +12,7 @@ export default function InformalJobsDashboard() {
         title: "Informal Jobs Dashboard",
         subtitle: "Monitor and manage Kenya's informal job market with real-time insights",
         ctaLabel: "Post Informal Job",
-        ctaHref: "/jobs/informal-jobs/add-informal-job",
+        ctaHref: "/jobs/informal-jobs/add-job",
         kpis: informalJobsKpiData,
         sidebarComponent: (
           <Sidebar
