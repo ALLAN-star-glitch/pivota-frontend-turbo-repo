@@ -181,7 +181,7 @@ export const menuGroups: MenuGroup[] = [
         roles: ["SuperAdmin","SystemAdmin","BusinessSystemAdmin","BusinessContentManager"],
         subItems: [
           { name: "Dashboard", href: "/jobs/informal-jobs/dashboard" },
-          { name: "Add Job", href: "/jobs/informal-jobs/add-informal-job" },
+          { name: "Add Job", href: "/jobs/informal-jobs/add-job" },
           { name: "Applications", href: "/jobs/informal-jobs/applications" },
           { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending", disabled: true },
           { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported", disabled: true },
