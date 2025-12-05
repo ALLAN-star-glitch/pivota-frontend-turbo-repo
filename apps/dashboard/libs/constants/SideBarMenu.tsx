@@ -183,7 +183,7 @@ export const menuGroups: MenuGroup[] = [
           { name: "Dashboard", href: "/jobs/informal-jobs/dashboard" },
           { name: "Add Job", href: "/jobs/informal-jobs/add-job" },
           { name: "Applications", href: "/jobs/informal-jobs/applications" },
-          { name: "Pending Approvals", href: "/dashboard/jobs/informal/pending", disabled: true },
+          { name: "Pending Approvals", href: "/jobs/informal-jobs/pending", disabled: true },
           { name: "Reported Jobs", href: "/dashboard/jobs/informal/reported", disabled: true },
         ],
       },
