@@ -3,9 +3,9 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Eye, Pencil, Trash2 } from 'lucide-react'
-import EditJobModal from './EditJobModal'
-import DeleteJobModal from './DeleteJobModal'
-import ViewJobModal from './ViewJobModal'
+import { ViewJobModal } from '../modals/ViewJobModal';
+import DeleteJobModal from '../modals/DeleteJobModal';
+import EditJobModal from '../modals/EditJobModal';
 interface Job {
   id: string
   title: string

@@ -8,7 +8,7 @@ import {
   ArrowLeftIcon,
   RefreshCwIcon,
 } from 'lucide-react'
-import Button from '@/components/shared/Button';
+import Button from '@/components/shared-reusables/global-reusables/Button';
 import JobListingForm from '@/components/jobs-module/informal-jobs/JobListingForm';
 import JobPreviewPanel from '@/components/jobs-module/informal-jobs/JobPreviewPanel';
 import { useJobListingForm } from '../../../../../libs/hooks/useJobListingForm';
