@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Background wrapper */}
-        <div className="min-h-screen bg-linear-to-br from-teal-50/20 via-white to-teal-50/10 flex flex-col">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-teal-50/30 to-amber-50/20 flex flex-col">
 
           {/* Topbar */}
           <Topbar />
