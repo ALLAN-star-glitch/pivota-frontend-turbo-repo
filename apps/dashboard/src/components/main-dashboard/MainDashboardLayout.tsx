@@ -94,7 +94,7 @@ export default function MainDashboardLayout({ config, userName }: MainDashboardL
 
         {/* RIGHT SIDEBAR */}
         <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-32 max-h-[calc(100vh-100px)] overflow-y-auto space-y-6 pr-2">
+          <div className="lg:sticky lg:top-32 lg:max-h-[calc(100vh-100px)] lg:overflow-y-auto space-y-6 pr-2">
             {config.sidebarComponent}
           </div>
         </div>
