@@ -14,12 +14,12 @@ import {
 import { Input } from '@/components/shared-reusables/jobs-reusables/form-fields/Input'
 import { Select } from '@/components/shared-reusables/jobs-reusables/form-fields/Select'
 import { Textarea } from '@/components/shared-reusables/jobs-reusables/form-fields/Textarea'
-import { Badge } from '../../shared-reusables/jobs-reusables/Badges/Badge'
+import { Badge } from '../../../shared-reusables/jobs-reusables/Badges/Badge'
 import { Tooltip } from '@/components/shared-reusables/jobs-reusables/form-fields/Tooltip'
-import { NestedKeyOf, ValueAtPath } from '../../../../libs/hooks/useJobListingForm'
-import { JobListing } from '../../../../libs/types/jobs/job'
+import { NestedKeyOf, ValueAtPath } from '../../../../../libs/hooks/useJobListingForm'
+import { JobListing } from '../../../../../libs/types/jobs/job'
 import DatePicker from '@/components/shared-reusables/jobs-reusables/form-fields/DatePicker'
-import Button from '../../shared-reusables/global-reusables/Button'
+import Button from '../../../shared-reusables/global-reusables/Button'
 
 // -------------------- Dropdown Options --------------------
 const jobCategories = [
