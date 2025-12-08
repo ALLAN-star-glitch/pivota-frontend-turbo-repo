@@ -6,15 +6,22 @@ import * as LucideIcons from "lucide-react";
 import { Bell } from "lucide-react";
 import Link from "next/link";
 import { QuickAction, RecentActivity } from "../../../libs/interfaces/MainDashboardSidebarInterface";
+import KPICard from "../shared-reusables/jobs-reusables/cards/KPICard";
 
-
+interface UserStat {
+  role: string;
+  count: number;
+  color: "teal" | "amber" | "red";
+  trend?: string; // optional, e.g., "+5%"
+}
 
 interface SidebarProps {
   quickActions: QuickAction[];
   recentActivity: RecentActivity[];
+  userStats?: UserStat[];
 }
 
-export default function MainDashboardSidebar({ quickActions, recentActivity }: SidebarProps) {
+export default function MainDashboardSidebar({ quickActions, recentActivity, userStats }: SidebarProps) {
   const renderIcon = (iconName: string, className?: string) => {
     if (!iconName) return null;
     const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[iconName];
@@ -24,6 +31,23 @@ export default function MainDashboardSidebar({ quickActions, recentActivity }: S
 
   return (
     <div className="space-y-6">
+
+      {/* USER ROLE KPI CARDS */}
+      {userStats && userStats.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
+          {userStats.map((stat, idx) => (
+            <KPICard
+              key={idx}
+              title={stat.role}
+              value={stat.count.toString()}
+              color={stat.color}
+              iconName="" // optionally you can set icons for roles
+              trend={stat.trend}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Quick Actions */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}

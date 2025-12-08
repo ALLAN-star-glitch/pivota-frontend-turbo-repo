@@ -24,7 +24,7 @@ const mainDashboardRecentActivity: RecentActivity[] = [
 ];
 
 export default function MainDashboard() {
-  const userName = "John";
+  const userName = "Allan";
 
   return (
     <MainDashboardLayout
@@ -39,6 +39,12 @@ export default function MainDashboard() {
           <MainDashboardSidebar
             quickActions={mainDashboardQuickActions}
             recentActivity={mainDashboardRecentActivity}
+            userStats={[
+              { role: "Admins", count: 15, color: "amber", trend: "+2%" },
+              { role: "Premium Users", count: 240, color: "teal", trend: "+5%" },
+              { role: "Free Plan Users", count: 1200, color: "red", trend: "+8%" },
+              { role: "Service Providers", count: 180, color: "teal", trend: "+3%" },
+            ]}
           />
         ),
         charts: (
