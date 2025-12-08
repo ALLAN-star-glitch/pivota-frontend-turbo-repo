@@ -11,9 +11,9 @@ import {
   FileTextIcon,
   RefreshCwIcon,
 } from 'lucide-react'
-import { Badge } from '../../shared-reusables/jobs-reusables/Badges/Badge'
-import { JobListing } from '../../../../libs/types/jobs/job'
-import Button from '../../shared-reusables/global-reusables/Button'
+import { Badge } from '../../../shared-reusables/jobs-reusables/Badges/Badge'
+import { JobListing } from '../../../../../libs/types/jobs/job'
+import Button from '../../../shared-reusables/global-reusables/Button'
 
 interface JobPreviewPanelProps {
   formData: JobListing

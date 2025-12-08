@@ -22,7 +22,7 @@ export default function InformalJobsDashboard() {
         ),
         charts: (
           <>
-            <ApplicationTrendChart />
+            <ApplicationTrendChart /> 
             <CategoryActivityChart />
           </>
         ),

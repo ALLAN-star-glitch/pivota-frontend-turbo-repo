@@ -10,6 +10,7 @@ import KPICard from "../cards/KPICard";
 
 interface JobsDashboardLayoutProps {
   config: JobsDashboardConfig; 
+  
 }
 
 export default function JobsDashboardLayout({ config }: JobsDashboardLayoutProps) {
