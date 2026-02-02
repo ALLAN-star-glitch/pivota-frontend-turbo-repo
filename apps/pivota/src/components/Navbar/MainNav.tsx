@@ -4,9 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Drawer, ScrollArea, Burger } from "@mantine/core";
-import { FiUser } from "react-icons/fi";
-import { Handshake, Heart, Search } from "lucide-react";
+import { Drawer, ScrollArea, Burger, Avatar, Group /* Indicator, Badge */ } from "@mantine/core";
+import { Handshake, Heart, Search, /* Bell, Mail */ 
+UserPlus} from "lucide-react";
 import AuthModal from "./AuthModal";
 
 export default function MainNav() {
@@ -20,14 +20,13 @@ export default function MainNav() {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
     { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ];
 
   return (
-    <header className="bg-white sticky top-0 z-50">
+    <header className="bg-white sticky top-0 z-50 border-b border-gray-100">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
@@ -42,7 +41,7 @@ export default function MainNav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden xl:flex gap-6 text-sm font-medium relative">
+        <nav className="hidden xl:flex gap-6 text-sm font-medium relative items-center">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -75,46 +74,75 @@ export default function MainNav() {
         </div>
 
         {/* Right section for user actions */}
-        <div className="flex items-center gap-2 xl:gap-4">
-          {/* Mobile Search + User */}
-          <div className="sm:hidden flex items-center gap-2">
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+        <div className="flex items-center gap-3 xl:gap-5">
+          {/* Mobile Search */}
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="sm:hidden p-2 rounded-full hover:bg-gray-100 transition cursor-pointer flex items-center justify-center"
+          >
+            <Search size={20} className="text-gray-600" />
+          </button>
+
+          {/* Hidden for now: Notifications & Messages */}
+          {/* <div className="hidden md:flex items-center gap-4">
+            <Indicator color="red" size={8} offset={2} withBorder>
+              <button className="text-gray-600 hover:text-teal-600 transition cursor-pointer flex items-center justify-center">
+                <Bell size={22} />
+              </button>
+            </Indicator>
+            
+            <Indicator color="teal" size={8} offset={2} withBorder>
+              <button className="text-gray-600 hover:text-teal-600 transition cursor-pointer flex items-center justify-center">
+                <Mail size={22} />
+              </button>
+            </Indicator>
+          </div> 
+          */}
+
+          {/* User Account / Avatar Section */}
+          <Group gap="sm" wrap="nowrap" className="items-center">
+            {/* Hidden for now: Premium Badge */}
+            {/* <Badge 
+              variant="filled" 
+              color="orange" 
+              size="sm" 
+              radius="sm"
+              className="hidden lg:block"
             >
-              <Search size={20} className="text-gray-600" />
-            </button>
+              Premium
+            </Badge> 
+            */}
+
+            <Link
+              href="/register"
+              className="hidden lg:flex items-center gap-2 px-4 py-1.5 text-sm font-semibold bg-teal-600 text-white rounded-full shadow-sm hover:bg-teal-700 transition"
+            >
+              <UserPlus size={16} />
+              <span>Register</span>
+            </Link>
             <button
+              className="flex items-center gap-2 group cursor-pointer"
               onClick={() => setModalOpened(true)}
-              className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
             >
-              <FiUser size={20} className="text-gray-600" />
+              <Avatar 
+                radius="xl" 
+                size="md" 
+                src={null} 
+                className="group-hover:ring-2 ring-teal-500 transition-all border border-gray-100"
+              />
+              <span className="hidden xl:inline text-sm font-medium text-gray-700 group-hover:text-teal-600">
+                My Account
+              </span>
             </button>
-          </div>
-
-          {/* Get Started button */}
-          <button
-            onClick={() => setModalOpened(true)}
-            className="hidden xl:inline-block bg-amber-400 hover:bg-amber-300 text-black text-sm font-medium px-4 py-1.5 rounded-full transition-colors cursor-pointer"
-          >
-            Get Started
-          </button>
-
-          {/* User Account (desktop/tablet) */}
-          <button
-            className="hidden sm:flex items-center gap-1 text-sm text-gray-700 hover:text-teal-600 cursor-pointer"
-            onClick={() => setModalOpened(true)}
-          >
-            <FiUser className="text-xl" />
-            <span className="cursor-pointer hidden xl:inline">My Account</span>
-          </button>
+          </Group>
 
           {/* Burger menu for mobile */}
-          <div className="xl:hidden">
+          <div className="xl:hidden flex items-center">
             <Burger
               opened={drawerOpened}
               onClick={() => setDrawerOpened((o) => !o)}
               color="#000"
+              size="sm"
             />
           </div>
         </div>
@@ -145,7 +173,17 @@ export default function MainNav() {
               </Link>
             ))}
 
-            {/* CTA buttons in drawer */}
+            {/* Hidden for now */}
+            {/* <div className="flex gap-4 border-t pt-4 md:hidden">
+                <div className="flex items-center gap-2 text-gray-600">
+                    <Bell size={18}/> Notifications
+                </div>
+                <div className="flex items-center gap-2 text-gray-600">
+                    <Mail size={18}/> Messages
+                </div>
+            </div> 
+            */}
+
             <div className="flex flex-col gap-3 mt-4">
               <Link
                 href="/partner-with-us"
@@ -175,18 +213,13 @@ export default function MainNav() {
           style={{ backgroundColor: "rgba(20, 184, 166, 0.2)" }}
         >
           <div className="bg-white w-11/12 max-w-lg p-6 rounded-xl shadow-lg relative">
-            {/* Close */}
             <button
               onClick={() => setSearchOpen(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-teal-600 text-xl cursor-pointer"
             >
               ✕
             </button>
-
-            {/* Title */}
             <h2 className="text-xl font-semibold mb-4 text-teal-700">Search Pivota</h2>
-
-            {/* Input */}
             <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus-within:ring-2 focus-within:ring-teal-500">
               <Search className="text-gray-400" size={18} />
               <input
@@ -196,32 +229,10 @@ export default function MainNav() {
                 className="flex-1 outline-none text-sm text-gray-700"
               />
             </div>
-
-            {/* Suggested searches */}
-            <div className="mt-5">
-              <p className="text-gray-500 mb-2 text-sm">Suggested searches</p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "AI-powered jobs near me",
-                  "Top-rated hospitals",
-                  "Community events",
-                  "Affordable housing",
-                  "Volunteer opportunities",
-                ].map((s, i) => (
-                  <button
-                    key={i}
-                    className="px-3 py-1 text-sm bg-teal-50 text-teal-700 border border-teal-200 rounded-full hover:bg-teal-100 cursor-pointer"
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       )}
 
-      {/* Auth Modal */}
       <AuthModal opened={modalOpened} onClose={() => setModalOpened(false)} />
     </header>
   );
