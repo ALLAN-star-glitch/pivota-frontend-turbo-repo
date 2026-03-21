@@ -3,5 +3,13 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  // This tells VS Code: "When I'm in the UI package, use the website's Tailwind settings"
+  "tailwindCSS.experimental.configFile": {
+    "packages/ui/src/**/*.{ts,tsx}": "apps/pivota/app/globals.css"
+  }
 }

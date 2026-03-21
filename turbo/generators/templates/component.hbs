@@ -1,0 +1,12 @@
+interface {{pascalCase name}}Props {
+  children?: React.ReactNode
+  className?: string
+}
+ 
+export function {{pascalCase name}}({ children, className = '' }: {{pascalCase name}}Props) {
+  return (
+    <div className={className}>
+      {children}
+    </div>
+  )
+}

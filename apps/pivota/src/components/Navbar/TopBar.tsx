@@ -15,7 +15,7 @@ const CONTACT_INFO = {
 export default function TopBar() {
   return (
     <div className="bg-teal-600 text-white text-sm rounded-b-2xl">
-      <div className="max-w-screen-xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+      <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
         
         {/* Contact Info */}
         <div className="flex flex-wrap items-center gap-4 text-white text-sm">
