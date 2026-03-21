@@ -35,7 +35,7 @@ export function MainNav({ children, className = '', isDashboard = false }: MainN
         {/* 1. Logo Section */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
-            src="/logofinale.png"
+            src="/logofinaletransp-removebg-preview.png"
             alt="Pivotaconnect Logo"
             width={120}
             height={34}
