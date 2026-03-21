@@ -1,0 +1,9 @@
+import { render, screen } from '@testing-library/react'
+import { {{pascalCase name}} } from './{{kebabCase name}}'
+ 
+describe('{{pascalCase name}} component', () => {
+  it('renders children', () => {
+    render(<{{pascalCase name}}>Test content</{{pascalCase name}}>)
+    expect(screen.getByText('Test content')).toBeInTheDocument()
+  })
+})
